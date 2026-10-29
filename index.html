@@ -459,6 +459,58 @@ footer a {
         height: 240px;
     }
 }
+
+/* PENGUMUMAN BERGERAK */
+.ticker {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background: var(--dark);
+    color: var(--white);
+    padding: 12px 0;
+    white-space: nowrap;
+}
+.ticker-track {
+    display: flex;
+    width: max-content;
+    flex-wrap: nowrap;
+    will-change: transform;
+    animation: ticker-scroll 22s linear infinite;
+}
+.ticker-group {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 48px;
+    padding-right: 48px;
+}
+.ticker span {
+    display: inline-block;
+    flex: 0 0 auto;
+    font-weight: 700;
+    letter-spacing: .4px;
+}
+.ticker strong {
+    color: var(--orange);
+}
+.ticker:hover .ticker-track,
+.ticker:focus-within .ticker-track {
+    animation-play-state: paused;
+}
+@keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* Hormati pengaturan reduce motion, tanpa mematikan teks promosi */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .ticker-track { animation-duration: 45s; }
+    .btn, .food-card, .gallery-card img {
+        transition-duration: .01ms !important;
+    }
+}
+
 </style>
 </head>
 
@@ -483,6 +535,23 @@ footer a {
     </nav>
 </header>
 
+<!-- TEKS BERGERAK / PENGUMUMAN -->
+<div class="ticker" aria-label="Informasi DCR Racing">
+    <div class="ticker-track">
+        <div class="ticker-group">
+            <span>🍽️ <strong>DCR RACING</strong> — Rasa lezat, kualitas terbaik!</span>
+            <span>🔥 Paket Hemat mulai Rp12.000</span>
+            <span>💬 Pesan sekarang melalui WhatsApp Admin</span>
+        </div>
+        <div class="ticker-group" aria-hidden="true">
+            <span>🍽️ <strong>DCR RACING</strong> — Rasa lezat, kualitas terbaik!</span>
+            <span>🔥 Paket Hemat mulai Rp12.000</span>
+            <span>💬 Pesan sekarang melalui WhatsApp Admin</span>
+        </div>
+    </div>
+</div>
+
+
 <!-- HERO -->
 <section class="hero" id="home">
     <div class="container hero-content">
@@ -506,6 +575,7 @@ footer a {
         <div>
             <img
                 src="dcr.png"
+                loading="lazy"
                 alt="Hidangan makanan segar">
         </div>
     </div>
@@ -523,7 +593,7 @@ footer a {
         <div class="menu-grid">
 
             <article class="food-card">
-                <img src="paket hemat.jpg"
+                <img src="paket hemat.jpg" loading="lazy"
                      alt="Paket Hemat">
                 <div class="food-info">
                     <h3>Paket Hemat</h3>
@@ -536,7 +606,7 @@ footer a {
             </article>
 
             <article class="food-card">
-                <img src="Dimsum.jpg"
+                <img src="Dimsum.jpg" loading="lazy"
                      alt="Dimsum Goreng">
                 <div class="food-info">
                     <h3>Paket 1</h3>
@@ -549,7 +619,7 @@ footer a {
             </article>
 
             <article class="food-card">
-                <img src="cibay.jpg"
+                <img src="cibay.jpg" loading="lazy"
                      alt="Cibay">
                 <div class="food-info">
                     <h3>Paket 2</h3>
@@ -562,7 +632,7 @@ footer a {
             </article>
 
             <article class="food-card">
-                <img src="risol.jpg"
+                <img src="risol.jpg" loading="lazy"
                      alt="Risol Mayo">
                 <div class="food-info">
                     <h3>Paket 3</h3>
@@ -582,7 +652,7 @@ footer a {
 <section class="about" id="about">
     <div class="container about-content">
         <div>
-            <img src="tentang produk.png"
+            <img src="tentang produk.png" loading="lazy"
                  alt="DCR-RACING">
         </div>
 
@@ -618,7 +688,7 @@ footer a {
         <div class="gallery-grid">
 
             <div class="gallery-card">
-                <img src="doc2.jpg"
+                <img src="doc2.jpg" loading="lazy"
                      alt="Kegiatan tim dapur">
                 <div class="gallery-caption">
                     <h3>Aktivitas Dapur</h3>
@@ -627,7 +697,7 @@ footer a {
             </div>
 
             <div class="gallery-card">
-                <img src="doc1.jpg"
+                <img src="doc1.jpg" loading="lazy"
                      alt="Poto Bersama">
                 <div class="gallery-caption">
                     <h3>Kebersamaan Tim</h3>
@@ -636,7 +706,7 @@ footer a {
             </div>
 
             <div class="gallery-card">
-                <img src="doc3.jpg"
+                <img src="doc3.jpg" loading="lazy"
                      alt="Meja Bundar">
                 <div class="gallery-caption">
                     <h3>Diskusi Tim</h3>
@@ -739,7 +809,7 @@ footer a {
     <div class="container">
         <h3>DCR<span style="color:#f47721">RACING</span></h3>
         <p>Lezat rasanya, istimewa ceritanya.</p>
-        <p>&copy; <span id="2026"></span> Dcr Racing. All Rights Reserved.</p>
+        <p>&copy; <span id="tahun"></span> Dcr Racing. All Rights Reserved.</p>
         <p>Dibuat dengan ❤️ untuk pecinta kuliner.</p>
     </div>
 </footer>
@@ -774,7 +844,7 @@ function pesan(namaMakanan) {
     const teks = "Halo Admin Dcr Racing, saya ingin memesan "
         + namaMakanan + ". Mohon informasi pemesanannya.";
     window.open(
-        "https://wa.me/6283121458346" + nomorAdmin + "?text=" + encodeURIComponent(teks),
+        "https://wa.me/" + nomorAdmin + "?text=" + encodeURIComponent(teks),
         "_blank",
         "noopener,noreferrer"
     );
@@ -789,18 +859,18 @@ document.getElementById("contactForm").addEventListener("submit", function (e) {
     const pesanUser = document.getElementById("pesanForm").value.trim();
 
     const teks = "Halo Admin Dcr Racing!"
-        + "\nNama: " + karina
+        + "\nNama: " + nama
         + "\nNomor telepon: " + telepon
         + "\nPesan: " + pesanUser;
 
-    const url = "https://wa.me/6283121458346" + nomorAdmin
+    const url = "https://wa.me/+6283121458346" + nomorAdmin
         + "?text=" + encodeURIComponent(teks);
 
     window.open(url, "_blank", "noopener,noreferrer");
 });
 
 // TAHUN OTOMATIS
-document.getElementById("2026").textContent = new Date().getFullYear();
+document.getElementById("tahun").textContent = new Date().getFullYear();
 </script>
 
 </body>
