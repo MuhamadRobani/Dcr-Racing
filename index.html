@@ -507,6 +507,32 @@ footer a {
     will-change: transform;
     animation: bike-ride 7s linear infinite;
 }
+/* Bendera kotak-kotak finis, tertambat pada sisi kanan lintasan. */
+.race-flag {
+    position: absolute;
+    z-index: 2;
+    right: 5px;
+    bottom: 1px;
+    width: 25px;
+    height: 27px;
+    border-left: 2px solid #e8e8e8;
+    filter: drop-shadow(0 2px 2px #0008);
+}
+.race-flag span {
+    display: block;
+    width: 22px;
+    height: 15px;
+    margin-left: 1px;
+    background:
+        conic-gradient(#fff 25%, #17120f 0 50%, #fff 0 75%, #17120f 0)
+        0 0 / 10px 10px;
+    transform-origin: left center;
+    animation: flag-wave .65s ease-in-out infinite alternate;
+}
+@keyframes flag-wave {
+    from { transform: skewY(-5deg) scaleX(1); }
+    to { transform: skewY(7deg) scaleX(.88); }
+}
 @keyframes bike-ride {
     0% { transform: translateX(-70px) scaleX(-1) translateY(0); }
     10% { transform: translateX(5vw) scaleX(-1) translateY(-1px); }
@@ -518,6 +544,7 @@ footer a {
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .road-bike { animation-duration: .01ms; animation-iteration-count: 1; transform: translateX(40vw) scaleX(-1); }
+    .race-flag span { animation: none; }
     .btn, .food-card, .gallery-card img { transition-duration: .01ms !important; }
 }
 
@@ -908,6 +935,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     <div class="ticker-message"><strong>DCR RACING</strong> — Rasa lezat, kualitas terbaik! · Paket hemat mulai Rp12.000</div>
     <div class="bike-road" aria-hidden="true">
         <span class="road-bike">🏍️</span>
+        <span class="race-flag" aria-hidden="true"><span></span></span>
     </div>
 </div>
 
@@ -1383,12 +1411,26 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
     let dragging = false;
     let startX = 0, startY = 0;
     let currentSwing = 0, currentLength = 150;
+    let autoSwingEnabled = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const swingStart = performance.now();
+
+    // Gerakan alami berulang: rantai dan logo bergerak sebagai satu rangkaian,
+    // sementara titik gantung tetap terkunci pada cincin penopang.
+    function animateChain(now) {
+        if (autoSwingEnabled && !dragging) {
+            currentSwing = Math.sin((now - swingStart) / 1250) * 3.8;
+            applyPosition();
+        }
+        requestAnimationFrame(animateChain);
+    }
 
     function applyPosition() {
         pendant.style.setProperty("--swing", currentSwing + "deg");
         pendant.style.setProperty("--chain-length", currentLength + "px");
         pendant.setAttribute("aria-valuenow", Math.round(currentSwing));
     }
+
+    requestAnimationFrame(animateChain);
 
     pendant.addEventListener("pointerdown", event => {
         dragging = true;
