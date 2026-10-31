@@ -460,55 +460,65 @@ footer a {
     }
 }
 
-/* PENGUMUMAN BERGERAK */
+/* ANIMASI MOTOR BERJALAN — menggantikan teks marquee */
 .ticker {
+    position: relative;
     display: block;
     width: 100%;
+    min-height: 78px;
     overflow: hidden;
-    background: var(--dark);
+    background: linear-gradient(180deg, #2a211c, #17120f);
     color: var(--white);
-    padding: 12px 0;
-    white-space: nowrap;
+    padding: 8px 0 10px;
 }
-.ticker-track {
-    display: flex;
-    width: max-content;
-    flex-wrap: nowrap;
-    will-change: transform;
-    animation: ticker-scroll 90s linear infinite;
-}
-.ticker-group {
-    display: flex;
-    flex: 0 0 auto;
-    align-items: center;
-    gap: 48px;
-    padding-right: 48px;
-}
-.ticker span {
-    display: inline-block;
-    flex: 0 0 auto;
+.ticker-message {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    font-size: 13px;
     font-weight: 700;
-    letter-spacing: .4px;
+    letter-spacing: .3px;
+    padding: 0 12px 4px;
 }
-.ticker strong {
-    color: var(--orange);
+.ticker-message strong { color: var(--orange); }
+.bike-road {
+    position: relative;
+    height: 34px;
+    margin: 0 12px;
+    border-bottom: 3px solid #a6a6a6;
+    background: repeating-linear-gradient(90deg, transparent 0 34px, #ffffff20 34px 54px);
+    overflow: hidden;
 }
-.ticker:hover .ticker-track,
-.ticker:focus-within .ticker-track {
-    animation-play-state: paused;
+.bike-road::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -3px;
+    border-bottom: 3px dashed #ffffffaa;
 }
-@keyframes ticker-scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+.road-bike {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    bottom: 0;
+    font-size: 29px;
+    line-height: 1;
+    transform: translateX(-70px) scaleX(-1);
+    filter: drop-shadow(0 3px 2px #0008);
+    will-change: transform;
+    animation: bike-ride 7s linear infinite;
 }
-
-/* Hormati pengaturan reduce motion, tanpa mematikan teks promosi */
+@keyframes bike-ride {
+    0% { transform: translateX(-70px) scaleX(-1) translateY(0); }
+    10% { transform: translateX(5vw) scaleX(-1) translateY(-1px); }
+    25% { transform: translateX(25vw) scaleX(-1) translateY(0); }
+    50% { transform: translateX(50vw) scaleX(-1) translateY(-1px); }
+    75% { transform: translateX(75vw) scaleX(-1) translateY(0); }
+    100% { transform: translateX(calc(100vw + 70px)) scaleX(-1) translateY(-1px); }
+}
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .ticker-track { animation-duration: 110s; }
-    .btn, .food-card, .gallery-card img {
-        transition-duration: .01ms !important;
-    }
+    .road-bike { animation-duration: .01ms; animation-iteration-count: 1; transform: translateX(40vw) scaleX(-1); }
+    .btn, .food-card, .gallery-card img { transition-duration: .01ms !important; }
 }
 
 
@@ -613,23 +623,25 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     filter: blur(14px);
     pointer-events: none;
 }
-68% { transform: translateY(9px) scale(1.04); opacity: 1; }
+.hanging-photo img {
+    animation: logoFall 1.15s cubic-bezier(.18,.85,.25,1.2) .28s both;
+}
+@keyframes logoFall {
+    0% { transform: translateY(-150px) scale(.72); opacity: 0; }
+    68% { transform: translateY(9px) scale(1.04); opacity: 1; }
     84% { transform: translateY(-4px) scale(.99); }
     100% { transform: translateY(0) scale(1); opacity: 1; }
 }
-/* Ring gantung di titik awal rantai */
-.anchor-ring {
-    position: absolute;
-    z-index: 4;
-    top: -7px;
-    right: calc(11% + 117px);
-    width: 30px;
-    height: 30px;
-    border: 6px solid #aeb5ba;
+/* Cincin pengunci di bawah logo agar terlihat sebagai sambungan, bukan penopang lepas */
+.logo-support {
+    width: 25px;
+    height: 25px;
+    flex: 0 0 25px;
+    margin-top: -2px;
+    border: 6px solid #8b949b;
     border-radius: 50%;
-    background: linear-gradient(135deg, #f5f7f8, #626b72 55%, #e1e5e8);
-    box-shadow: inset 1px 1px 3px #fff, 0 3px 7px #0005;
-    pointer-events: none;
+    background: radial-gradient(circle, #343b40 0 28%, #e4e7e9 32% 48%, #626b72 52% 100%);
+    box-shadow: 0 4px 7px #0005, inset 0 1px 2px #fff9;
 }
 .team-typing {
     min-height: 34px;
@@ -654,6 +666,32 @@ section .is-visible { opacity: 1; transform: translateY(0); }
 @keyframes cursorBlink { 50% { opacity: 0; } }
 
 
+/* Penopang berbentuk cincin: rantai terpasang tepat pada lubang tengahnya */
+.chain-top-support {
+    position: absolute;
+    z-index: 4;
+    top: -2px;
+    right: calc(11% + 99px);
+    width: 30px;
+    height: 30px;
+    border: 6px solid #8b949b;
+    border-radius: 50%;
+    background: radial-gradient(circle, #343b40 0 28%, #e4e7e9 32% 48%, #626b72 52% 100%);
+    box-shadow: 0 3px 7px #0006, inset 0 1px 2px #fff9;
+}
+.chain-top-support span {
+    position: absolute;
+    left: 50%;
+    top: 19px;
+    width: 13px;
+    height: 14px;
+    transform: translateX(-50%);
+    border: 3px solid #737c83;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f5f7f8, #555e65);
+    box-shadow: 0 2px 4px #0005;
+}
+
 /* Foto bulat yang tergantung pada rantai dan dapat digerakkan */
 .hero-visual {
     min-height: 470px;
@@ -671,7 +709,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     position: absolute;
     z-index: 3;
     top: 0;
-    right: 11%;
+    right: calc(11% + 80px);
     width: clamp(190px, 25vw, 290px);
     display: flex;
     flex-direction: column;
@@ -685,7 +723,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     filter: drop-shadow(0 12px 16px #0004);
     animation: chainDrop 1.35s cubic-bezier(.2,.8,.25,1.15) both;
 }
-.hanging-photo:active { cursor: grabbing; transform: rotate(var(--swing)); }
+.hanging-photo:active { cursor: grabbing; }
 .chain-handle {
     width: 28px;
     height: var(--chain-length);
@@ -750,8 +788,8 @@ section .is-visible { opacity: 1; transform: translateY(0); }
 }
 @media (max-width: 850px) {
     .hero-visual { min-height: 410px; }
-    .hanging-photo { right: 50%; transform: translateX(50%) rotate(var(--swing)); }
-    .anchor-ring { right: calc(50% - 15px); }
+    .hanging-photo { right: calc(50% - 102px); transform: rotate(var(--swing)); }
+    .chain-top-support { right: calc(50% - 15px); }
 }
 @media (max-width: 550px) {
     .hero-visual { min-height: 340px; }
@@ -760,6 +798,19 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     .chain-link { width: 15px; border-width: 3px; }
     .hanging-photo img { border-width: 7px; }
     .chain-hint { font-size: 10px; }
+}
+
+/* Sambungan stabil: cincin atas, rantai, cincin bawah dan logo berada pada satu sumbu */
+.chain-top-support { right: calc(11% + 210px); }
+.chain-handle { align-self: center; position: relative; z-index: 1; }
+.chain-link { transform: rotate(var(--twist, 0deg)); transform-origin: center; }
+.photo-ring { position: relative; z-index: 2; }
+.logo-support { position: relative; z-index: 2; }
+@media (max-width: 850px) {
+    .chain-top-support { right: calc(50% - 15px); }
+}
+@media (max-width: 550px) {
+    .chain-top-support { right: calc(50% - 15px); }
 }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; }
@@ -852,19 +903,11 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     </nav>
 </header>
 
-<!-- TEKS BERGERAK / PENGUMUMAN -->
-<div class="ticker" aria-label="Informasi DCR Racing">
-    <div class="ticker-track">
-        <div class="ticker-group">
-            <span>🍽️ <strong>DCR RACING</strong> — Rasa lezat, kualitas terbaik!</span>
-            <span>🔥 Paket Hemat mulai Rp12.000</span>
-            <span>💬 Pesan sekarang melalui WhatsApp Admin</span>
-        </div>
-        <div class="ticker-group" aria-hidden="true">
-            <span>🍽️ <strong>DCR RACING</strong> — Rasa lezat, kualitas terbaik!</span>
-            <span>🔥 Paket Hemat mulai Rp12.000</span>
-            <span>💬 Pesan sekarang melalui WhatsApp Admin</span>
-        </div>
+<!-- ANIMASI MOTOR BERJALAN -->
+<div class="ticker" aria-label="Animasi motor DCR Racing">
+    <div class="ticker-message"><strong>DCR RACING</strong> — Rasa lezat, kualitas terbaik! · Paket hemat mulai Rp12.000</div>
+    <div class="bike-road" aria-hidden="true">
+        <span class="road-bike">🏍️</span>
     </div>
 </div>
 
@@ -891,7 +934,8 @@ section .is-visible { opacity: 1; transform: translateY(0); }
         </div>
 
         <div class="hero-visual" id="heroVisual">
-            <!-- Logo tergantung pada ring atas yang tersambung langsung ke rantai. -->
+            <!-- Foto bulat tergantung pada rantai; tarik foto/rantai untuk mengayunkannya -->
+            <div class="chain-top-support" aria-hidden="true"><span></span></div>
             <div class="hanging-photo" id="hangingPhoto" role="slider"
                  aria-label="Foto gantung, geser untuk mengayunkan"
                  aria-valuemin="-35" aria-valuemax="35" aria-valuenow="0"
@@ -910,6 +954,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
                 </div>
                 <span class="photo-ring" aria-hidden="true"></span>
                 <img src="dcr.png" loading="eager" alt="Logo DCR Racing berbentuk bulat">
+                <div class="logo-support" aria-hidden="true"></div>
             </div>
         </div>
     </div>
