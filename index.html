@@ -475,7 +475,7 @@ footer a {
     width: max-content;
     flex-wrap: nowrap;
     will-change: transform;
-    animation: ticker-scroll 48s linear infinite;
+    animation: ticker-scroll 90s linear infinite;
 }
 .ticker-group {
     display: flex;
@@ -505,7 +505,7 @@ footer a {
 /* Hormati pengaturan reduce motion, tanpa mematikan teks promosi */
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .ticker-track { animation-duration: 60s; }
+    .ticker-track { animation-duration: 110s; }
     .btn, .food-card, .gallery-card img {
         transition-duration: .01ms !important;
     }
@@ -613,35 +613,23 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     filter: blur(14px);
     pointer-events: none;
 }
-.hanging-photo img {
-    animation: logoFall 1.15s cubic-bezier(.18,.85,.25,1.2) .28s both;
-}
-@keyframes logoFall {
-    0% { transform: translateY(-150px) scale(.72); opacity: 0; }
-    68% { transform: translateY(9px) scale(1.04); opacity: 1; }
+68% { transform: translateY(9px) scale(1.04); opacity: 1; }
     84% { transform: translateY(-4px) scale(.99); }
     100% { transform: translateY(0) scale(1); opacity: 1; }
 }
-/* Penyangga kecil di bawah logo */
-.logo-support {
-    width: 74px;
-    height: 15px;
-    margin-top: -1px;
-    border: 4px solid #737c83;
-    border-top: 0;
-    border-radius: 0 0 13px 13px;
-    background: linear-gradient(90deg, #626a70, #e4e7e9 48%, #626a70);
-    box-shadow: 0 7px 10px #0004, inset 0 -2px 2px #fff8;
-}
-.logo-support::after {
-    content: "";
-    display: block;
-    width: 38px;
-    height: 5px;
-    margin: 10px auto 0;
+/* Ring gantung di titik awal rantai */
+.anchor-ring {
+    position: absolute;
+    z-index: 4;
+    top: -7px;
+    right: calc(11% + 117px);
+    width: 30px;
+    height: 30px;
+    border: 6px solid #aeb5ba;
     border-radius: 50%;
-    background: #4d555b;
-    box-shadow: 0 4px 7px #0005;
+    background: linear-gradient(135deg, #f5f7f8, #626b72 55%, #e1e5e8);
+    box-shadow: inset 1px 1px 3px #fff, 0 3px 7px #0005;
+    pointer-events: none;
 }
 .team-typing {
     min-height: 34px;
@@ -665,32 +653,6 @@ section .is-visible { opacity: 1; transform: translateY(0); }
 }
 @keyframes cursorBlink { 50% { opacity: 0; } }
 
-
-/* Penopang atas tempat rantai menggantung */
-.chain-top-support {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    right: calc(11% + 82px);
-    width: 62px;
-    height: 13px;
-    border: 3px solid #596168;
-    border-radius: 8px;
-    background: linear-gradient(180deg, #f5f7f8, #8b949b 55%, #4d555b);
-    box-shadow: 0 4px 7px #0005, inset 0 1px 2px #fff9;
-}
-.chain-top-support span {
-    position: absolute;
-    left: 50%;
-    top: 8px;
-    width: 13px;
-    height: 12px;
-    transform: translateX(-50%);
-    border: 3px solid #737c83;
-    border-top: 0;
-    border-radius: 0 0 7px 7px;
-    background: linear-gradient(90deg, #626a70, #e4e7e9, #626a70);
-}
 
 /* Foto bulat yang tergantung pada rantai dan dapat digerakkan */
 .hero-visual {
@@ -723,7 +685,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     filter: drop-shadow(0 12px 16px #0004);
     animation: chainDrop 1.35s cubic-bezier(.2,.8,.25,1.15) both;
 }
-.hanging-photo:active { cursor: grabbing; }
+.hanging-photo:active { cursor: grabbing; transform: rotate(var(--swing)); }
 .chain-handle {
     width: 28px;
     height: var(--chain-length);
@@ -788,8 +750,8 @@ section .is-visible { opacity: 1; transform: translateY(0); }
 }
 @media (max-width: 850px) {
     .hero-visual { min-height: 410px; }
-    .hanging-photo { right: 50%; transform: translateX(50%) translateY(var(--lift)) rotate(var(--swing)); }
-    .chain-top-support { right: calc(50% - 31px); }
+    .hanging-photo { right: 50%; transform: translateX(50%) rotate(var(--swing)); }
+    .anchor-ring { right: calc(50% - 15px); }
 }
 @media (max-width: 550px) {
     .hero-visual { min-height: 340px; }
@@ -929,8 +891,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
         </div>
 
         <div class="hero-visual" id="heroVisual">
-            <!-- Foto bulat tergantung pada rantai; tarik foto/rantai untuk mengayunkannya -->
-            <div class="chain-top-support" aria-hidden="true"><span></span></div>
+            <!-- Logo tergantung pada ring atas yang tersambung langsung ke rantai. -->
             <div class="hanging-photo" id="hangingPhoto" role="slider"
                  aria-label="Foto gantung, geser untuk mengayunkan"
                  aria-valuemin="-35" aria-valuemax="35" aria-valuenow="0"
@@ -949,7 +910,6 @@ section .is-visible { opacity: 1; transform: translateY(0); }
                 </div>
                 <span class="photo-ring" aria-hidden="true"></span>
                 <img src="dcr.png" loading="eager" alt="Logo DCR Racing berbentuk bulat">
-                <div class="logo-support" aria-hidden="true"></div>
             </div>
         </div>
     </div>
