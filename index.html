@@ -867,4 +867,500 @@ section .is-visible { opacity: 1; transform: translateY(0); }
             <span class="label">Selamat Datang di Dcr Racing</span>
 
             <h1>Rasa Lezat,<br>
-                <span>Kualitas T
+                <span>Kualitas Terbaik.</span>
+            </h1>
+
+            <p>
+                Nikmati berbagai pilihan makanan lezat dengan bahan
+                berkualitas, cita rasa istimewa, dan harga bersahabat.
+                Cocok untuk makan bersama keluarga maupun teman dan kalian 
+                bisa juga memesan satuan produk atau paketan.
+            </p>
+
+            <a href="#menu" class="btn">Lihat Menu Kami →</a>
+        </div>
+
+        <div class="hero-visual" id="heroVisual">
+            <!-- Foto bulat tergantung pada rantai; tarik foto/rantai untuk mengayunkannya -->
+            <div class="chain-top-support" aria-hidden="true"><span></span></div>
+            <div class="hanging-photo" id="hangingPhoto" role="slider"
+                 aria-label="Foto gantung, geser untuk mengayunkan"
+                 aria-valuemin="-35" aria-valuemax="35" aria-valuenow="0"
+                 tabindex="0">
+                <div class="chain-handle" aria-hidden="true">
+                    <span class="chain-link"></span><span class="chain-link"></span>
+                    <span class="chain-link"></span><span class="chain-link"></span>
+                    <span class="chain-link"></span><span class="chain-link"></span>
+                    <span class="chain-link"></span><span class="chain-link"></span>
+                    <span class="chain-link"></span><span class="chain-link"></span>
+                </div>
+                <span class="photo-ring" aria-hidden="true"></span>
+                <img src="dcr.png" loading="eager" alt="Logo DCR Racing berbentuk bulat">
+                <div class="logo-support" aria-hidden="true"></div>
+                <div class="team-typing" aria-live="polite"> <span id="teamName">Noval</span><i class="typing-cursor" aria-hidden="true"></i></div>
+            </div>
+            <span class="chain-hint">↕ Tarik logo ke atas/bawah atau geser ke samping</span>
+        </div>
+    </div>
+</section>
+
+<!-- MENU MAKANAN -->
+<section id="menu">
+    <div class="container">
+        <div class="section-title">
+            <span class="label">Pilihan Favorit</span>
+            <h2>Menu Makanan Kami</h2>
+            <p>Pilih makanan favoritmu dan pesan sekarang!</p>
+        </div>
+
+        <div class="menu-grid">
+
+            <article class="food-card">
+                <img src="paket hemat.jpg" loading="lazy"
+                     alt="Paket Hemat">
+                <div class="food-info">
+                    <h3>Paket Hemat</h3>
+                    <p>Paket Hemat Berisi Dimsum Cibay dan Risol.</p>
+                    <div class="food-bottom">
+                        <span class="price">Rp12.000</span>
+                        <button class="order-btn" onclick="pesan('Paket Hemat')">Pesan</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="food-card">
+                <img src="Dimsum.jpg" loading="lazy"
+                     alt="Dimsum Goreng">
+                <div class="food-info">
+                    <h3>Paket 1</h3>
+                    <p>Dimsumnya Enak Lezat Dan Ayam Nya Berlimpah.</p>
+                    <div class="food-bottom">
+                        <span class="price">Rp15.000</span>
+                        <button class="order-btn" onclick="pesan('Dimsum')">Pesan</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="food-card">
+                <img src="cibay.jpg" loading="lazy"
+                     alt="Cibay">
+                <div class="food-info">
+                    <h3>Paket 2</h3>
+                    <p>Cibay Nya Enak Lumer Dan Ada Isian Ayam Nya.</p>
+                    <div class="food-bottom">
+                        <span class="price">Rp10.500</span>
+                        <button class="order-btn" onclick="pesan('Cibay')">Pesan</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="food-card">
+                <img src="risol.jpg" loading="lazy"
+                     alt="Risol Mayo">
+                <div class="food-info">
+                    <h3>Paket 3</h3>
+                    <p>Isian Risol Nya Berlimpah.</p>
+                    <div class="food-bottom">
+                        <span class="price">Rp13.500</span>
+                        <button class="order-btn" onclick="pesan('Risol Mayo')">Pesan</button>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<!-- TENTANG KAMI -->
+<section class="about" id="about">
+    <div class="container about-content">
+        <div>
+            <img src="tentang produk.png" loading="lazy"
+                 alt="DCR-RACING">
+        </div>
+
+        <div>
+            <span class="label">Tentang Brand Kami</span>
+            <h2>Menghadirkan Rasa yang Membuat Bahagia</h2>
+
+            <p>
+                Dcr Racing adalah konsep brand kuliner yang
+                mengutamakan cita rasa, kualitas bahan, kebersihan,
+                dan pelayanan yang ramah.
+            </p>
+
+            <p>
+                Kami ingin menghadirkan pengalaman makan yang nyaman
+                dengan pilihan menu yang cocok untuk berbagai kalangan.
+            </p>
+
+            <a href="#contact" class="btn">Hubungi Kami</a>
+        </div>
+    </div>
+</section>
+
+<!-- DOKUMENTASI KARYAWAN -->
+<section id="dokumentasi">
+    <div class="container">
+        <div class="section-title">
+            <span class="label">Di Balik Dapur Kami</span>
+            <h2>Dokumentasi Team</h2>
+            <p>Momen kebersamaan, proses memasak, dan aktivitas tim kami.</p>
+        </div>
+
+        <div class="gallery-grid">
+
+            <div class="gallery-card">
+                <img src="doc2.jpg" loading="lazy"
+                     alt="Kegiatan tim dapur">
+                <div class="gallery-caption">
+                    <h3>Aktivitas Dapur</h3>
+                    <p>Persiapan Untuk Pembutan Produk.</p>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="doc1.jpg" loading="lazy"
+                     alt="Poto Bersama">
+                <div class="gallery-caption">
+                    <h3>Kebersamaan Tim</h3>
+                    <p>Kerja Sama Yang Baik.</p>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <img src="doc3.jpg" loading="lazy"
+                     alt="Meja Bundar">
+                <div class="gallery-caption">
+                    <h3>Diskusi Tim</h3>
+                    <p>Evaluasi Produk</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- MEDIA SOSIAL -->
+<section class="social" id="sosial">
+    <div class="container">
+        <div class="section-title">
+            <span class="label">Ikuti Perjalanan Kami</span>
+            <h2>Temukan Kami di Media Sosial</h2>
+            <p>Lihat menu terbaru, promo, dan dokumentasi kegiatan kami.</p>
+        </div>
+
+        <div class="social-links">
+            <a class="social-btn" href="https://www.instagram.com/dcr.racingg/"
+               target="_blank" rel="noopener noreferrer">
+                📸 Instagram
+            </a>
+
+            <a class="social-btn" href="https://www.tiktok.com/@dcr_racing?_r=1&_t=ZS-9Av1oU5bzqI"
+               target="_blank" rel="noopener noreferrer">
+                🎵 TikTok
+            </a>
+
+            <a class="social-btn" href="https://wa.me/6283121458346"
+               target="_blank" rel="noopener noreferrer">
+                💬 WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT ADMIN -->
+<section id="contact">
+    <div class="container">
+        <div class="section-title">
+            <span class="label">Kami Siap Membantu</span>
+            <h2>Contact Admin</h2>
+            <p>Hubungi admin untuk pemesanan, informasi harga, dan kerja sama.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Informasi Kontak</h3>
+
+                <div class="contact-item">
+                    <strong>📱 WhatsApp Admin</strong>
+                    <p>+62 831-2145-8346</p>
+                </div>
+
+                <div class="contact-item">
+                    <strong>📸 Instagram</strong>
+                    <p>@Dcr_Racing</p>
+                </div>
+
+                <div class="contact-item">
+                    <strong>🎵 TikTok</strong>
+                    <p>@Dcr_Racing</p>
+                </div>
+
+                <div class="contact-item">
+                    <strong>📍 Alamat</strong>
+                    <p>Isi alamat usaha kamu di sini.</p>
+                </div>
+
+                <br>
+
+                <a class="btn"
+                   href="https://wa.me/6283121458346?text=Halo%20Admin%20Dcr%20Racing"
+                   target="_blank" rel="noopener noreferrer">
+                    Chat Admin Sekarang
+                </a>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+                <h3>Kirim Pesan ke Admin</h3>
+
+                <input type="text" id="nama" placeholder="Nama kamu" required>
+
+                <input type="tel" id="telepon" placeholder="Nomor telepon" required>
+
+                <textarea id="pesanForm" placeholder="Tulis pesan atau pesanan kamu..."
+                          required></textarea>
+
+                <button type="submit" class="btn">Kirim via WhatsApp →</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <h3>DCR<span style="color:#f47721">RACING</span></h3>
+        <p>Lezat rasanya, istimewa ceritanya.</p>
+        <p>&copy; <span id="tahun"></span> Dcr Racing. All Rights Reserved.</p>
+        <p>Dibuat dengan ❤️ untuk pecinta kuliner.</p>
+    </div>
+</footer>
+
+<script>
+// MENU MOBILE
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle.addEventListener("click", function () {
+    navLinks.classList.toggle("active");
+
+    const terbuka = navLinks.classList.contains("active");
+    menuToggle.setAttribute("aria-expanded", terbuka);
+    menuToggle.textContent = terbuka ? "✕" : "☰";
+});
+
+// TUTUP MENU SETELAH LINK DIPILIH
+document.querySelectorAll(".nav-links a").forEach(function (link) {
+    link.addEventListener("click", function () {
+        navLinks.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+    });
+});
+
+// GANTI DENGAN NOMOR WHATSAPP ADMIN YANG BENAR
+const nomorAdmin = "6283121458346";
+
+// TOMBOL PESAN MAKANAN
+function pesan(namaMakanan) {
+    const teks = "Halo Admin Dcr Racing, saya ingin memesan "
+        + namaMakanan + ". Mohon informasi pemesanannya.";
+    window.open(
+        "https://wa.me/" + nomorAdmin + "?text=" + encodeURIComponent(teks),
+        "_blank",
+        "noopener,noreferrer"
+    );
+}
+
+// FORM CONTACT ADMIN
+document.getElementById("contactForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const nama = document.getElementById("nama").value.trim();
+    const telepon = document.getElementById("telepon").value.trim();
+    const pesanUser = document.getElementById("pesanForm").value.trim();
+
+    const teks = "Halo Admin Dcr Racing!"
+        + "\nNama: " + nama
+        + "\nNomor telepon: " + telepon
+        + "\nPesan: " + pesanUser;
+
+    const url = "https://wa.me/" + nomorAdmin
+        + "?text=" + encodeURIComponent(teks);
+
+    window.open(url, "_blank", "noopener,noreferrer");
+});
+
+// TAHUN OTOMATIS
+document.getElementById("tahun").textContent = new Date().getFullYear();
+
+// LOADING SCREEN: angka bergerak dari 0 sampai 100, lalu website dibuka.
+(function () {
+    const loader = document.getElementById("siteLoader");
+    const number = document.getElementById("loaderPercent");
+    const bar = document.getElementById("loaderProgress");
+    const motor = document.querySelector(".motor");
+    if (!loader || !number || !bar || !motor) return;
+
+    let progress = 0;
+    const start = performance.now();
+    const duration = 2600;
+    function animateLoader(now) {
+        const elapsed = Math.min((now - start) / duration, 1);
+        // Ease-out agar angka terasa halus dan tetap mencapai 100%.
+        progress = Math.round(100 * (1 - Math.pow(1 - elapsed, 2)));
+        number.textContent = progress;
+        bar.style.width = progress + "%";
+        const roadWidth = motor.parentElement.clientWidth;
+        const motorWidth = motor.getBoundingClientRect().width;
+        const travel = Math.max(0, roadWidth - motorWidth);
+        motor.style.transform = `translateX(${travel * (progress / 100)}px) scaleX(-1)`;
+        if (elapsed < 1) {
+            requestAnimationFrame(animateLoader);
+        } else {
+            number.textContent = "100";
+            bar.style.width = "100%";
+            const roadWidth = motor.parentElement.clientWidth;
+            const motorWidth = motor.getBoundingClientRect().width;
+            motor.style.transform = `translateX(${Math.max(0, roadWidth - motorWidth)}px) scaleX(-1)`;
+            setTimeout(() => loader.classList.add("is-hidden"), 450);
+        }
+    }
+    requestAnimationFrame(animateLoader);
+})();
+
+// Animasi elemen saat masuk ke layar.
+(function () {
+    const targets = document.querySelectorAll(
+        "section .section-title, section .food-card, section .about-content > *, section .gallery-card, section .contact-grid > *"
+    );
+    if (!("IntersectionObserver" in window)) {
+        targets.forEach(el => el.classList.add("is-visible"));
+        return;
+    }
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+    targets.forEach(el => observer.observe(el));
+})();
+
+// Nama anggota tampil bergantian dengan efek mengetik dan menghapus.
+(function () {
+    const output = document.getElementById("teamName");
+    if (!output) return;
+
+    const names = [
+        "Noval", "Karina", "Nazira", "Dita", "Yunita", "Aul", "April",
+        "Ridha", "Maya", "Sopi", "Devina", "Aliyah", "Salsa", "Hanif",
+        "Aef", "Rizal", "Robani", "Alif", "Gias"
+    ];
+
+    let nameIndex = 0;
+    let charIndex = names[0].length;
+    let deleting = true;
+
+    function typeNext() {
+        const currentName = names[nameIndex];
+
+        if (deleting) {
+            charIndex--;
+            output.textContent = currentName.slice(0, Math.max(0, charIndex));
+            if (charIndex <= 0) {
+                deleting = false;
+                nameIndex = (nameIndex + 1) % names.length;
+                setTimeout(typeNext, 350);
+                return;
+            }
+            setTimeout(typeNext, 75);
+        } else {
+            const nextName = names[nameIndex];
+            charIndex++;
+            output.textContent = nextName.slice(0, charIndex);
+            if (charIndex >= nextName.length) {
+                deleting = true;
+                setTimeout(typeNext, 1250);
+                return;
+            }
+            setTimeout(typeNext, 115);
+        }
+    }
+
+    setTimeout(typeNext, 1500);
+})();
+
+// Logo dan rantai dapat ditarik ke atas/bawah serta digeser ke samping.
+(function () {
+    const pendant = document.getElementById("hangingPhoto");
+    if (!pendant) return;
+
+    let dragging = false;
+    let startX = 0, startY = 0;
+    let currentSwing = 0, currentLift = 0;
+
+    pendant.addEventListener("pointerdown", event => {
+        dragging = true;
+        startX = event.clientX - currentSwing * 2.2;
+        startY = event.clientY - currentLift;
+        pendant.setPointerCapture(event.pointerId);
+        pendant.style.animation = "none";
+        pendant.style.transition = "none";
+    });
+
+    pendant.addEventListener("pointermove", event => {
+        if (!dragging) return;
+        currentSwing = Math.max(-35, Math.min(35, (event.clientX - startX) / 2.2));
+        currentLift = Math.max(-75, Math.min(85, event.clientY - startY));
+        pendant.style.setProperty("--swing", currentSwing + "deg");
+        pendant.style.setProperty("--lift", currentLift + "px");
+        pendant.setAttribute("aria-valuenow", Math.round(currentSwing));
+    });
+
+    function releasePendant() {
+        if (!dragging) return;
+        dragging = false;
+        pendant.style.transition = "transform 1.25s cubic-bezier(.18,.72,.25,1)";
+        currentSwing = 0;
+        currentLift = 0;
+        pendant.style.setProperty("--swing", "0deg");
+        pendant.style.setProperty("--lift", "0px");
+        pendant.setAttribute("aria-valuenow", "0");
+        setTimeout(() => { pendant.style.transition = ""; }, 1300);
+    }
+
+    pendant.addEventListener("pointerup", releasePendant);
+    pendant.addEventListener("pointercancel", releasePendant);
+    pendant.addEventListener("keydown", event => {
+        let handled = true;
+        if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+            currentSwing = Math.max(-35, Math.min(35,
+                currentSwing + (event.key === "ArrowRight" ? 5 : -5)));
+            pendant.style.setProperty("--swing", currentSwing + "deg");
+            pendant.setAttribute("aria-valuenow", Math.round(currentSwing));
+        } else if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+            currentLift = Math.max(-75, Math.min(85,
+                currentLift + (event.key === "ArrowUp" ? -10 : 10)));
+            pendant.style.setProperty("--lift", currentLift + "px");
+        } else if (event.key === "Home") {
+            currentSwing = 0;
+            currentLift = 0;
+            pendant.style.setProperty("--swing", "0deg");
+            pendant.style.setProperty("--lift", "0px");
+            pendant.setAttribute("aria-valuenow", "0");
+        } else {
+            handled = false;
+        }
+        if (handled) event.preventDefault();
+    });
+})();
+
+</script>
+
+</body>
+</html>
+```
