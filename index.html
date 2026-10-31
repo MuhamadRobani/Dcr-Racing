@@ -948,6 +948,71 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     }
 }
 
+
+/* ===== FITUR PILIH WARNA BACKGROUND ===== */
+.theme-switcher {
+    width: min(94%, 1320px);
+    margin: 12px auto 0;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    border-radius: 14px;
+    background: var(--theme-panel, #fff);
+    box-shadow: 0 5px 18px #0000000d;
+}
+.theme-title { font-weight: 800; font-size: 14px; }
+.theme-options { display:flex; gap:9px; flex-wrap:wrap; }
+.theme-chip {
+    display:flex; align-items:center; gap:7px; padding:7px 11px;
+    border:1px solid #00000018; border-radius:22px; background:transparent;
+    color:var(--dark); font:inherit; font-size:12px; font-weight:700; cursor:pointer;
+}
+.theme-chip i { width:15px; height:15px; border-radius:50%; border:1px solid #0002; }
+.theme-chip.active { outline:2px solid var(--orange); outline-offset:2px; }
+body[data-theme="burgundy"] { --cream:#f4e5eb; --orange:#8f234b; --dark:#351321; --theme-panel:#fff7fa; background:var(--cream); color:var(--dark); }
+body[data-theme="pink"] { --cream:#ffe8f0; --orange:#d94f83; --dark:#492638; --theme-panel:#fff7fa; background:var(--cream); color:var(--dark); }
+body[data-theme="orange"] { --cream:#fff0df; --orange:#f47721; --dark:#211b18; --theme-panel:#fffaf4; background:var(--cream); color:var(--dark); }
+body[data-theme="cream"] { --cream:#fff0df; --orange:#c58a52; --dark:#3d3027; --theme-panel:#fffaf4; background:var(--cream); color:var(--dark); }
+body[data-theme="burgundy"] .about, body[data-theme="burgundy"] .comments-section { background:#f4e5eb; }
+body[data-theme="pink"] .about, body[data-theme="pink"] .comments-section { background:#ffe8f0; }
+body[data-theme="orange"] .about, body[data-theme="orange"] .comments-section { background:#fff0df; }
+body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { background:#fff0df; }
+
+/* ===== MODAL PILIHAN PESANAN ===== */
+.order-modal {
+    display:none; position:fixed; inset:0; z-index:100000;
+    padding:20px; background:#17120fbb; align-items:center; justify-content:center;
+}
+.order-modal.open { display:flex; }
+.order-dialog {
+    position:relative; width:min(440px,100%); padding:30px;
+    border-radius:22px; background:#fff; color:#211b18;
+    box-shadow:0 20px 60px #0005; animation:orderPop .22s ease-out;
+}
+@keyframes orderPop { from { opacity:0; transform:translateY(12px) scale(.98); } to { opacity:1; transform:none; } }
+.order-dialog h2 { margin:8px 0 5px; font-size:25px; line-height:1.2; }
+.order-selected { margin:0 0 20px; color:#796e65; font-weight:700; }
+.order-close {
+    position:absolute; top:12px; right:16px; border:0; background:none;
+    font-size:30px; line-height:1; cursor:pointer; color:#62574f;
+}
+#orderOptionsForm { display:grid; gap:9px; }
+#orderOptionsForm label { font-weight:800; font-size:14px; margin-top:5px; }
+#orderOptionsForm select {
+    width:100%; padding:13px; border:1px solid #ddd; border-radius:10px;
+    background:#fff; color:#211b18; font:inherit;
+}
+#orderOptionsForm .btn { width:100%; margin-top:12px; }
+@media (max-width:550px) {
+    .theme-switcher { align-items:flex-start; }
+    .theme-options { gap:7px; }
+    .theme-chip { padding:7px 9px; }
+    .order-dialog { padding:25px 20px; }
+}
+
 </style>
 </head>
 
@@ -986,6 +1051,18 @@ section .is-visible { opacity: 1; transform: translateY(0); }
         </ul>
     </nav>
 </header>
+
+<!-- PILIHAN WARNA BACKGROUND -->
+<div class="theme-switcher" aria-label="Pengaturan warna background">
+    <span class="theme-title">🎨 Warna Tampilan</span>
+    <div class="theme-options">
+        <button type="button" class="theme-chip" data-theme="burgundy" aria-label="Burgundy"><i style="background:#6f1937"></i><span>Burgundy</span></button>
+        <button type="button" class="theme-chip" data-theme="pink" aria-label="Pink"><i style="background:#f4a6c1"></i><span>Pink</span></button>
+        <button type="button" class="theme-chip" data-theme="orange" aria-label="Oranye"><i style="background:#f47721"></i><span>Oranye</span></button>
+        <button type="button" class="theme-chip" data-theme="cream" aria-label="Cream"><i style="background:#fff0df"></i><span>Cream</span></button>
+    </div>
+</div>
+
 
 <!-- ANIMASI MOTOR BERJALAN -->
 <div class="ticker" aria-label="Animasi motor DCR Racing">
@@ -1291,6 +1368,31 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     </div>
 </section>
 
+
+<!-- MODAL DETAIL PESANAN -->
+<div class="order-modal" id="orderModal" aria-hidden="true">
+    <div class="order-dialog" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+        <button type="button" class="order-close" id="closeOrderModal" aria-label="Tutup">&times;</button>
+        <span class="label">Pesanan DCR Racing</span>
+        <h2 id="orderTitle">Lengkapi Pilihan Pesanan</h2>
+        <p class="order-selected" id="selectedPackage">Menu: -</p>
+        <form id="orderOptionsForm">
+            <label for="orderSauce">Pilihan saus</label>
+            <select id="orderSauce" required>
+                <option value="Saus Mentai">Saus Mentai</option>
+                <option value="Saus Tartar">Saus Tartar</option>
+                <option value="Saus Biasa">Saus Biasa</option>
+            </select>
+            <label for="orderServing">Penyajian</label>
+            <select id="orderServing" required>
+                <option value="Hangat">Hangat</option>
+                <option value="Frozen">Frozen</option>
+            </select>
+            <button type="submit" class="btn">Lanjut Pesan via WhatsApp →</button>
+        </form>
+    </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
     <div class="container">
@@ -1326,16 +1428,62 @@ document.querySelectorAll(".nav-links a").forEach(function (link) {
 // GANTI DENGAN NOMOR WHATSAPP ADMIN YANG BENAR
 const nomorAdmin = "6283121458346";
 
-// TOMBOL PESAN MAKANAN
+// TOMBOL PESAN MAKANAN: pilih saus dan kondisi sebelum dikirim ke WhatsApp.
+let menuYangDipesan = "";
 function pesan(namaMakanan) {
-    const teks = "Halo Admin Dcr Racing, saya ingin memesan "
-        + namaMakanan + ". Mohon informasi pemesanannya.";
-    window.open(
-        "https://wa.me/" + nomorAdmin + "?text=" + encodeURIComponent(teks),
-        "_blank",
-        "noopener,noreferrer"
-    );
+    menuYangDipesan = namaMakanan;
+    document.getElementById("selectedPackage").textContent = "Menu: " + namaMakanan;
+    const modal = document.getElementById("orderModal");
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.getElementById("orderSauce").focus();
 }
+function tutupModalPesanan() {
+    const modal = document.getElementById("orderModal");
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+}
+document.getElementById("closeOrderModal").addEventListener("click", tutupModalPesanan);
+document.getElementById("orderModal").addEventListener("click", function(event) {
+    if (event.target === this) tutupModalPesanan();
+});
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") tutupModalPesanan();
+});
+document.getElementById("orderOptionsForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const saus = document.getElementById("orderSauce").value;
+    const penyajian = document.getElementById("orderServing").value;
+    const teks = "Halo Admin Dcr Racing, saya ingin memesan:"
+        + "\\nMenu: " + menuYangDipesan
+        + "\\nPilihan saus: " + saus
+        + "\\nPenyajian: " + penyajian;
+    const url = "https://wa.me/" + nomorAdmin + "?text=" + encodeURIComponent(teks);
+    window.open(url, "_blank", "noopener,noreferrer");
+    tutupModalPesanan();
+});
+
+// Pilihan warna tampilan tersimpan di browser agar tetap sama saat dibuka kembali.
+(function() {
+    const buttons = document.querySelectorAll(".theme-chip");
+    const allowed = ["burgundy", "pink", "orange", "cream"];
+    let saved = "cream";
+    try {
+        const candidate = localStorage.getItem("dcrRacingTheme");
+        if (allowed.includes(candidate)) saved = candidate;
+    } catch (error) {}
+    function applyTheme(theme) {
+        document.body.dataset.theme = theme;
+        buttons.forEach(button => {
+            const active = button.dataset.theme === theme;
+            button.classList.toggle("active", active);
+            button.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+        try { localStorage.setItem("dcrRacingTheme", theme); } catch (error) {}
+    }
+    buttons.forEach(button => button.addEventListener("click", () => applyTheme(button.dataset.theme)));
+    applyTheme(saved);
+})();
 
 // FORM CONTACT ADMIN
 document.getElementById("contactForm").addEventListener("submit", function (e) {
