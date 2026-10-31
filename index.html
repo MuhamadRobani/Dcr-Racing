@@ -705,7 +705,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
 }
 .hanging-photo {
     --swing: 0deg;
-    --lift: 0px;
+    --chain-length: 150px;
     position: absolute;
     z-index: 3;
     top: 0;
@@ -714,7 +714,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     display: flex;
     flex-direction: column;
     align-items: center;
-    transform: translateY(var(--lift)) rotate(var(--swing));
+    transform: rotate(var(--swing));
     transform-origin: 50% 0;
     cursor: grab;
     touch-action: none;
@@ -726,8 +726,8 @@ section .is-visible { opacity: 1; transform: translateY(0); }
 .hanging-photo:active { cursor: grabbing; }
 .chain-handle {
     width: 28px;
-    height: calc(150px + var(--lift));
-    min-height: 65px;
+    height: var(--chain-length);
+    min-height: 110px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -794,7 +794,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
 @media (max-width: 550px) {
     .hero-visual { min-height: 340px; }
     .hanging-photo { width: 205px; }
-    .chain-handle { height: calc(105px + var(--lift)); min-height: 55px; width: 24px; }
+    .chain-handle { min-height: 110px; width: 24px; }
     .chain-link { width: 15px; border-width: 3px; }
     .hanging-photo img { border-width: 7px; }
     .chain-hint { font-size: 10px; }
@@ -803,6 +803,52 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; }
     section .section-title, section .food-card, section .about-content > *,
     section .gallery-card, section .contact-grid > * { opacity: 1; transform: none; }
+}
+
+
+/* Nama tim berada di area statis, terpisah dari logo yang bergerak. */
+.team-name-display {
+    margin-top: 22px;
+    color: #6d625b;
+    font-size: 15px;
+    font-weight: 700;
+}
+.team-name-display span { color: var(--orange); }
+
+/* Area komentar pengunjung */
+.comments-section { background: #fff8ef; }
+.comments-panel {
+    width: min(760px, 100%);
+    margin: 0 auto;
+    padding: 28px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 8px 28px #38201412;
+}
+.comments-form input, .comments-form textarea {
+    width: 100%;
+    padding: 13px 14px;
+    margin-bottom: 13px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    font: inherit;
+}
+.comments-form textarea { min-height: 105px; resize: vertical; }
+.comments-form .btn { width: 100%; }
+.comments-note { margin: 12px 0 20px; color: #796e65; font-size: 13px; }
+.comment-list { display: grid; gap: 12px; margin-top: 20px; }
+.comment-item {
+    padding: 15px 17px;
+    border: 1px solid #f0e5da;
+    border-radius: 12px;
+    background: #fffaf5;
+    overflow-wrap: anywhere;
+}
+.comment-item strong { color: var(--orange); }
+.comment-item p { margin-top: 5px; white-space: pre-wrap; }
+.comment-date { display: block; margin-top: 7px; color: #887d74; font-size: 12px; }
+@media (max-width: 550px) {
+    .comments-panel { padding: 20px; }
 }
 
 </style>
@@ -839,6 +885,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
             <li><a href="#dokumentasi">Dokumentasi</a></li>
             <li><a href="#sosial">Media Sosial</a></li>
             <li><a href="#contact">Contact Admin</a></li>
+            <li><a href="#komentar">Komentar</a></li>
         </ul>
     </nav>
 </header>
@@ -878,6 +925,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
             </p>
 
             <a href="#menu" class="btn">Lihat Menu Kami →</a>
+            <div class="team-name-display">Tim DCR Racing: <span id="teamName">Noval</span></div>
         </div>
 
         <div class="hero-visual" id="heroVisual">
@@ -902,9 +950,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
                 <span class="photo-ring" aria-hidden="true"></span>
                 <img src="dcr.png" loading="eager" alt="Logo DCR Racing berbentuk bulat">
                 <div class="logo-support" aria-hidden="true"></div>
-                <div class="team-typing" aria-live="polite"> <span id="teamName">Noval</span><i class="typing-cursor" aria-hidden="true"></i></div>
             </div>
-            <span class="chain-hint">↕ Tarik logo ke atas/bawah atau geser ke samping</span>
         </div>
     </div>
 </section>
@@ -1132,6 +1178,29 @@ section .is-visible { opacity: 1; transform: translateY(0); }
     </div>
 </section>
 
+
+<!-- KOMENTAR PENGUNJUNG -->
+<section class="comments-section" id="komentar">
+    <div class="container">
+        <div class="section-title">
+            <span class="label">Suara Pelanggan</span>
+            <h2>Komentar Pengunjung</h2>
+            <p>Tulis saran, ulasan, atau pengalaman kamu bersama DCR Racing.</p>
+        </div>
+        <div class="comments-panel">
+            <form class="comments-form" id="commentsForm">
+                <input type="text" id="commentName" maxlength="40" placeholder="Nama kamu" required>
+                <textarea id="commentText" maxlength="500" placeholder="Tulis komentar (maksimal 500 karakter)..." required></textarea>
+                <button type="submit" class="btn">Kirim Komentar</button>
+            </form>
+            <p class="comments-note">Jangan cantumkan nomor telepon, alamat, atau informasi pribadi di komentar.</p>
+            <div id="commentList" class="comment-list" aria-live="polite">
+                <p>Belum ada komentar. Jadilah yang pertama memberi komentar!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
     <div class="container">
@@ -1299,19 +1368,27 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
     setTimeout(typeNext, 1500);
 })();
 
-// Logo dan rantai dapat ditarik ke atas/bawah serta digeser ke samping.
+// Rantai tetap terkunci pada penopang. Tarikan hanya mengubah panjang rantai
+// dalam batas aman dan sudut ayunan; titik gantung tidak pernah ikut berpindah.
 (function () {
     const pendant = document.getElementById("hangingPhoto");
-    if (!pendant) return;
+    const chain = pendant?.querySelector(".chain-handle");
+    if (!pendant || !chain) return;
 
     let dragging = false;
     let startX = 0, startY = 0;
-    let currentSwing = 0, currentLift = 0;
+    let currentSwing = 0, currentLength = 150;
+
+    function applyPosition() {
+        pendant.style.setProperty("--swing", currentSwing + "deg");
+        pendant.style.setProperty("--chain-length", currentLength + "px");
+        pendant.setAttribute("aria-valuenow", Math.round(currentSwing));
+    }
 
     pendant.addEventListener("pointerdown", event => {
         dragging = true;
         startX = event.clientX - currentSwing * 2.2;
-        startY = event.clientY - currentLift;
+        startY = event.clientY - (currentLength - 150);
         pendant.setPointerCapture(event.pointerId);
         pendant.style.animation = "none";
         pendant.style.transition = "none";
@@ -1319,49 +1396,110 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
 
     pendant.addEventListener("pointermove", event => {
         if (!dragging) return;
-        currentSwing = Math.max(-35, Math.min(35, (event.clientX - startX) / 2.2));
-        currentLift = Math.max(-75, Math.min(85, event.clientY - startY));
-        pendant.style.setProperty("--swing", currentSwing + "deg");
-        pendant.style.setProperty("--lift", currentLift + "px");
-        pendant.setAttribute("aria-valuenow", Math.round(currentSwing));
+        currentSwing = Math.max(-28, Math.min(28, (event.clientX - startX) / 2.2));
+        currentLength = Math.max(110, Math.min(220, 150 + event.clientY - startY));
+        applyPosition();
     });
 
     function releasePendant() {
         if (!dragging) return;
         dragging = false;
-        pendant.style.transition = "transform 1.25s cubic-bezier(.18,.72,.25,1)";
+        pendant.style.transition = "transform 1.1s cubic-bezier(.18,.72,.25,1), --chain-length 1.1s ease";
         currentSwing = 0;
-        currentLift = 0;
-        pendant.style.setProperty("--swing", "0deg");
-        pendant.style.setProperty("--lift", "0px");
-        pendant.setAttribute("aria-valuenow", "0");
-        setTimeout(() => { pendant.style.transition = ""; }, 1300);
+        currentLength = 150;
+        applyPosition();
+        window.setTimeout(() => { pendant.style.transition = ""; }, 1150);
     }
 
     pendant.addEventListener("pointerup", releasePendant);
     pendant.addEventListener("pointercancel", releasePendant);
+    pendant.addEventListener("lostpointercapture", releasePendant);
+
     pendant.addEventListener("keydown", event => {
         let handled = true;
         if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-            currentSwing = Math.max(-35, Math.min(35,
+            currentSwing = Math.max(-28, Math.min(28,
                 currentSwing + (event.key === "ArrowRight" ? 5 : -5)));
-            pendant.style.setProperty("--swing", currentSwing + "deg");
-            pendant.setAttribute("aria-valuenow", Math.round(currentSwing));
         } else if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-            currentLift = Math.max(-75, Math.min(85,
-                currentLift + (event.key === "ArrowUp" ? -10 : 10)));
-            pendant.style.setProperty("--lift", currentLift + "px");
+            currentLength = Math.max(110, Math.min(220,
+                currentLength + (event.key === "ArrowDown" ? 10 : -10)));
         } else if (event.key === "Home") {
             currentSwing = 0;
-            currentLift = 0;
-            pendant.style.setProperty("--swing", "0deg");
-            pendant.style.setProperty("--lift", "0px");
-            pendant.setAttribute("aria-valuenow", "0");
+            currentLength = 150;
         } else {
             handled = false;
         }
-        if (handled) event.preventDefault();
+        if (handled) {
+            applyPosition();
+            event.preventDefault();
+        }
     });
+})();
+
+
+// Komentar pengunjung: tersimpan di browser perangkat ini (localStorage).
+(function () {
+    const form = document.getElementById("commentsForm");
+    const list = document.getElementById("commentList");
+    if (!form || !list) return;
+
+    const storageKey = "dcrRacingComments_v1";
+    let comments = [];
+    try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || "[]");
+        if (Array.isArray(saved)) comments = saved.slice(-100);
+    } catch (error) {
+        comments = [];
+    }
+
+    function renderComments() {
+        list.replaceChildren();
+        if (!comments.length) {
+            const empty = document.createElement("p");
+            empty.textContent = "Belum ada komentar. Jadilah yang pertama memberi komentar!";
+            list.appendChild(empty);
+            return;
+        }
+        comments.slice().reverse().forEach(comment => {
+            const item = document.createElement("article");
+            item.className = "comment-item";
+            const name = document.createElement("strong");
+            name.textContent = comment.name;
+            const body = document.createElement("p");
+            body.textContent = comment.text;
+            const date = document.createElement("small");
+            date.className = "comment-date";
+            date.textContent = comment.date;
+            item.append(name, body, date);
+            list.appendChild(item);
+        });
+    }
+
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+        const nameInput = document.getElementById("commentName");
+        const textInput = document.getElementById("commentText");
+        const name = nameInput.value.trim().slice(0, 40);
+        const text = textInput.value.trim().slice(0, 500);
+        if (!name || !text) return;
+
+        comments.push({
+            name,
+            text,
+            date: new Date().toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" })
+        });
+        comments = comments.slice(-100);
+        try {
+            localStorage.setItem(storageKey, JSON.stringify(comments));
+        } catch (error) {
+            alert("Komentar belum dapat disimpan di perangkat ini.");
+            return;
+        }
+        form.reset();
+        renderComments();
+    });
+
+    renderComments();
 })();
 
 </script>
