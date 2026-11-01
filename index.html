@@ -855,41 +855,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
 }
 .team-name-display span { color: var(--orange); }
 
-/* Area komentar pengunjung */
-.comments-section { background: #fff8ef; }
-.comments-panel {
-    width: min(760px, 100%);
-    margin: 0 auto;
-    padding: 28px;
-    border-radius: 20px;
-    background: #fff;
-    box-shadow: 0 8px 28px #38201412;
-}
-.comments-form input, .comments-form textarea {
-    width: 100%;
-    padding: 13px 14px;
-    margin-bottom: 13px;
-    border: 1px solid #ddd;
-    border-radius: 9px;
-    font: inherit;
-}
-.comments-form textarea { min-height: 105px; resize: vertical; }
-.comments-form .btn { width: 100%; }
-.comments-note { margin: 12px 0 20px; color: #796e65; font-size: 13px; }
-.comment-list { display: grid; gap: 12px; margin-top: 20px; }
-.comment-item {
-    padding: 15px 17px;
-    border: 1px solid #f0e5da;
-    border-radius: 12px;
-    background: #fffaf5;
-    overflow-wrap: anywhere;
-}
-.comment-item strong { color: var(--orange); }
-.comment-item p { margin-top: 5px; white-space: pre-wrap; }
-.comment-date { display: block; margin-top: 7px; color: #887d74; font-size: 12px; }
-@media (max-width: 550px) {
-    .comments-panel { padding: 20px; }
-}
+
 
 
 /* ===== RESPONSIVE FIX: sumbu rantai selalu sejajar dengan logo ===== */
@@ -976,10 +942,10 @@ body[data-theme="burgundy"] { --cream:#f4e5eb; --orange:#8f234b; --dark:#351321;
 body[data-theme="pink"] { --cream:#ffe8f0; --orange:#d94f83; --dark:#492638; --theme-panel:#fff7fa; background:var(--cream); color:var(--dark); }
 body[data-theme="orange"] { --cream:#fff0df; --orange:#f47721; --dark:#211b18; --theme-panel:#fffaf4; background:var(--cream); color:var(--dark); }
 body[data-theme="cream"] { --cream:#fff0df; --orange:#c58a52; --dark:#3d3027; --theme-panel:#fffaf4; background:var(--cream); color:var(--dark); }
-body[data-theme="burgundy"] .about, body[data-theme="burgundy"] .comments-section { background:#f4e5eb; }
-body[data-theme="pink"] .about, body[data-theme="pink"] .comments-section { background:#ffe8f0; }
-body[data-theme="orange"] .about, body[data-theme="orange"] .comments-section { background:#fff0df; }
-body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { background:#fff0df; }
+body[data-theme="burgundy"] .about { background:#f4e5eb; }
+body[data-theme="pink"] .about { background:#ffe8f0; }
+body[data-theme="orange"] .about { background:#fff0df; }
+body[data-theme="cream"] .about { background:#fff0df; }
 
 /* ===== MODAL PILIHAN PESANAN ===== */
 .order-modal {
@@ -1013,6 +979,306 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
     .order-dialog { padding:25px 20px; }
 }
 
+
+/* ===== UPGRADE: ANIMASI GAMBAR & POLISH ===== */
+header { background: color-mix(in srgb, var(--cream) 90%, #fff); transition: box-shadow .3s ease, background .4s ease; }
+header.scrolled { box-shadow: 0 6px 24px #00000018; }
+footer h3 span { color: var(--orange) !important; }
+.social-btn:focus-visible, .btn:focus-visible, .order-btn:focus-visible, .theme-chip:focus-visible,
+.nav-links a:focus-visible, .menu-toggle:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+
+/* progress scroll + tombol ke atas */
+.scroll-progress { position: fixed; top: 0; left: 0; height: 4px; width: 100%; z-index: 100001;
+    background: linear-gradient(90deg, var(--orange), #ffc27a); transform: scaleX(0); transform-origin: 0 50%; }
+.to-top { position: fixed; right: 18px; bottom: 18px; z-index: 999; width: 48px; height: 48px; border: 0; border-radius: 50%;
+    background: var(--orange); color: #fff; font-size: 22px; cursor: pointer; box-shadow: 0 8px 20px #0004;
+    opacity: 0; visibility: hidden; transform: translateY(20px) scale(.8);
+    transition: opacity .3s, transform .3s, visibility .3s, background .25s; }
+.to-top.show { opacity: 1; visibility: visible; transform: none; animation: topBounce 2.2s ease-in-out infinite; }
+.to-top:hover { background: var(--dark); }
+@keyframes topBounce { 0%,100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+
+/* animasi masuk hero */
+.hero-content > div:first-child > * { opacity: 0; animation: riseIn .8s cubic-bezier(.2,.7,.2,1) forwards; }
+.hero-content > div:first-child > :nth-child(1) { animation-delay: 2.9s; }
+.hero-content > div:first-child > :nth-child(2) { animation-delay: 3.05s; }
+.hero-content > div:first-child > :nth-child(3) { animation-delay: 3.2s; }
+.hero-content > div:first-child > :nth-child(4) { animation-delay: 3.35s; }
+.hero-content > div:first-child > :nth-child(5) { animation-delay: 3.5s; }
+@keyframes riseIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+.hero h1 span { background: linear-gradient(90deg, var(--orange), #ffb066, var(--orange)); background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: textShine 4s linear infinite; }
+@keyframes textShine { to { background-position: -200% 0; } }
+.btn { position: relative; overflow: hidden; }
+.ripple { position: absolute; border-radius: 50%; background: #ffffff66; transform: scale(0); animation: rippleAnim .6s ease-out forwards; pointer-events: none; }
+@keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+
+/* ----- FRAME GAMBAR: shimmer saat memuat, reveal, shine, zoom ----- */
+.img-frame { position: relative; overflow: hidden; width: 100%; border-radius: inherit; isolation: isolate;
+    background: linear-gradient(110deg, #eadccd 8%, #f8eee3 18%, #eadccd 33%); background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+.img-frame img { position: relative; z-index: 1; transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .6s ease; will-change: transform; }
+.img-frame::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(105deg, transparent 35%, #ffffff66 50%, transparent 65%); transform: translateX(-130%); }
+.img-frame:hover::after { transform: translateX(130%); transition: transform .9s ease; }
+.img-frame.img-error::before { content: "🍽️ Gambar belum tersedia"; position: absolute; inset: 0; display: grid; place-items: center;
+    font-size: 14px; font-weight: 700; color: #8a7a6d; z-index: 0; }
+.img-frame.img-error img { visibility: hidden; }
+.zoomable { cursor: zoom-in; }
+.img-frame.loaded { animation: none; background: #eadccd; }
+.about .img-frame.loaded { animation: aboutFloat 6s ease-in-out infinite; }
+
+/* menu: gambar terbuka dari atas ke bawah lalu zoom-out halus, hover zoom + miring */
+.food-card .img-frame { clip-path: inset(0 0 100% 0); }
+.food-card.is-visible .img-frame { clip-path: inset(0); transition: clip-path 1s cubic-bezier(.2,.7,.2,1) .15s; }
+.food-card img { transform: scale(1.25); }
+.food-card.is-visible img { transform: scale(1); }
+.food-card.is-visible:hover img { transform: scale(1.12) rotate(1.2deg); filter: saturate(1.15) contrast(1.03); }
+.food-card .price { display: inline-block; transition: transform .3s ease; }
+.food-card:hover .price { transform: scale(1.12); }
+.food-card.settled { transition: transform .35s ease, box-shadow .35s ease !important;
+    transform: perspective(900px) translateY(0) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+.food-card.settled:hover { transform: perspective(900px) translateY(-8px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+
+/* tentang: gambar masuk dari kiri, melayang, bingkai bercahaya */
+.about-content > div:first-child { position: relative; }
+.about-content > div:first-child::before { content: ""; position: absolute; inset: 14px -14px -14px 14px; border: 3px solid var(--orange);
+    border-radius: 22px; opacity: .45; z-index: 0; animation: frameDrift 4s ease-in-out infinite alternate; }
+@keyframes frameDrift { from { transform: translate(0, 0); } to { transform: translate(-8px, -8px); } }
+.about .img-frame { z-index: 1; border-radius: 20px; box-shadow: 0 18px 40px #00000026; animation: shimmer 1.4s linear infinite, aboutFloat 6s ease-in-out infinite; }
+@keyframes aboutFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+.about-content > div:first-child:not(.is-visible) { transform: translateX(-50px); }
+.about-content > div:last-child:not(.is-visible) { transform: translateX(50px); }
+.about .img-frame img { scale: 1.12; animation: kenBurns 14s ease-in-out infinite alternate; }
+.about .img-frame:hover img { transform: scale(1.06); }
+
+/* dokumentasi: Ken Burns, reveal dari tepi, caption naik */
+.gallery-card .img-frame { clip-path: inset(0 100% 0 0); }
+.gallery-card.is-visible .img-frame { clip-path: inset(0); transition: clip-path 1.1s cubic-bezier(.2,.7,.2,1) .1s; }
+.gallery-card img { animation: kenBurns 12s ease-in-out infinite alternate; }
+.gallery-card:nth-child(2) img { animation-duration: 15s; animation-direction: alternate-reverse; }
+.gallery-card:nth-child(3) img { animation-duration: 13s; }
+@keyframes kenBurns { from { scale: 1; translate: 0 0; } to { scale: 1.14; translate: -2% -2%; } }
+.gallery-card:hover img { transform: scale(1.08); filter: brightness(.85); }
+.gallery-card .gallery-caption { transform: translateY(55%); opacity: .0; transition: transform .5s cubic-bezier(.2,.7,.2,1), opacity .4s ease; z-index: 3; }
+.gallery-card:hover .gallery-caption, .gallery-card:focus-within .gallery-caption { transform: none; opacity: 1; }
+@media (hover: none) { .gallery-card .gallery-caption { transform: none; opacity: 1; } }
+
+/* Lightbox */
+.lightbox { position: fixed; inset: 0; z-index: 100002; display: grid; place-items: center; padding: 20px;
+    background: #0d0907e6; backdrop-filter: blur(6px); opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
+.lightbox.open { opacity: 1; visibility: visible; }
+.lightbox figure { max-width: min(940px, 100%); text-align: center; transform: scale(.85) translateY(20px); transition: transform .45s cubic-bezier(.2,.8,.25,1.15); }
+.lightbox.open figure { transform: none; }
+.lightbox img { width: auto; max-width: 100%; max-height: 78vh; margin: 0 auto; border-radius: 16px; box-shadow: 0 25px 70px #000a; object-fit: contain; }
+.lightbox figcaption { color: #fff; margin-top: 12px; font-weight: 700; }
+.lightbox-close { position: absolute; top: 14px; right: 20px; border: 0; background: none; color: #fff; font-size: 38px; cursor: pointer; line-height: 1; }
+
+/* modal + tema */
+.order-modal { opacity: 0; visibility: hidden; display: flex; transition: opacity .25s, visibility .25s; backdrop-filter: blur(4px); }
+.order-modal.open { opacity: 1; visibility: visible; }
+.order-dialog { animation: none; transform: translateY(24px) scale(.94); transition: transform .4s cubic-bezier(.2,.8,.25,1.15); }
+.order-modal.open .order-dialog { transform: none; }
+.social-btn { animation: socialPulse 3s ease-in-out infinite; }
+.social-btn:nth-child(2) { animation-delay: .5s; } .social-btn:nth-child(3) { animation-delay: 1s; }
+@keyframes socialPulse { 0%,100% { box-shadow: 0 0 0 0 #f4772100; } 50% { box-shadow: 0 0 0 8px #f4772118; } }
+body { transition: background .5s ease, color .5s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-content > div:first-child > * { opacity: 1; animation: none; }
+    .img-frame, .about .img-frame, .gallery-card img, .about .img-frame img, .social-btn, .to-top.show { animation: none !important; }
+    .food-card .img-frame, .gallery-card .img-frame { clip-path: none; }
+    .food-card img { transform: none; }
+    .about-content > div:first-child:not(.is-visible), .about-content > div:last-child:not(.is-visible) { transform: none; }
+    .gallery-card .gallery-caption { transform: none; opacity: 1; }
+    .img-frame img, .order-dialog, .lightbox figure { transition-duration: .01ms !important; }
+}
+
+
+/* ===== PERBAIKAN DASHBOARD (HERO): pas di layar, tidak melebihi batas, tidak ada area kosong ===== */
+@property --chain-length { syntax: "<length>"; inherits: true; initial-value: 140px; }
+
+/* Cegah halaman bergeser ke samping (sumber area putih/kosong di mobile) */
+body { overflow-x: clip; }
+.about-content > div:first-child:not(.is-visible) { transform: translateX(-24px); }
+.about-content > div:last-child:not(.is-visible) { transform: translateX(24px); }
+
+.hero {
+    position: relative;
+    overflow: clip;
+    padding: clamp(28px, 4.5vw, 56px) 0;
+}
+.hero-content {
+    position: relative;
+    z-index: 1;
+    gap: clamp(20px, 4vw, 48px);
+}
+
+/* Semua ukuran rantai & foto berasal dari variabel ini, jadi tinggi area selalu cukup. */
+.hero-visual {
+    --photo: clamp(200px, 24vw, 280px);
+    --chain-base: 140px;
+    width: 100%;
+    min-height: calc(var(--chain-base) + var(--photo) + 117px);
+    overflow: clip;
+}
+.hanging-photo {
+    --chain-length: var(--chain-base);
+    top: 4px;
+    left: 50%;
+    right: auto;
+    width: var(--photo);
+    margin-left: calc(var(--photo) / -2);
+}
+.chain-top-support {
+    top: 2px;
+    left: 50%;
+    right: auto;
+    margin-left: -15px;
+    transition: opacity .5s ease;
+}
+.chain-handle { min-height: 70px; }
+.hanging-photo img { background: radial-gradient(circle at 30% 28%, #ffb066, var(--orange)); }
+
+@media (min-width: 851px) {
+    .hero {
+        min-height: clamp(560px, calc(100vh - 230px), 720px);
+        min-height: clamp(560px, calc(100svh - 230px), 720px);
+        display: flex;
+        align-items: center;
+    }
+}
+@media (max-width: 850px) {
+    .hero-visual { --photo: clamp(190px, 38vw, 230px); --chain-base: 120px; }
+}
+@media (max-width: 550px) {
+    .hero-visual { --photo: clamp(150px, 46vw, 180px); --chain-base: 100px; }
+    .chain-handle { min-height: 70px; }
+}
+
+/* Animasi masuk menunggu loading selesai, jadi tidak terlewat dan tidak ada jeda kosong */
+.hero-content > div:first-child > :nth-child(1) { animation-delay: .05s; }
+.hero-content > div:first-child > :nth-child(2) { animation-delay: .18s; }
+.hero-content > div:first-child > :nth-child(3) { animation-delay: .31s; }
+.hero-content > div:first-child > :nth-child(4) { animation-delay: .44s; }
+.hero-content > div:first-child > :nth-child(5) { animation-delay: .57s; }
+.hero-content > div:first-child > * { animation-play-state: paused; }
+body.is-ready .hero-content > div:first-child > * { animation-play-state: running; }
+
+/* Logo gantung jatuh saat areanya benar-benar terlihat (di mobile berada di bawah teks) */
+.hero-visual .hanging-photo,
+.hero-visual .hanging-photo img { animation-play-state: paused; }
+body.is-ready .hero-visual.in-view .hanging-photo,
+body.is-ready .hero-visual.in-view .hanging-photo img { animation-play-state: running; }
+.hero-visual:not(.in-view) .chain-top-support { opacity: 0; }
+
+/* Efek utama: cincin "tachometer" berputar + cahaya di belakang logo, tepat di tengah foto */
+.hero-visual::before,
+.hero-visual::after {
+    right: auto;
+    left: 50%;
+    top: calc(4px + var(--chain-base) + 26px + var(--photo) / 2);
+    height: auto;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 50%;
+    pointer-events: none;
+}
+.hero-visual::before {
+    width: calc(var(--photo) * 1.34);
+    background: conic-gradient(from 0deg, transparent 0 52%,
+        color-mix(in srgb, var(--orange) 18%, transparent) 72%, var(--orange) 100%);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 7px), #000 calc(100% - 6px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 7px), #000 calc(100% - 6px));
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--orange) 70%, transparent));
+    opacity: 1;
+    animation: tachSpin 4.5s linear infinite;
+}
+.hero-visual::after {
+    width: calc(var(--photo) * 1.75);
+    background: radial-gradient(circle, color-mix(in srgb, var(--orange) 32%, transparent) 0%, transparent 66%);
+    filter: none;
+    animation: glowBreathe 3.4s ease-in-out infinite alternate;
+}
+@keyframes tachSpin { to { rotate: 360deg; } }
+@keyframes glowBreathe { from { scale: .92; opacity: .55; } to { scale: 1.06; opacity: 1; } }
+
+/* Garis kecepatan tipis di belakang teks (halus, tidak mengganggu bacaan) */
+.speed-lines { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.speed-lines i {
+    position: absolute;
+    left: -35vw;
+    height: 2px;
+    width: 26vw;
+    max-width: 340px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--orange) 32%, transparent));
+    opacity: 0;
+    animation: streak 5.6s cubic-bezier(.4, 0, .2, 1) infinite paused;
+}
+body.is-ready .speed-lines i { animation-play-state: running; }
+.speed-lines i:nth-child(1) { top: 16%; }
+.speed-lines i:nth-child(2) { top: 40%; width: 18vw; animation-duration: 6.6s; animation-delay: 1.1s; }
+.speed-lines i:nth-child(3) { top: 66%; width: 30vw; animation-duration: 5.9s; animation-delay: 2.3s; }
+.speed-lines i:nth-child(4) { top: 86%; width: 16vw; animation-duration: 7.2s; animation-delay: .6s; }
+@keyframes streak {
+    0%   { transform: translateX(0); opacity: 0; }
+    12%  { opacity: .7; }
+    75%  { opacity: .55; }
+    100% { transform: translateX(185vw); opacity: 0; }
+}
+@media (max-width: 550px) {
+    .speed-lines i:nth-child(3), .speed-lines i:nth-child(4) { display: none; }
+}
+
+/* Bar warna tampilan lebih ringkas di HP agar tidak memakan layar pertama */
+@media (max-width: 550px) {
+    .theme-switcher { margin-top: 10px; padding: 8px 12px; flex-wrap: nowrap; align-items: center; }
+    .theme-title { font-size: 12px; white-space: nowrap; }
+    .theme-options { flex-wrap: nowrap; gap: 8px; }
+    .theme-chip { padding: 6px; }
+    .theme-chip span { display: none; }
+    .theme-chip i { width: 20px; height: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-visual::before, .hero-visual::after { animation: none; }
+    .speed-lines { display: none; }
+}
+/* Jika JavaScript mati, tampilkan semua konten (tidak ada halaman kosong) */
+@media (scripting: none) {
+    section .section-title, section .food-card, section .about-content > *,
+    section .gallery-card, section .contact-grid > * { opacity: 1 !important; transform: none !important; }
+    .hero-content > div:first-child > * { opacity: 1; animation: none; }
+    .hanging-photo, .hanging-photo img { animation: none; }
+    .food-card .img-frame, .gallery-card .img-frame { clip-path: none; }
+    .chain-top-support { opacity: 1 !important; }
+    .site-loader { display: none; }
+}
+
+
+/* ===== EFEK TAMBAHAN ===== */
+#sparkCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.hero{position:relative;overflow:hidden}
+.hero .container{position:relative;z-index:1}
+#cursorGlow{position:fixed;left:0;top:0;width:260px;height:260px;margin:-130px 0 0 -130px;border-radius:50%;pointer-events:none;z-index:5;opacity:0;transition:opacity .4s;
+ background:radial-gradient(circle,color-mix(in srgb,var(--orange) 22%,transparent),transparent 68%);mix-blend-mode:multiply}
+#cursorGlow.on{opacity:1}
+.btn,.order-btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,#fff7,transparent);transform:skewX(-20deg);animation:shine 3.2s ease-in-out infinite}
+@keyframes shine{0%,55%{left:-70%}100%{left:130%}}
+.section-title h2{position:relative;display:inline-block}
+.section-title h2::after{content:"";display:block;height:4px;width:0;margin:8px auto 0;border-radius:4px;background:linear-gradient(90deg,var(--orange),#ffc27a);transition:width .9s cubic-bezier(.2,.7,.2,1) .2s}
+.section-title.is-visible h2::after{width:70%}
+.food-card .price{display:inline-block;animation:pricePulse 2.6s ease-in-out infinite}
+@keyframes pricePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
+.gallery-card::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(120deg,transparent 35%,#fff4 50%,transparent 65%);transform:translateX(-120%);transition:transform .8s}
+.gallery-card:hover::before{transform:translateX(120%)}
+.credit{display:inline-block;margin-top:8px;font-weight:bold;letter-spacing:1px;font-size:12px;
+ background:linear-gradient(90deg,#ff9a45,#fff,var(--orange),#fff,#ff9a45);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:creditFlow 4s linear infinite}
+@keyframes creditFlow{to{background-position:-300% 0}}
+@media (prefers-reduced-motion:reduce){#sparkCanvas,#cursorGlow{display:none}.btn::after,.credit,.food-card .price{animation:none}}
 </style>
 </head>
 
@@ -1047,7 +1313,6 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
             <li><a href="#dokumentasi">Dokumentasi</a></li>
             <li><a href="#sosial">Media Sosial</a></li>
             <li><a href="#contact">Contact Admin</a></li>
-            <li><a href="#komentar">Komentar</a></li>
         </ul>
     </nav>
 </header>
@@ -1076,6 +1341,8 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
 
 <!-- HERO -->
 <section class="hero" id="home">
+    <canvas id="sparkCanvas" aria-hidden="true"></canvas>
+    <div class="speed-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <div class="container hero-content">
         <div>
             <span class="label">Selamat Datang di Dcr Racing</span>
@@ -1134,8 +1401,8 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
         <div class="menu-grid">
 
             <article class="food-card">
-                <img src="paket hemat.jpg" loading="lazy"
-                     alt="Paket Hemat">
+                <div class="img-frame"><img src="paket hemat.jpg" loading="lazy"
+                     alt="Paket Hemat"></div>
                 <div class="food-info">
                     <h3>Paket Hemat</h3>
                     <p>Paket Hemat Berisi Dimsum Cibay dan Risol.</p>
@@ -1147,8 +1414,8 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
             </article>
 
             <article class="food-card">
-                <img src="Dimsum.jpg" loading="lazy"
-                     alt="Dimsum Goreng">
+                <div class="img-frame"><img src="Dimsum.jpg" loading="lazy"
+                     alt="Dimsum Goreng"></div>
                 <div class="food-info">
                     <h3>Paket 1</h3>
                     <p>Dimsumnya Enak Lezat Dan Ayam Nya Berlimpah.</p>
@@ -1160,8 +1427,8 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
             </article>
 
             <article class="food-card">
-                <img src="cibay.jpg" loading="lazy"
-                     alt="Cibay">
+                <div class="img-frame"><img src="cibay.jpg" loading="lazy"
+                     alt="Cibay"></div>
                 <div class="food-info">
                     <h3>Paket 2</h3>
                     <p>Cibay Nya Enak Lumer Dan Ada Isian Ayam Nya.</p>
@@ -1173,8 +1440,8 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
             </article>
 
             <article class="food-card">
-                <img src="risol.jpg" loading="lazy"
-                     alt="Risol Mayo">
+                <div class="img-frame"><img src="risol.jpg" loading="lazy"
+                     alt="Risol Mayo"></div>
                 <div class="food-info">
                     <h3>Paket 3</h3>
                     <p>Isian Risol Nya Berlimpah.</p>
@@ -1193,8 +1460,8 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
 <section class="about" id="about">
     <div class="container about-content">
         <div>
-            <img src="tentang produk.png" loading="lazy"
-                 alt="DCR-RACING">
+            <div class="img-frame"><img src="tentang produk.png" loading="lazy"
+                 alt="DCR-RACING"></div>
         </div>
 
         <div>
@@ -1229,8 +1496,8 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
         <div class="gallery-grid">
 
             <div class="gallery-card">
-                <img src="doc2.jpg" loading="lazy"
-                     alt="Kegiatan tim dapur">
+                <div class="img-frame"><img src="doc2.jpg" loading="lazy"
+                     alt="Kegiatan tim dapur"></div>
                 <div class="gallery-caption">
                     <h3>Aktivitas Dapur</h3>
                     <p>Persiapan Untuk Pembutan Produk.</p>
@@ -1238,8 +1505,8 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
             </div>
 
             <div class="gallery-card">
-                <img src="doc1.jpg" loading="lazy"
-                     alt="Poto Bersama">
+                <div class="img-frame"><img src="doc1.jpg" loading="lazy"
+                     alt="Poto Bersama"></div>
                 <div class="gallery-caption">
                     <h3>Kebersamaan Tim</h3>
                     <p>Kerja Sama Yang Baik.</p>
@@ -1247,8 +1514,8 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
             </div>
 
             <div class="gallery-card">
-                <img src="doc3.jpg" loading="lazy"
-                     alt="Meja Bundar">
+                <div class="img-frame"><img src="doc3.jpg" loading="lazy"
+                     alt="Meja Bundar"></div>
                 <div class="gallery-caption">
                     <h3>Diskusi Tim</h3>
                     <p>Evaluasi Produk</p>
@@ -1346,27 +1613,6 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
 </section>
 
 
-<!-- KOMENTAR PENGUNJUNG -->
-<section class="comments-section" id="komentar">
-    <div class="container">
-        <div class="section-title">
-            <span class="label">Suara Pelanggan</span>
-            <h2>Komentar Pengunjung</h2>
-            <p>Tulis saran, ulasan, atau pengalaman kamu bersama DCR Racing.</p>
-        </div>
-        <div class="comments-panel">
-            <form class="comments-form" id="commentsForm">
-                <input type="text" id="commentName" maxlength="40" placeholder="Nama kamu" required>
-                <textarea id="commentText" maxlength="500" placeholder="Tulis komentar (maksimal 500 karakter)..." required></textarea>
-                <button type="submit" class="btn">Kirim Komentar</button>
-            </form>
-            <p class="comments-note">Jangan cantumkan nomor telepon, alamat, atau informasi pribadi di komentar.</p>
-            <div id="commentList" class="comment-list" aria-live="polite">
-                <p>Belum ada komentar. Jadilah yang pertama memberi komentar!</p>
-            </div>
-        </div>
-    </div>
-</section>
 
 
 <!-- MODAL DETAIL PESANAN -->
@@ -1393,6 +1639,14 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
     </div>
 </div>
 
+
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<button type="button" class="to-top" id="toTop" aria-label="Kembali ke atas">↑</button>
+<div class="lightbox" id="lightbox" aria-hidden="true">
+    <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Tutup gambar">&times;</button>
+    <figure><img id="lightboxImg" src="" alt=""><figcaption id="lightboxCaption"></figcaption></figure>
+</div>
+
 <!-- FOOTER -->
 <footer>
     <div class="container">
@@ -1400,6 +1654,7 @@ body[data-theme="cream"] .about, body[data-theme="cream"] .comments-section { ba
         <p>Lezat rasanya, istimewa ceritanya.</p>
         <p>&copy; <span id="tahun"></span> Dcr Racing. All Rights Reserved.</p>
         <p>Dibuat dengan ❤️ untuk pecinta kuliner.</p>
+        <p class="credit">by : DCR Racing</p>
     </div>
 </footer>
 
@@ -1455,9 +1710,9 @@ document.getElementById("orderOptionsForm").addEventListener("submit", function(
     const saus = document.getElementById("orderSauce").value;
     const penyajian = document.getElementById("orderServing").value;
     const teks = "Halo Admin Dcr Racing, saya ingin memesan:"
-        + "\\nMenu: " + menuYangDipesan
-        + "\\nPilihan saus: " + saus
-        + "\\nPenyajian: " + penyajian;
+        + "\nMenu: " + menuYangDipesan
+        + "\nPilihan saus: " + saus
+        + "\nPenyajian: " + penyajian;
     const url = "https://wa.me/" + nomorAdmin + "?text=" + encodeURIComponent(teks);
     window.open(url, "_blank", "noopener,noreferrer");
     tutupModalPesanan();
@@ -1513,11 +1768,11 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
     const number = document.getElementById("loaderPercent");
     const bar = document.getElementById("loaderProgress");
     const motor = document.querySelector(".motor");
-    if (!loader || !number || !bar || !motor) return;
+    if (!loader || !number || !bar || !motor) { document.body.classList.add("is-ready"); return; }
 
     let progress = 0;
     const start = performance.now();
-    const duration = 2600;
+    const duration = 2000;
     function animateLoader(now) {
         const elapsed = Math.min((now - start) / duration, 1);
         // Ease-out agar angka terasa halus dan tetap mencapai 100%.
@@ -1536,7 +1791,7 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
             const roadWidth = motor.parentElement.clientWidth;
             const motorWidth = motor.getBoundingClientRect().width;
             motor.style.transform = `translateX(${Math.max(0, roadWidth - motorWidth)}px) scaleX(-1)`;
-            setTimeout(() => loader.classList.add("is-hidden"), 450);
+            setTimeout(() => { loader.classList.add("is-hidden"); document.body.classList.add("is-ready"); }, 350);
         }
     }
     requestAnimationFrame(animateLoader);
@@ -1615,14 +1870,21 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
 
     let dragging = false;
     let startX = 0, startY = 0;
-    let currentSwing = 0, currentLength = 150;
+    const visualBox = pendant.parentElement;
+    const readBase = () => parseFloat(getComputedStyle(visualBox).getPropertyValue("--chain-base")) || 140;
+    const swingLimit = () => (innerWidth <= 550 ? 18 : 28);
+    let baseLength = readBase();
+    const minLength = () => Math.max(90, baseLength - 30);
+    const maxLength = () => baseLength + 40;
+    let isVisible = true;
+    let currentSwing = 0, currentLength = baseLength;
     let autoSwingEnabled = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const swingStart = performance.now();
 
     // Gerakan alami berulang: rantai dan logo bergerak sebagai satu rangkaian,
     // sementara titik gantung tetap terkunci pada cincin penopang.
     function animateChain(now) {
-        if (autoSwingEnabled && !dragging) {
+        if (autoSwingEnabled && !dragging && isVisible) {
             currentSwing = Math.sin((now - swingStart) / 1250) * 3.8;
             applyPosition();
         }
@@ -1636,11 +1898,22 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
     }
 
     requestAnimationFrame(animateChain);
+    applyPosition();
+    window.addEventListener("resize", () => {
+        baseLength = readBase();
+        if (!dragging) currentLength = baseLength;
+        const lim = swingLimit();
+        currentSwing = Math.max(-lim, Math.min(lim, currentSwing));
+        applyPosition();
+    });
+    if ("IntersectionObserver" in window) {
+        new IntersectionObserver(entries => { isVisible = entries[0].isIntersecting; }).observe(visualBox);
+    }
 
     pendant.addEventListener("pointerdown", event => {
         dragging = true;
         startX = event.clientX - currentSwing * 2.2;
-        startY = event.clientY - (currentLength - 150);
+        startY = event.clientY - (currentLength - baseLength);
         pendant.setPointerCapture(event.pointerId);
         pendant.style.animation = "none";
         pendant.style.transition = "none";
@@ -1648,8 +1921,9 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
 
     pendant.addEventListener("pointermove", event => {
         if (!dragging) return;
-        currentSwing = Math.max(-28, Math.min(28, (event.clientX - startX) / 2.2));
-        currentLength = Math.max(110, Math.min(220, 150 + event.clientY - startY));
+        const lim = swingLimit();
+        currentSwing = Math.max(-lim, Math.min(lim, (event.clientX - startX) / 2.2));
+        currentLength = Math.max(minLength(), Math.min(maxLength(), baseLength + event.clientY - startY));
         applyPosition();
     });
 
@@ -1658,7 +1932,7 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
         dragging = false;
         pendant.style.transition = "transform 1.1s cubic-bezier(.18,.72,.25,1), --chain-length 1.1s ease";
         currentSwing = 0;
-        currentLength = 150;
+        currentLength = baseLength;
         applyPosition();
         window.setTimeout(() => { pendant.style.transition = ""; }, 1150);
     }
@@ -1670,14 +1944,14 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
     pendant.addEventListener("keydown", event => {
         let handled = true;
         if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-            currentSwing = Math.max(-28, Math.min(28,
+            currentSwing = Math.max(-swingLimit(), Math.min(swingLimit(),
                 currentSwing + (event.key === "ArrowRight" ? 5 : -5)));
         } else if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-            currentLength = Math.max(110, Math.min(220,
+            currentLength = Math.max(minLength(), Math.min(maxLength(),
                 currentLength + (event.key === "ArrowDown" ? 10 : -10)));
         } else if (event.key === "Home") {
             currentSwing = 0;
-            currentLength = 150;
+            currentLength = baseLength;
         } else {
             handled = false;
         }
@@ -1689,73 +1963,195 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
 })();
 
 
-// Komentar pengunjung: tersimpan di browser perangkat ini (localStorage).
+
+
+// ===== UPGRADE JS =====
+// Fallback gambar, shimmer berhenti saat gambar termuat, dan lightbox.
 (function () {
-    const form = document.getElementById("commentsForm");
-    const list = document.getElementById("commentList");
-    if (!form || !list) return;
-
-    const storageKey = "dcrRacingComments_v1";
-    let comments = [];
-    try {
-        const saved = JSON.parse(localStorage.getItem(storageKey) || "[]");
-        if (Array.isArray(saved)) comments = saved.slice(-100);
-    } catch (error) {
-        comments = [];
-    }
-
-    function renderComments() {
-        list.replaceChildren();
-        if (!comments.length) {
-            const empty = document.createElement("p");
-            empty.textContent = "Belum ada komentar. Jadilah yang pertama memberi komentar!";
-            list.appendChild(empty);
-            return;
+    const frames = document.querySelectorAll(".img-frame");
+    frames.forEach(frame => {
+        const img = frame.querySelector("img");
+        if (!img) return;
+        const done = () => frame.classList.add("loaded");
+        if (img.complete && img.naturalWidth) done();
+        else {
+            img.addEventListener("load", done, { once: true });
+            img.addEventListener("error", () => frame.classList.add("img-error"), { once: true });
         }
-        comments.slice().reverse().forEach(comment => {
-            const item = document.createElement("article");
-            item.className = "comment-item";
-            const name = document.createElement("strong");
-            name.textContent = comment.name;
-            const body = document.createElement("p");
-            body.textContent = comment.text;
-            const date = document.createElement("small");
-            date.className = "comment-date";
-            date.textContent = comment.date;
-            item.append(name, body, date);
-            list.appendChild(item);
-        });
-    }
-
-    form.addEventListener("submit", event => {
-        event.preventDefault();
-        const nameInput = document.getElementById("commentName");
-        const textInput = document.getElementById("commentText");
-        const name = nameInput.value.trim().slice(0, 40);
-        const text = textInput.value.trim().slice(0, 500);
-        if (!name || !text) return;
-
-        comments.push({
-            name,
-            text,
-            date: new Date().toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" })
-        });
-        comments = comments.slice(-100);
-        try {
-            localStorage.setItem(storageKey, JSON.stringify(comments));
-        } catch (error) {
-            alert("Komentar belum dapat disimpan di perangkat ini.");
-            return;
+        if (frame.closest(".food-card, .gallery-card, .about")) {
+            frame.classList.add("zoomable");
+            frame.setAttribute("tabindex", "0");
+            frame.setAttribute("role", "button");
+            frame.setAttribute("aria-label", "Perbesar gambar: " + img.alt);
         }
-        form.reset();
-        renderComments();
     });
 
-    renderComments();
+    const box = document.getElementById("lightbox");
+    const boxImg = document.getElementById("lightboxImg");
+    const boxCap = document.getElementById("lightboxCaption");
+    let lastFocus = null;
+    function openBox(frame) {
+        const img = frame.querySelector("img");
+        if (!img || frame.classList.contains("img-error")) return;
+        lastFocus = document.activeElement;
+        boxImg.src = img.currentSrc || img.src;
+        boxImg.alt = img.alt;
+        boxCap.textContent = img.alt;
+        box.classList.add("open");
+        box.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        document.getElementById("lightboxClose").focus();
+    }
+    function closeBox() {
+        box.classList.remove("open");
+        box.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        if (lastFocus) lastFocus.focus();
+    }
+    document.querySelectorAll(".img-frame.zoomable").forEach(f => {
+        f.addEventListener("click", () => openBox(f));
+        f.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openBox(f); } });
+    });
+    box.addEventListener("click", e => { if (e.target === box) closeBox(); });
+    document.getElementById("lightboxClose").addEventListener("click", closeBox);
+    document.addEventListener("keydown", e => { if (e.key === "Escape" && box.classList.contains("open")) closeBox(); });
+})();
+
+// Progress scroll, header bayangan, tombol ke atas.
+(function () {
+    const bar = document.getElementById("scrollProgress");
+    const top = document.getElementById("toTop");
+    const header = document.querySelector("header");
+    let ticking = false;
+    function update() {
+        const max = document.documentElement.scrollHeight - innerHeight;
+        const ratio = max > 0 ? scrollY / max : 0;
+        bar.style.transform = "scaleX(" + ratio + ")";
+        top.classList.toggle("show", scrollY > 500);
+        header.classList.toggle("scrolled", scrollY > 10);
+        ticking = false;
+    }
+    addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    top.addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
+    update();
+})();
+
+// Efek berurutan (stagger), kartu miring 3D, dan riak pada tombol.
+(function () {
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const cards = document.querySelectorAll(".food-card");
+    const gallery = document.querySelectorAll(".gallery-card");
+    [cards, gallery].forEach(group => group.forEach((el, i) => {
+        el.style.transitionDelay = (i % 3) * 140 + "ms";
+        // Setelah animasi masuk selesai, hover kembali cepat tanpa delay.
+        new MutationObserver((_, obs) => {
+            if (el.classList.contains("is-visible")) {
+                setTimeout(() => { el.style.transitionDelay = ""; el.classList.add("settled"); }, 1400);
+                obs.disconnect();
+            }
+        }).observe(el, { attributes: true, attributeFilter: ["class"] });
+    }));
+
+    if (!reduce && matchMedia("(hover: hover)").matches) {
+        cards.forEach(card => {
+            card.addEventListener("pointermove", e => {
+                const r = card.getBoundingClientRect();
+                const x = (e.clientX - r.left) / r.width - .5;
+                const y = (e.clientY - r.top) / r.height - .5;
+                card.style.setProperty("--ry", (x * 7) + "deg");
+                card.style.setProperty("--rx", (-y * 7) + "deg");
+            });
+            card.addEventListener("pointerleave", () => {
+                card.style.setProperty("--rx", "0deg");
+                card.style.setProperty("--ry", "0deg");
+            });
+        });
+    }
+
+    document.querySelectorAll(".btn, .order-btn").forEach(btn => {
+        btn.addEventListener("pointerdown", e => {
+            if (reduce) return;
+            const r = btn.getBoundingClientRect();
+            const size = Math.max(r.width, r.height);
+            const dot = document.createElement("span");
+            dot.className = "ripple";
+            dot.style.cssText = "width:" + size + "px;height:" + size + "px;left:" + (e.clientX - r.left - size / 2) + "px;top:" + (e.clientY - r.top - size / 2) + "px";
+            btn.appendChild(dot);
+            setTimeout(() => dot.remove(), 650);
+        });
+    });
+})();
+
+// Modal pesanan: kunci scroll saat terbuka, fokus kembali ke tombol semula.
+(function () {
+    const modal = document.getElementById("orderModal");
+    let opener = null;
+    const originalPesan = window.pesan;
+    window.pesan = function (nama) {
+        opener = document.activeElement;
+        originalPesan(nama);
+        document.body.style.overflow = "hidden";
+    };
+    new MutationObserver(() => {
+        if (!modal.classList.contains("open")) {
+            document.body.style.overflow = "";
+            if (opener) opener.focus();
+        }
+    }).observe(modal, { attributes: true, attributeFilter: ["class"] });
+})();
+
+
+// Logo gantung mulai jatuh ketika areanya terlihat; pengaman bila loader gagal.
+(function () {
+    const box = document.getElementById("heroVisual");
+    if (box) {
+        if ("IntersectionObserver" in window) {
+            const io = new IntersectionObserver((entries, obs) => {
+                if (entries[0].isIntersecting) { box.classList.add("in-view"); obs.disconnect(); }
+            }, { threshold: 0.3 });
+            io.observe(box);
+        } else {
+            box.classList.add("in-view");
+        }
+    }
+    setTimeout(() => document.body.classList.add("is-ready"), 4200);
+})();
+
+
+// Efek tambahan: percikan api, cahaya kursor, tombol magnetik.
+(function(){
+    const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(reduce)return;
+    const hero=document.querySelector(".hero"),cv=document.getElementById("sparkCanvas");
+    if(hero&&cv){
+        const ctx=cv.getContext("2d");let w,h,ps=[],vis=true;
+        const color=()=>getComputedStyle(document.body).getPropertyValue("--orange").trim()||"#f47721";
+        function size(){w=cv.width=hero.clientWidth;h=cv.height=hero.clientHeight}
+        function mk(init){return{x:Math.random()*w,y:init?Math.random()*h:h+10,r:Math.random()*2.2+.6,v:Math.random()*.9+.4,d:Math.random()*2-1,a:Math.random()*.6+.3}}
+        size();addEventListener("resize",size);
+        const n=w<600?22:45;for(let i=0;i<n;i++)ps.push(mk(true));
+        new IntersectionObserver(e=>{vis=e[0].isIntersecting}).observe(hero);
+        (function loop(){
+            if(vis){ctx.clearRect(0,0,w,h);const c=color();
+                ps.forEach((p,i)=>{p.y-=p.v;p.x+=Math.sin(p.y/30)*.4+p.d*.2;p.a-=.0015;
+                    if(p.y<-10||p.a<=0)ps[i]=mk(false);
+                    ctx.globalAlpha=Math.max(p.a,0);ctx.fillStyle=c;ctx.shadowColor=c;ctx.shadowBlur=10;
+                    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill()});}
+            requestAnimationFrame(loop)})();
+    }
+    if(matchMedia("(hover: hover)").matches){
+        const g=document.createElement("div");g.id="cursorGlow";document.body.appendChild(g);
+        addEventListener("pointermove",e=>{g.style.transform="translate("+e.clientX+"px,"+e.clientY+"px)";g.classList.add("on")},{passive:true});
+        document.addEventListener("pointerleave",()=>g.classList.remove("on"));
+        document.querySelectorAll(".btn").forEach(b=>{
+            b.addEventListener("pointermove",e=>{const r=b.getBoundingClientRect();
+                b.style.transform="translate("+((e.clientX-r.left-r.width/2)*.18)+"px,"+((e.clientY-r.top-r.height/2)*.28-3)+"px)"});
+            b.addEventListener("pointerleave",()=>{b.style.transform=""});
+        });
+    }
 })();
 
 </script>
 
 </body>
 </html>
-```
