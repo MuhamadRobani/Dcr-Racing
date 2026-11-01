@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dcr-racing.vercel.app/sitemap.xml
