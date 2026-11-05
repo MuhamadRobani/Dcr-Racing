@@ -593,12 +593,7 @@ footer a {
     75% { transform: translateX(75vw) scaleX(-1) translateY(0); }
     100% { transform: translateX(calc(100vw + 70px)) scaleX(-1) translateY(-1px); }
 }
-@media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .road-bike { animation-duration: .01ms; animation-iteration-count: 1; transform: translateX(40vw) scaleX(-1); }
-    .race-flag span { animation: none; }
-    .btn, .food-card, .gallery-card img { transition-duration: .01ms !important; }
-}
+
 
 
 /* ===== POLISH & ANIMASI TAMBAHAN ===== */
@@ -891,11 +886,7 @@ section .is-visible { opacity: 1; transform: translateY(0); }
 @media (max-width: 550px) {
     .chain-top-support { right: calc(50% - 15px); }
 }
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; }
-    section .section-title, section .food-card, section .about-content > *,
-    section .gallery-card, section .contact-grid > * { opacity: 1; transform: none; }
-}
+
 
 
 /* Nama tim berada di area statis, terpisah dari logo yang bergerak. */
@@ -1137,15 +1128,7 @@ footer h3 span { color: var(--orange) !important; }
 @keyframes socialPulse { 0%,100% { box-shadow: 0 0 0 0 #f4772100; } 50% { box-shadow: 0 0 0 8px #f4772118; } }
 body { transition: background .5s ease, color .5s ease; }
 
-@media (prefers-reduced-motion: reduce) {
-    .hero-content > div:first-child > * { opacity: 1; animation: none; }
-    .img-frame, .about .img-frame, .gallery-card img, .about .img-frame img, .social-btn, .to-top.show { animation: none !important; }
-    .food-card .img-frame, .gallery-card .img-frame { clip-path: none; }
-    .food-card img { transform: none; }
-    .about-content > div:first-child:not(.is-visible), .about-content > div:last-child:not(.is-visible) { transform: none; }
-    .gallery-card .gallery-caption { transform: none; opacity: 1; }
-    .img-frame img, .order-dialog, .lightbox figure { transition-duration: .01ms !important; }
-}
+
 
 
 /* ===== PERBAIKAN DASHBOARD (HERO): pas di layar, tidak melebihi batas, tidak ada area kosong ===== */
@@ -1294,10 +1277,7 @@ body.is-ready .speed-lines i { animation-play-state: running; }
     .theme-chip i { width: 20px; height: 20px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .hero-visual::before, .hero-visual::after { animation: none; }
-    .speed-lines { display: none; }
-}
+
 /* Jika JavaScript mati, tampilkan semua konten (tidak ada halaman kosong) */
 @media (scripting: none) {
     section .section-title, section .food-card, section .about-content > *,
@@ -1330,7 +1310,7 @@ body.is-ready .speed-lines i { animation-play-state: running; }
 .credit{display:inline-block;margin-top:8px;font-weight:bold;letter-spacing:1px;font-size:12px;
  background:linear-gradient(90deg,#ff9a45,#fff,var(--orange),#fff,#ff9a45);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:creditFlow 4s linear infinite}
 @keyframes creditFlow{to{background-position:-300% 0}}
-@media (prefers-reduced-motion:reduce){#sparkCanvas,#cursorGlow{display:none}.btn::after,.credit,.food-card .price{animation:none}}
+
 
 /* ===== DCR PHOTOBOOTH ===== */
 .pb{background:#15100d;color:#fff;position:relative;overflow:hidden;padding-top:100px}
@@ -1378,7 +1358,7 @@ linear-gradient(var(--orange),var(--orange)) bottom right/30px 3px,linear-gradie
 .pb-slots button{width:96px;aspect-ratio:4/3;border-radius:10px;border:2px dashed #ffffff40;background:#ffffff0d center/cover;color:#fff;cursor:pointer;font:inherit;font-size:12px;font-weight:700;transition:.2s}
 .pb-slots button:hover{border-color:var(--orange)}.pb-slots button.has{border-style:solid;border-color:#fff}
 @media(max-width:860px){.pb-grid,.pb-result{grid-template-columns:1fr}.pb-out{max-width:340px;margin:auto}}
-@media(prefers-reduced-motion:reduce){.pb *,.pb *::after{animation:none!important}}
+
 /* ===== FITUR BARU: progress balap, percikan kursor, halaman Garasi DCR ===== */
 .sp{position:fixed;top:0;left:0;right:0;height:4px;z-index:9999;pointer-events:none}
 .sp i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb066,var(--orange),#ff3b30);box-shadow:0 0 12px var(--orange)}
@@ -1445,7 +1425,7 @@ body.p2>*:not(header):not(#page2):not(.theme-switcher):not(#siteLoader):not(.pt-
 .g-finish h2{font:italic 900 clamp(40px,8vw,96px) Arial;margin:36px 0 18px}.g-finish h2 span{color:var(--orange)}
 .g-foot{text-align:center;color:#8d7f73;font-size:12px;padding-bottom:26px}
 @media(max-width:860px){.g-hgrid{grid-template-columns:1fr;text-align:center}.g-sub{margin-inline:auto}.g-btns{justify-content:center}.g-route{grid-template-columns:1fr}.g-line{display:none}.g-stop .n{margin-bottom:8px}}
-@media(prefers-reduced-motion:reduce){.pt-wipe.go{animation-duration:.01s}.g-mq div,.g-flag{animation:none}.rv{opacity:1}}
+
 
 /* nav Garasi DCR: rapi, satu baris, badge tidak menimpa */
 .nav-links li{flex:none}
@@ -1469,6 +1449,29 @@ body.p2>*:not(header):not(#page2):not(.theme-switcher):not(#siteLoader):not(.pt-
 .lres{font:italic 900 28px Arial;margin:14px 0 4px;min-height:34px}.lres.win{color:#6dff9a}.lres.bad{color:#ff5a3c}
 #ltBest{color:#cbbdb1;display:block;margin-bottom:8px}.lsh{color:#ffb066;font-weight:700}
 .pb .container{width:min(1120px,92%);margin:auto}
+
+/* ===== Menu tab Garasi: responsif mobile & desktop ===== */
+:root{--hdr:75px}
+/* overflow:hidden membuat sticky menu terjebak di dalam #page2 (penyebab ruang kosong di atas menu) */
+#page2{padding-top:0;overflow:visible;overflow:clip}
+.g-tabs{position:sticky;top:var(--hdr);z-index:50;display:flex;flex-wrap:nowrap;justify-content:flex-start;align-items:center;gap:8px;
+    padding:10px 14px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain;
+    background:#100c0af0;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #ffffff18}
+.g-tabs::-webkit-scrollbar{display:none}
+.g-tabs button{flex:none;white-space:nowrap;padding:9px 16px;font-size:13px;line-height:1.2}
+.g-tabs button:first-child{margin-left:auto}.g-tabs button:last-child{margin-right:auto}
+.g-tabs button.on{background:var(--orange);border-color:var(--orange)}
+.g-hero{min-height:calc(100vh - var(--hdr) - 56px);scroll-margin-top:0}
+#gTools,#photobooth,#gRoute{scroll-margin-top:60px}
+@media(min-width:861px){
+    .g-tabs{gap:12px;padding:12px 20px}
+    .g-tabs button{padding:10px 24px;font-size:15px}
+}
+@media(max-width:550px){
+    .g-tabs{gap:5px;padding:8px 8px}
+    .g-tabs button{padding:8px 9px;font-size:12px}
+    .g-hero{min-height:auto;padding:24px 0 10px}
+}
 </style>
 </head>
 
@@ -1567,8 +1570,7 @@ body.p2>*:not(header):not(#page2):not(.theme-switcher):not(#siteLoader):not(.pt-
             <article class="g-tool rv" style="--d:.12s"><h3>🚦 Lampu Start</h3><p>Tunggu semua lampu padam, lalu ketuk secepatnya.</p>
                 <div class="lt" id="lt"><i></i><i></i><i></i><i></i><i></i></div>
                 <button type="button" class="btn" id="ltBtn">Mulai</button>
-                <div class="lres" id="ltRes">Siap?</div><small id="ltBest"></small>
-                <a class="lsh" id="ltSh" target="_blank" rel="noopener" hidden>Bagikan skor ke admin →</a></article>
+                <div class="lres" id="ltRes">Siap?</div><small id="ltBest"></small></article>
         </div>
     </div>
 <!-- DCR PHOTOBOOTH -->
@@ -2210,7 +2212,7 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
     const maxLength = () => baseLength + 40;
     let isVisible = true;
     let currentSwing = 0, currentLength = baseLength;
-    let autoSwingEnabled = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let autoSwingEnabled = true;
     const swingStart = performance.now();
 
     // Gerakan alami berulang: rantai dan logo bergerak sebagai satu rangkaian,
@@ -2370,7 +2372,7 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
 
 // Efek berurutan (stagger), kartu miring 3D, dan riak pada tombol.
 (function () {
-    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = false;
     const cards = document.querySelectorAll(".food-card");
     const gallery = document.querySelectorAll(".gallery-card");
     [cards, gallery].forEach(group => group.forEach((el, i) => {
@@ -2452,7 +2454,7 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
 
 // Efek tambahan: percikan api, cahaya kursor, tombol magnetik.
 (function(){
-    const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce=false;
     if(reduce)return;
     const hero=document.querySelector(".hero"),cv=document.getElementById("sparkCanvas");
     if(hero&&cv){
@@ -2711,7 +2713,7 @@ render();ui();
 <script>
 // ===== FITUR BARU: progress balap, percikan kursor, router halaman, Garasi DCR =====
 (function(){
-const $=id=>document.getElementById(id),b=document.body,wipe=document.querySelector(".pt-wipe"),clamp=(a,l,h)=>Math.max(l,Math.min(h,a)),RM=matchMedia("(prefers-reduced-motion: reduce)").matches,T0=document.title;
+const $=id=>document.getElementById(id),b=document.body,wipe=document.querySelector(".pt-wipe"),clamp=(a,l,h)=>Math.max(l,Math.min(h,a)),RM=false,T0=document.title;
 const css=()=>getComputedStyle(b).getPropertyValue("--orange").trim()||"#f47721";
 // progress scroll: motor melaju di atas halaman
 addEventListener("scroll",()=>{const m=document.documentElement.scrollHeight-innerHeight,p=m>0?scrollY/m:0;$("spBar").style.width=p*100+"%";$("spBike").style.left=p*100+"%"},{passive:true});
@@ -2802,7 +2804,7 @@ try{best=+localStorage.getItem("dcrBest")||null}catch(e){}
 const showBest=()=>$("ltBest").textContent=best?"Rekor terbaikmu: "+best+" ms":"";showBest();
 const clr=()=>{tm.forEach(clearTimeout);tm=[]};
 function say(t,c){res.textContent=t;res.className="lres "+(c||"")}
-function start(){clr();L.forEach(l=>l.classList.remove("on"));$("ltSh").hidden=true;st="light";btn.textContent="Tunggu…";say("Bersiap…");
+function start(){clr();L.forEach(l=>l.classList.remove("on"));st="light";btn.textContent="Tunggu…";say("Bersiap…");
  L.forEach((l,i)=>tm.push(setTimeout(()=>l.classList.add("on"),600+i*700)));
  tm.push(setTimeout(()=>{st="wait";btn.textContent="TAP!"},600+4*700+100));
  tm.push(setTimeout(()=>{L.forEach(l=>l.classList.remove("on"));st="go";t0=performance.now()},600+4*700+100+800+Math.random()*2400))}
@@ -2811,9 +2813,19 @@ btn.addEventListener("pointerdown",e=>{e.preventDefault();
  if(st==="light"||st==="wait"){clr();st="done";btn.textContent="Coba Lagi";say("Start kepagian! 🚫","bad");return}
  if(st==="go"){const ms=Math.round(performance.now()-t0);st="done";btn.textContent="Coba Lagi";
   const r=ms<250?"Refleks Juara! 🏆":ms<350?"Pembalap Handal 🔥":ms<500?"Lumayan, ayo ngebut 🏁":"Masih pemanasan 🛵";
-  say(ms+" ms · "+r,"win");if(!best||ms<best){best=ms;try{localStorage.setItem("dcrBest",ms)}catch(e){}}showBest();
-  const a=$("ltSh");a.href="https://wa.me/6283121458346?text="+encodeURIComponent("Halo Admin DCR Racing, refleks saya di Lampu Start: "+ms+" ms ("+r+")");a.hidden=false}});
+  say(ms+" ms · "+r,"win");if(!best||ms<best){best=ms;try{localStorage.setItem("dcrBest",ms)}catch(e){}}showBest();}});
 btn.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();btn.dispatchEvent(new Event("pointerdown"))}});
+})();
+
+// Tab aktif mengikuti posisi scroll
+(function(){
+const tabs=[...document.querySelectorAll(".g-tabs button")];if(!tabs.length)return;
+const bar=document.querySelector(".g-tabs");
+function spy(){if(!document.body.classList.contains("p2"))return;
+ const y=bar.getBoundingClientRect().bottom+30;let cur=tabs[0];
+ tabs.forEach(t=>{const e=document.querySelector(t.dataset.t);if(e&&e.getBoundingClientRect().top<=y)cur=t});
+ tabs.forEach(t=>{const on=t===cur;if(on&&!t.classList.contains("on")){bar.scrollTo({left:t.offsetLeft-(bar.clientWidth-t.offsetWidth)/2,behavior:"smooth"})}t.classList.toggle("on",on)})}
+addEventListener("scroll",spy,{passive:true});addEventListener("resize",spy);spy();
 })();
 </script>
 
