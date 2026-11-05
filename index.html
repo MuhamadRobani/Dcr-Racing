@@ -22,7 +22,7 @@
 <meta property="og:description" content="DCR Racing - brand kuliner dengan menu lezat: paket hemat, dimsum, cibay, risol, dan lainnya. Pesan mudah lewat WhatsApp. Ikuti kami di Instagram dan TikTok @dcr_racing.">
 <meta property="og:url" content="https://dcr-racing.vercel.app/">
 <meta property="og:image" content="https://dcr-racing.vercel.app/dcr.png">
-<meta property="og:image:alt" content="Logo DCR Racing">
+47<meta property="og:image:alt" content="Logo DCR Racing">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
@@ -1377,6 +1377,14 @@ linear-gradient(var(--orange),var(--orange)) bottom right/30px 3px,linear-gradie
 .pb-slots{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
 .pb-slots button{width:96px;aspect-ratio:4/3;border-radius:10px;border:2px dashed #ffffff40;background:#ffffff0d center/cover;color:#fff;cursor:pointer;font:inherit;font-size:12px;font-weight:700;transition:.2s}
 .pb-slots button:hover{border-color:var(--orange)}.pb-slots button.has{border-style:solid;border-color:#fff}
+.pb-ar{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:none;z-index:1}
+.pb-view.live .pb-ar{display:block}
+.pb-adj{display:grid;gap:10px;margin-top:12px;padding:12px 14px;border-radius:14px;background:#ffffff0a;border:1px solid #ffffff1a}
+.pb-adj[hidden]{display:none}
+.pb-adj p{margin:0;font-size:12px;color:#cbbdb1}
+.pb-adj label{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:center;font-size:13px}
+.pb-adj input[type=range]{width:100%;accent-color:var(--orange)}
+.pb-adj .pb-ghost{justify-self:start;padding:7px 14px;font-size:13px}
 @media(max-width:860px){.pb-grid,.pb-result{grid-template-columns:1fr}.pb-out{max-width:340px;margin:auto}}
 @media(prefers-reduced-motion:reduce){.pb *,.pb *::after{animation:none!important}}
 </style>
@@ -1598,6 +1606,7 @@ linear-gradient(var(--orange),var(--orange)) bottom right/30px 3px,linear-gradie
             <div>
                 <div class="pb-view" id="pbView">
                     <video id="pbVideo" playsinline muted autoplay></video>
+                    <canvas class="pb-ar" id="pbAR" width="800" height="600" aria-hidden="true"></canvas>
                     <div class="pb-idle">
                         <div class="ico">📸</div>
                         <p>Izinkan akses kamera untuk mulai. Fotomu tidak dikirim ke mana pun, semuanya diproses di perangkatmu.</p>
@@ -1625,10 +1634,19 @@ linear-gradient(var(--orange),var(--orange)) bottom right/30px 3px,linear-gradie
                     <button type="button" data-v="none" class="on">Normal</button><button type="button" data-v="bw">Hitam putih</button>
                     <button type="button" data-v="sepia">Sepia</button><button type="button" data-v="vintage">Vintage</button>
                     <button type="button" data-v="neon">Neon</button><button type="button" data-v="asphalt">Aspal</button></div></div>
+                <div><h3>Filter wajah</h3><div class="pb-chips" data-k="face">
+                    <button type="button" data-v="none" class="on">Tanpa</button><button type="button" data-v="goggles">🥽 Kacamata balap</button>
+                    <button type="button" data-v="hat">🤠 Topi koboy</button><button type="button" data-v="both">Keduanya</button></div>
+                    <div class="pb-adj" id="pbAdj" hidden>
+                        <p>Posisi otomatis mengikuti wajah. Jika kurang pas, atur manual di bawah ini.</p>
+                        <label>Kiri / kanan<input type="range" id="pbFx" min="-150" max="150" value="0"></label>
+                        <label>Atas / bawah<input type="range" id="pbFy" min="-150" max="150" value="0"></label>
+                        <label>Ukuran<input type="range" id="pbFs" min="60" max="160" value="100"></label>
+                        <button type="button" class="pb-ghost" id="pbAdjReset">Reset posisi</button>
+                    </div></div>
                 <div><h3>Frame</h3><div class="pb-chips" data-k="frame">
                     <button type="button" data-v="race" class="on">🏁 Balap DCR</button><button type="button" data-v="carbon">⚡ Karbon</button><button type="button" data-v="speed">🔥 Speed</button>
-                    <button type="button" data-v="orange">Tema DCR</button><button type="button" data-v="checker">Garis finish</button>
-                    <button type="button" data-v="black">Hitam</button><button type="button" data-v="white">Putih</button></div></div>
+                    <button type="button" data-v="orange">Tema DCR</button><button type="button" data-v="checker">Garis finish</button></div></div>
                 <div><h3>Stiker</h3><div class="pb-chips" data-k="sticker">
                     <button type="button" data-v="" class="on">Tanpa</button><button type="button" data-v="🏁">🏁</button>
                     <button type="button" data-v="🔥">🔥</button><button type="button" data-v="🏆">🏆</button><button type="button" data-v="🏍️">🏍️</button></div></div>
@@ -2328,9 +2346,37 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
 (function(){
 const $=id=>document.getElementById(id);
 const v=$("pbVideo"),view=$("pbView"),out=$("pbOut"),cx=out.getContext("2d");
-const S={layout:"s3",timer:3,filter:"none",frame:"race",sticker:"",facing:"user",mirror:true,flash:true,date:true};
+const S={layout:"s3",timer:3,filter:"none",face:"none",fx:0,fy:0,fs:100,frame:"race",sticker:"",facing:"user",mirror:true,flash:true,date:true};
 const N={s2:2,s3:3,s4:4,g4:4};
-const F={none:"none",bw:"grayscale(1) contrast(1.1)",sepia:"sepia(.85) contrast(1.05)",vintage:"sepia(.4) saturate(1.4) hue-rotate(-15deg) contrast(.95)",neon:"saturate(1.9) contrast(1.15) brightness(1.05)",asphalt:"grayscale(.6) contrast(1.35) brightness(.95)"};
+/* Filter foto. Dihitung per piksel (bukan ctx.filter) agar hasil unduhan juga hitam putih di Safari/iPhone */
+const F={none:[],bw:[["gray",1],["contrast",1.15]],sepia:[["sepia",.85],["contrast",1.05]],vintage:[["sepia",.4],["sat",1.4],["hue",-15],["contrast",.95]],neon:[["sat",1.9],["contrast",1.15],["bright",1.05]],asphalt:[["gray",.6],["contrast",1.35],["bright",.95]]};
+const CSSN={gray:"grayscale",sepia:"sepia",sat:"saturate",hue:"hue-rotate",contrast:"contrast",bright:"brightness"};
+const cssF=n=>F[n].length?F[n].map(([k,a])=>CSSN[k]+"("+a+(k==="hue"?"deg":"")+")").join(" "):"none";
+function applyF(src,name){
+    const ops=F[name];if(!ops||!ops.length)return src;
+    if(src._f&&src._f.k===name)return src._f.c;
+    const c=document.createElement("canvas");c.width=src.width;c.height=src.height;
+    const x=c.getContext("2d");x.drawImage(src,0,0);
+    let d;try{d=x.getImageData(0,0,c.width,c.height)}catch(e){return src}
+    const p=d.data,cl=t=>t<0?0:t>255?255:t;
+    const pre=ops.map(([k,a])=>{
+        if(k==="hue"){const r=a*Math.PI/180,co=Math.cos(r),si=Math.sin(r);return[k,[.213+.787*co-.213*si,.715-.715*co-.715*si,.072-.072*co+.928*si,.213-.213*co+.143*si,.715+.285*co+.14*si,.072-.072*co-.283*si,.213-.213*co-.787*si,.715-.715*co+.715*si,.072+.928*co+.072*si]]}
+        return[k,a]});
+    for(let i=0;i<p.length;i+=4){
+        let r=p[i],g=p[i+1],b=p[i+2];
+        for(let j=0;j<pre.length;j++){
+            const k=pre[j][0],a=pre[j][1];
+            if(k==="gray"){const l=.2126*r+.7152*g+.0722*b;r+=(l-r)*a;g+=(l-g)*a;b+=(l-b)*a}
+            else if(k==="sepia"){const R=.393*r+.769*g+.189*b,G=.349*r+.686*g+.168*b,B=.272*r+.534*g+.131*b;r=cl(r+(R-r)*a);g=cl(g+(G-g)*a);b=cl(b+(B-b)*a)}
+            else if(k==="sat"){const l=.213*r+.715*g+.072*b;r=cl(l+(r-l)*a);g=cl(l+(g-l)*a);b=cl(l+(b-l)*a)}
+            else if(k==="hue"){const m=a,R=m[0]*r+m[1]*g+m[2]*b,G=m[3]*r+m[4]*g+m[5]*b,B=m[6]*r+m[7]*g+m[8]*b;r=cl(R);g=cl(G);b=cl(B)}
+            else if(k==="contrast"){r=cl((r-128)*a+128);g=cl((g-128)*a+128);b=cl((b-128)*a+128)}
+            else if(k==="bright"){r=cl(r*a);g=cl(g*a);b=cl(b*a)}
+        }
+        p[i]=r;p[i+1]=g;p[i+2]=b;
+    }
+    x.putImageData(d,0,0);src._f={k:name,c:c};return c;
+}
 let stream=null,shots=[],busy=false,abort=false,noLogo=false,ac=null;
 const logo=new Image();logo.onload=render;logo.src="dcr.png";
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
@@ -2342,7 +2388,7 @@ async function startCam(){
     stopCam();msg("Meminta izin kamera...");
     try{
         stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:S.facing,width:{ideal:1280},height:{ideal:960}},audio:false});
-        v.srcObject=stream;await v.play();msg("");ui();
+        v.srcObject=stream;await v.play();msg("");ui();liveStart();
     }catch(e){
         stream=null;
         msg(e.name==="NotAllowedError"?"Izin kamera ditolak. Klik ikon gembok di address bar, izinkan kamera, lalu coba lagi.":
@@ -2351,12 +2397,12 @@ async function startCam(){
         ui();
     }
 }
-function stopCam(){abort=true;if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}v.srcObject=null;ui()}
+function stopCam(){abort=true;liveStop();if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}v.srcObject=null;ui()}
 function ui(){
     const live=!!stream;
     view.classList.toggle("live",live);
     view.classList.toggle("mirror",S.mirror&&S.facing==="user");
-    v.style.filter=F[S.filter];
+    v.style.filter=cssF(S.filter);$("pbAdj").hidden=S.face==="none";
     $("pbShoot").disabled=!live;$("pbShoot").textContent=busy?"Batalkan sesi":"Mulai Sesi Foto";
     $("pbFlip").disabled=!live||busy;$("pbStop").disabled=!live||busy;
     if(!live)$("pbLap").textContent="Siap";
@@ -2382,11 +2428,104 @@ async function run(list){
         $("pbLap").textContent="Foto "+(i+1)+" dari "+N[S.layout];
         for(let t=S.timer;t>0;t--){if(abort)break;count(t);beep(660,.12);await wait(1000)}
         if(abort)break;count("");flash();beep(1200,.25);
-        const c=snap();if(c){shots[i]=c;render()}
+        const c=snap();if(c){c._faces=liveFaces.map(f=>({...f}));shots[i]=c;render()}
         await wait(900);
     }
     count("");busy=false;ui();
 }
+
+
+/* ===== FILTER WAJAH: kacamata balap & topi koboy ===== */
+const DEF={x:400,y:250,w:230,a:0};
+let liveFaces=[],detT=0,arRaf=0,detBusy=false,fd=null,fdOK="FaceDetector" in window;
+const ar=$("pbAR"),ax=ar.getContext("2d");
+function getFD(){if(!fdOK)return null;try{fd=fd||new FaceDetector({fastMode:true,maxDetectedFaces:4})}catch(e){fdOK=false;fd=null}return fd}
+function mapper(){
+    const w=v.videoWidth,h=v.videoHeight;let sw=w,sh=w*3/4;if(sh>h){sh=h;sw=h*4/3}
+    const sx=(w-sw)/2,sy=(h-sh)/2,k=800/sw,m=S.mirror&&S.facing==="user";
+    return{k,pt:(x,y)=>({x:m?800-(x-sx)*k:(x-sx)*k,y:(y-sy)*k})};
+}
+function toFace(f,m){
+    const b=f.boundingBox;let e=m.pt(b.x+b.width/2,b.y+b.height*.4),a=0,fw=b.width*m.k;
+    const eyes=(f.landmarks||[]).filter(l=>l.type==="eye"&&l.locations&&l.locations.length).map(l=>{const n=l.locations.length;
+        return m.pt(l.locations.reduce((t,q)=>t+q.x,0)/n,l.locations.reduce((t,q)=>t+q.y,0)/n)}).sort((p,q)=>p.x-q.x);
+    if(eyes.length>=2){const p=eyes[0],q=eyes[eyes.length-1];
+        if(Math.hypot(q.x-p.x,q.y-p.y)>fw*.25){e={x:(p.x+q.x)/2,y:(p.y+q.y)/2};a=Math.max(-.6,Math.min(.6,Math.atan2(q.y-p.y,q.x-p.x)))}}
+    return{x:e.x,y:e.y,w:fw,a};
+}
+const blend=(o,n)=>n.map((f,i)=>{const p=o[i];return p?{x:p.x+(f.x-p.x)*.5,y:p.y+(f.y-p.y)*.5,w:p.w+(f.w-p.w)*.5,a:p.a+(f.a-p.a)*.5}:f});
+async function detectLive(){
+    if(detBusy||!stream||!v.videoWidth)return;const d=getFD();if(!d)return;detBusy=true;
+    try{const r=await d.detect(v),m=mapper();liveFaces=blend(liveFaces,r.slice(0,4).map(f=>toFace(f,m)))}catch(e){fdOK=false}
+    detBusy=false;
+}
+async function detectCanvas(c){
+    const d=getFD();if(!d)return[];
+    try{const r=await d.detect(c),m={k:1,pt:(x,y)=>({x,y})};return r.slice(0,4).map(f=>toFace(f,m))}catch(e){return[]}
+}
+function arLoop(){
+    ax.clearRect(0,0,800,600);
+    if(stream&&S.face!=="none")drawProps(ax,liveFaces.length?liveFaces:[DEF],0,0,1);
+    arRaf=requestAnimationFrame(arLoop);
+}
+function liveStart(){liveStop();liveFaces=[];arRaf=requestAnimationFrame(arLoop);if(getFD())detT=setInterval(detectLive,250)}
+function liveStop(){cancelAnimationFrame(arRaf);arRaf=0;clearInterval(detT);detT=0;ax.clearRect(0,0,800,600)}
+
+function goggles(g){
+    const path=()=>{g.beginPath();g.moveTo(-80,-44);g.lineTo(80,-44);g.quadraticCurveTo(112,-44,112,-10);g.lineTo(112,14);g.quadraticCurveTo(112,44,84,44);g.lineTo(28,44);
+        g.quadraticCurveTo(14,44,10,28);g.quadraticCurveTo(0,14,-10,28);g.quadraticCurveTo(-14,44,-28,44);g.lineTo(-84,44);g.quadraticCurveTo(-112,44,-112,14);
+        g.lineTo(-112,-10);g.quadraticCurveTo(-112,-44,-80,-44);g.closePath()};
+    const org=getComputedStyle(document.body).getPropertyValue("--orange").trim()||"#f47721";
+    // tali
+    g.fillStyle="#14100e";g.fillRect(-146,-15,292,30);g.fillStyle=org;g.fillRect(-146,-3,292,6);
+    g.fillStyle="#ffffff";[-132,-120,120,132].forEach(x=>g.fillRect(x-3,-15,6,30));
+    // bingkai
+    g.save();g.shadowColor="#0008";g.shadowBlur=10;g.shadowOffsetY=4;path();g.fillStyle=org;g.fill();g.restore();
+    g.save();g.translate(0,-2);g.scale(.92,.8);path();g.fillStyle="#14100e";g.fill();g.restore();
+    // lensa
+    g.save();g.translate(0,-3);g.scale(.84,.68);path();
+    const gr=g.createLinearGradient(-100,-44,100,44);gr.addColorStop(0,"rgba(15,30,60,.62)");gr.addColorStop(.5,"rgba(50,110,210,.45)");gr.addColorStop(1,"rgba(10,20,45,.66)");
+    g.fillStyle=gr;g.fill();g.clip();
+    g.fillStyle="rgba(255,255,255,.35)";g.beginPath();g.moveTo(-84,-50);g.lineTo(-52,-50);g.lineTo(-96,50);g.lineTo(-128,50);g.closePath();g.fill();
+    g.fillStyle="rgba(255,255,255,.2)";g.beginPath();g.moveTo(-36,-50);g.lineTo(-26,-50);g.lineTo(-70,50);g.lineTo(-80,50);g.closePath();g.fill();
+    g.restore();
+    // garis tepi bingkai
+    g.save();path();g.lineWidth=3;g.strokeStyle="#14100e";g.stroke();g.restore();
+}
+function hat(g){
+    const org=getComputedStyle(document.body).getPropertyValue("--orange").trim()||"#f47721";
+    g.save();g.scale(.85,.85);g.translate(0,16);
+    g.lineJoin="round";g.lineCap="round";
+    // pinggiran topi
+    g.save();g.shadowColor="#0007";g.shadowBlur=12;g.shadowOffsetY=6;
+    g.beginPath();g.moveTo(-175,-112);g.quadraticCurveTo(0,-44,175,-112);g.quadraticCurveTo(0,-136,-175,-112);g.closePath();
+    let gr=g.createLinearGradient(0,-130,0,-70);gr.addColorStop(0,"#9a6330");gr.addColorStop(1,"#6b3f1d");g.fillStyle=gr;g.fill();g.restore();
+    g.lineWidth=3;g.strokeStyle="#4a2a12";g.beginPath();g.moveTo(-175,-112);g.quadraticCurveTo(0,-44,175,-112);g.quadraticCurveTo(0,-136,-175,-112);g.stroke();
+    g.save();g.setLineDash([7,5]);g.lineWidth=2;g.strokeStyle="#d9a066";g.beginPath();g.moveTo(-163,-111);g.quadraticCurveTo(0,-62,163,-111);g.stroke();g.restore();
+    // mahkota
+    g.beginPath();g.moveTo(-74,-100);g.bezierCurveTo(-82,-150,-74,-196,-52,-212);g.quadraticCurveTo(-26,-190,0,-200);g.quadraticCurveTo(26,-190,52,-212);
+    g.bezierCurveTo(74,-196,82,-150,74,-100);g.quadraticCurveTo(0,-80,-74,-100);g.closePath();
+    gr=g.createLinearGradient(-80,0,80,0);gr.addColorStop(0,"#8a5528");gr.addColorStop(.5,"#b27a40");gr.addColorStop(1,"#7a4a22");g.fillStyle=gr;g.fill();g.stroke();
+    g.save();g.globalAlpha=.3;g.lineWidth=6;g.strokeStyle="#2e1707";g.beginPath();g.moveTo(0,-199);g.quadraticCurveTo(-5,-150,0,-122);g.stroke();g.restore();
+    // pita
+    g.beginPath();g.moveTo(-77,-124);g.quadraticCurveTo(0,-106,77,-124);g.lineTo(75,-100);g.quadraticCurveTo(0,-80,-75,-100);g.closePath();g.fillStyle="#14100e";g.fill();
+    g.lineWidth=3;g.strokeStyle=org;g.beginPath();g.moveTo(-76,-112);g.quadraticCurveTo(0,-93,76,-112);g.stroke();
+    // gesper
+    g.lineWidth=2;g.strokeStyle="#8a6410";g.fillStyle="#e0aa25";g.fillRect(-13,-111,26,19);g.strokeRect(-13,-111,26,19);
+    g.fillStyle="#14100e";g.fillRect(-6,-106,12,9);
+    g.restore();
+}
+function drawProps(g,faces,ox,oy,sc){
+    const k=S.face;if(k==="none")return;
+    faces.forEach(f=>{
+        g.save();g.translate(ox+(f.x+S.fx)*sc,oy+(f.y+S.fy)*sc);g.rotate(f.a);
+        const u=f.w*S.fs/100*sc/200;g.scale(u,u);
+        if(k==="hat"||k==="both")hat(g);
+        if(k==="goggles"||k==="both")goggles(g);
+        g.restore();
+    });
+}
+const facesOf=c=>c&&c._faces&&c._faces.length?c._faces:[DEF];
 
 function rr(x,y,w,h,r){cx.beginPath();cx.moveTo(x+r,y);cx.arcTo(x+w,y,x+w,y+h,r);cx.arcTo(x+w,y+h,x,y+h,r);cx.arcTo(x,y+h,x,y,r);cx.arcTo(x,y,x+w,y,r);cx.closePath()}
 
@@ -2464,14 +2603,14 @@ function render(){
     out.width=W;out.height=H;
     const org=getComputedStyle(document.body).getPropertyValue("--orange").trim()||"#f47721";
     let bg="#fff",ink="#14100e";
-    if(S.frame==="orange")bg=org;else if(S.frame==="black"||S.frame==="checker"){bg="#14100e";ink="#fff"}
+    if(S.frame==="orange")bg=org;else if(S.frame==="checker"){bg="#14100e";ink="#fff"}
     cx.fillStyle=bg;cx.fillRect(0,0,W,H);
     if(S.frame==="checker"){const s=26;for(let y=0;y*s<H;y++)for(let x=0;x*s<W;x++){cx.fillStyle=(x+y)%2?"#fff":"#14100e";cx.fillRect(x*s,y*s,s,s)}cx.fillStyle="#14100e";cx.fillRect(26,26,W-52,H-52)}
     if(rc){ink="#fff";drawRacing(W,H,top,pad,gap,R,org)}
     for(let i=0;i<n;i++){
         const x=pad+(g?i%2:0)*(pw+gap),y=top+(g?Math.floor(i/2):i)*(ph+gap);
         cx.save();rr(x,y,pw,ph,16);cx.clip();
-        if(shots[i]){cx.filter=F[S.filter];cx.drawImage(shots[i],x,y,pw,ph);cx.filter="none"}
+        if(shots[i]){cx.drawImage(applyF(shots[i],S.filter),x,y,pw,ph);drawProps(cx,facesOf(shots[i]),x,y,pw/800)}
         else{cx.fillStyle="#0000002e";cx.fillRect(x,y,pw,ph);cx.fillStyle=ink;cx.globalAlpha=.55;cx.font="bold 30px Arial";cx.textAlign="center";cx.fillText("Foto "+(i+1),x+pw/2,y+ph/2+10);cx.globalAlpha=1}
         cx.restore();
         if(rc){cx.lineWidth=5;cx.strokeStyle="#fff";rr(x,y,pw,ph,16);cx.stroke();cx.lineWidth=3;cx.strokeStyle=S.frame==="speed"?"#14100e":org;rr(x-7,y-7,pw+14,ph+14,21);cx.stroke()}
@@ -2495,7 +2634,7 @@ function slots(n){
     for(let i=0;i<n;i++){
         const b=document.createElement("button");b.type="button";b.setAttribute("aria-label","Ulang foto "+(i+1));
         const c=shots[i];
-        if(c){if(!c._t){const t=document.createElement("canvas");t.width=160;t.height=120;t.getContext("2d").drawImage(c,0,0,160,120);c._t=t.toDataURL("image/jpeg",.6)}b.style.backgroundImage="url("+c._t+")";b.className="has";b.textContent=""}
+        if(c){const t=document.createElement("canvas");t.width=160;t.height=120;const tx=t.getContext("2d");tx.drawImage(applyF(c,S.filter),0,0,160,120);drawProps(tx,facesOf(c),0,0,.2);b.style.backgroundImage="url("+t.toDataURL("image/jpeg",.6)+")";b.className="has";b.textContent=""}
         else b.textContent="Foto "+(i+1);
         b.onclick=()=>{if(stream&&!busy)run([i]);else if(!stream)alert("Buka kamera dulu, atau pakai tombol Upload Foto.")};
         box.appendChild(b);
@@ -2513,7 +2652,7 @@ $("pbShoot").onclick=()=>{if(busy){abort=true;return}const n=N[S.layout];shots=[
 $("pbFile").onchange=async e=>{
     const fs=[...e.target.files],n=N[S.layout],all=[...Array(n).keys()],empty=all.filter(i=>!shots[i]);
     const order=empty.concat(all.filter(i=>shots[i]));
-    for(let k=0;k<fs.length&&k<order.length;k++){const c=await loadFile(fs[k]);if(c)shots[order[k]]=c}
+    for(let k=0;k<fs.length&&k<order.length;k++){const c=await loadFile(fs[k]);if(c){c._faces=await detectCanvas(c);shots[order[k]]=c}}
     e.target.value="";render();
 };
 document.querySelectorAll(".pb-chips").forEach(g=>g.addEventListener("click",e=>{
@@ -2524,6 +2663,9 @@ document.querySelectorAll(".pb-chips").forEach(g=>g.addEventListener("click",e=>
     ui();render();
 }));
 [["pbMirror","mirror"],["pbFlashOn","flash"],["pbDate","date"]].forEach(([id,k])=>$(id).addEventListener("change",e=>{S[k]=e.target.checked;ui();render()}));
+let rq=0;const lazy=()=>{if(rq)return;rq=requestAnimationFrame(()=>{rq=0;render()})};
+[["pbFx","fx"],["pbFy","fy"],["pbFs","fs"]].forEach(([id,k])=>$(id).addEventListener("input",e=>{S[k]=+e.target.value;lazy()}));
+$("pbAdjReset").onclick=()=>{S.fx=0;S.fy=0;S.fs=100;$("pbFx").value=0;$("pbFy").value=0;$("pbFs").value=100;render()};
 $("pbDl").onclick=async()=>{const b=await getBlob();if(!b)return;const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="dcr-photobooth-"+Date.now()+".png";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000)};
 $("pbShare").onclick=async()=>{
     const b=await getBlob();if(!b)return;const f=new File([b],"dcr-photobooth.png",{type:"image/png"});
