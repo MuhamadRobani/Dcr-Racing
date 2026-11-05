@@ -22,7 +22,7 @@
 <meta property="og:description" content="DCR Racing - brand kuliner dengan menu lezat: paket hemat, dimsum, cibay, risol, dan lainnya. Pesan mudah lewat WhatsApp. Ikuti kami di Instagram dan TikTok @dcr_racing.">
 <meta property="og:url" content="https://dcr-racing.vercel.app/">
 <meta property="og:image" content="https://dcr-racing.vercel.app/dcr.png">
-47<meta property="og:image:alt" content="Logo DCR Racing">
+<meta property="og:image:alt" content="Logo DCR Racing">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
@@ -1377,20 +1377,105 @@ linear-gradient(var(--orange),var(--orange)) bottom right/30px 3px,linear-gradie
 .pb-slots{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
 .pb-slots button{width:96px;aspect-ratio:4/3;border-radius:10px;border:2px dashed #ffffff40;background:#ffffff0d center/cover;color:#fff;cursor:pointer;font:inherit;font-size:12px;font-weight:700;transition:.2s}
 .pb-slots button:hover{border-color:var(--orange)}.pb-slots button.has{border-style:solid;border-color:#fff}
-.pb-ar{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:none;z-index:1}
-.pb-view.live .pb-ar{display:block}
-.pb-adj{display:grid;gap:10px;margin-top:12px;padding:12px 14px;border-radius:14px;background:#ffffff0a;border:1px solid #ffffff1a}
-.pb-adj[hidden]{display:none}
-.pb-adj p{margin:0;font-size:12px;color:#cbbdb1}
-.pb-adj label{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:center;font-size:13px}
-.pb-adj input[type=range]{width:100%;accent-color:var(--orange)}
-.pb-adj .pb-ghost{justify-self:start;padding:7px 14px;font-size:13px}
 @media(max-width:860px){.pb-grid,.pb-result{grid-template-columns:1fr}.pb-out{max-width:340px;margin:auto}}
 @media(prefers-reduced-motion:reduce){.pb *,.pb *::after{animation:none!important}}
+/* ===== FITUR BARU: progress balap, percikan kursor, halaman Garasi DCR ===== */
+.sp{position:fixed;top:0;left:0;right:0;height:4px;z-index:9999;pointer-events:none}
+.sp i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb066,var(--orange),#ff3b30);box-shadow:0 0 12px var(--orange)}
+.sp b{position:absolute;top:-4px;left:0;font-size:20px;line-height:1;transform:translateX(-50%) scaleX(-1);filter:drop-shadow(0 2px 3px #0006)}
+.btn.alt{background:transparent;border:2px solid var(--orange);color:var(--orange);padding:10px 21px;margin-left:10px}
+.btn.alt:hover{background:var(--orange);color:#fff}
+.nav-links a.nav-new{background:var(--orange);color:#fff;padding:6px 14px;border-radius:20px;font-weight:700}
+.nav-links a.nav-new::after{display:none}
+.nav-badge{font-size:9px;background:#fff;color:var(--orange);border-radius:8px;padding:1px 6px;margin-left:5px;animation:gPulse 1.2s infinite}
+@keyframes gPulse{50%{transform:scale(1.18)}}
+.pt-wipe{position:fixed;inset:0;z-index:99998;pointer-events:none;transform:translateX(-101%);background:conic-gradient(#fff 25%,#14100e 0 50%,#fff 0 75%,#14100e 0) 0 0/64px 64px;display:grid;place-items:center}
+.pt-wipe::after{content:"DCR RACING";background:var(--orange);color:#fff;font:italic 900 clamp(34px,9vw,90px) Arial;padding:6px 36px;transform:skewX(-12deg);box-shadow:0 0 0 8px #fff,0 20px 60px #000a}
+.pt-wipe.go{animation:ptw .95s cubic-bezier(.7,0,.3,1)}
+@keyframes ptw{0%{transform:translateX(-101%)}45%,55%{transform:translateX(0)}100%{transform:translateX(101%)}}
+#page2{display:none;background:#100c0a;color:#fff;position:relative;overflow:hidden;padding-top:64px}
+body.p2 #page2{display:block}
+body.p2>*:not(header):not(#page2):not(.theme-switcher):not(#siteLoader):not(.pt-wipe):not(.sp):not(#sk):not(script):not(style){display:none!important}
+.g-wrap{width:min(1120px,92%);margin:auto}
+.g-hero{position:relative;min-height:calc(100vh - 64px);display:grid;align-items:center;background:radial-gradient(circle at 75% 40%,#3a2012,#100c0a 65%)}
+#gLines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.g-hgrid{position:relative;display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center;padding:40px 0}
+.g-title{font:italic 900 clamp(60px,12vw,160px)/.88 Arial;letter-spacing:-2px;margin-bottom:22px}
+.g-title .ln{display:block}.g-title .o{color:var(--orange);text-shadow:0 0 40px color-mix(in srgb,var(--orange) 60%,transparent)}
+.g-title span span{display:inline-block;animation:gDrop .8s cubic-bezier(.2,.9,.2,1.2) backwards;animation-delay:calc(var(--i)*.07s + .45s)}
+@keyframes gDrop{from{opacity:0;transform:translateX(-90px) skewX(-25deg)}}
+.g-sub{color:#d9cbbf;max-width:46ch;font-size:17px;margin-bottom:24px;animation:gDrop .9s 1.1s backwards}
+.g-btns{display:flex;flex-wrap:wrap;gap:12px;animation:gDrop .9s 1.3s backwards}.g-btns .btn.alt{margin:0;color:#fff}
+.g-dial{position:relative;max-width:420px;width:100%;justify-self:center;animation:gDrop 1s .6s backwards}
+.g-dial svg{width:100%;display:block;filter:drop-shadow(0 20px 40px #000a)}
+.g-dial .arc{fill:none;stroke:#ffffff22;stroke-width:10;stroke-linecap:round}.g-dial .arc.r{stroke:#ff3b30}
+.g-dial line{stroke:#fff;stroke-width:2}.g-dial line.rd,.g-dial text.rd{stroke:#ff3b30;fill:#ff3b30}
+.g-dial text{fill:#cbbdb1;font:700 11px Arial;text-anchor:middle}
+#gNeedle line{stroke:var(--orange);stroke-width:4;stroke-linecap:round}
+.g-rd{position:absolute;left:0;right:0;bottom:6%;text-align:center}
+.g-rd b{display:block;font:italic 900 clamp(34px,6vw,52px) Arial;font-variant-numeric:tabular-nums}.g-rd b.hot{color:#ff5a3c;text-shadow:0 0 18px #ff3b30}
+.g-rd small{color:#cbbdb1;letter-spacing:2px;font-size:12px}
+.g-mq{background:var(--orange);overflow:hidden;white-space:nowrap;transform:rotate(-1.2deg) scale(1.03);margin:-14px 0 20px;position:relative;z-index:2;box-shadow:0 10px 30px #0008}
+.g-mq div{display:flex;width:max-content;animation:gMq 24s linear infinite}
+.g-mq span{font:italic 900 clamp(22px,4vw,38px) Arial;padding:12px 26px;color:#fff}
+@keyframes gMq{to{transform:translateX(-50%)}}
+.g-sec{padding:70px 0 20px}.g-sec h2{font:italic 900 clamp(32px,5vw,54px) Arial;margin-bottom:8px}
+.g-lead{color:#cbbdb1;margin-bottom:32px}
+.rv{opacity:0}.rv.in{opacity:1;animation:rvIn .9s var(--d,0s) cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes rvIn{from{opacity:0;transform:translateY(50px)}}
+.g-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.g-card{position:relative;background:#ffffff0a;border:1px solid #ffffff1c;border-radius:22px;padding:26px;transition:border-color .3s,box-shadow .3s}
+.g-card:hover{border-color:var(--orange);box-shadow:0 0 34px color-mix(in srgb,var(--orange) 35%,transparent)}
+.g-card svg{width:84px;display:block;margin-bottom:14px}.g-card .bg{fill:none;stroke:#ffffff1c;stroke-width:6}
+.g-card .rg{fill:none;stroke:var(--orange);stroke-width:6;stroke-linecap:round;stroke-dasharray:214;stroke-dashoffset:214;transition:stroke-dashoffset 1.8s ease .3s}
+.g-card.in .rg{stroke-dashoffset:0}
+.g-card .em{position:absolute;left:26px;top:26px;width:84px;height:84px;display:grid;place-items:center;font-size:34px}
+.g-card h3{font-size:20px;margin-bottom:6px}.g-card p{color:#cbbdb1;font-size:15px}
+.g-route{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-top:6px}
+.g-line{position:absolute;top:26px;left:16.66%;right:16.66%;height:6px;background:#ffffff22;border-radius:4px}
+.g-line i{display:block;height:100%;width:0;background:var(--orange);border-radius:4px;box-shadow:0 0 14px var(--orange)}
+.g-line b{position:absolute;top:-24px;left:0;font-size:30px;line-height:1;transform:translateX(-50%) scaleX(-1)}
+.g-stop{text-align:center;position:relative;padding-top:0}
+.g-stop .n{width:58px;height:58px;margin:0 auto 14px;border-radius:50%;background:#1d1511;border:3px solid #ffffff33;display:grid;place-items:center;font:italic 900 24px Arial;transition:.4s;position:relative;z-index:1}
+.g-stop.on .n{background:var(--orange);border-color:#fff;box-shadow:0 0 26px var(--orange);transform:scale(1.12)}
+.g-stop h3{margin-bottom:6px}.g-stop p{color:#cbbdb1;font-size:15px;margin-bottom:10px}.g-stop a{color:#ffb066;font-weight:700}
+.g-finish{margin-top:70px;text-align:center;padding:0 0 40px}
+.g-flag{height:44px;background:conic-gradient(#fff 25%,#14100e 0 50%,#fff 0 75%,#14100e 0) 0 0/22px 22px;animation:gFlag 2.4s linear infinite}
+@keyframes gFlag{to{background-position:44px 0}}
+.g-finish h2{font:italic 900 clamp(40px,8vw,96px) Arial;margin:36px 0 18px}.g-finish h2 span{color:var(--orange)}
+.g-foot{text-align:center;color:#8d7f73;font-size:12px;padding-bottom:26px}
+@media(max-width:860px){.g-hgrid{grid-template-columns:1fr;text-align:center}.g-sub{margin-inline:auto}.g-btns{justify-content:center}.g-route{grid-template-columns:1fr}.g-line{display:none}.g-stop .n{margin-bottom:8px}}
+@media(prefers-reduced-motion:reduce){.pt-wipe.go{animation-duration:.01s}.g-mq div,.g-flag{animation:none}.rv{opacity:1}}
+
+/* nav Garasi DCR: rapi, satu baris, badge tidak menimpa */
+.nav-links li{flex:none}
+.nav-links a.nav-new{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;line-height:1.2;padding:9px 16px;box-shadow:0 4px 14px color-mix(in srgb,var(--orange) 45%,transparent)}
+.nav-badge{display:inline-block;margin:0;line-height:1.35;flex:none}
+@media(min-width:851px) and (max-width:1180px){.nav-links{gap:14px}.nav-links a{font-size:13px}.nav-links li:not(:last-child){max-width:78px}}
+@media(max-width:850px){.nav-links a.nav-new{align-self:flex-start}}
+.g-tabs{position:sticky;top:75px;z-index:50;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:10px 12px;background:#100c0acc;backdrop-filter:blur(10px);border-bottom:1px solid #ffffff18}
+.g-tabs button{background:#ffffff0f;color:#fff;border:1px solid #ffffff22;border-radius:20px;padding:7px 15px;font:700 13px Arial;cursor:pointer;transition:.25s}
+.g-tabs button:hover,.g-tabs button.on{background:var(--orange);border-color:var(--orange)}
+.g-hero{min-height:calc(100vh - 120px)}
+.g-grid.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g-tool{background:#ffffff0a;border:1px solid #ffffff1c;border-radius:22px;padding:26px;text-align:center}
+.g-tool h3{font-size:21px;margin-bottom:6px}.g-tool p{color:#cbbdb1;font-size:15px;margin-bottom:14px}
+.velg{width:min(260px,100%);margin:auto;cursor:grab;touch-action:none;user-select:none;border-radius:50%;transition:box-shadow .2s}
+.velg:active{cursor:grabbing}.velg svg{width:100%;display:block}
+.vkm{margin-top:12px;color:#cbbdb1}.vkm b{font:italic 900 34px Arial;color:#fff;font-variant-numeric:tabular-nums}
+.lt{display:flex;gap:10px;justify-content:center;background:#000;border-radius:16px;padding:16px;margin:0 auto 16px;width:max-content;max-width:100%;border:2px solid #ffffff22}
+.lt i{width:clamp(32px,9vw,46px);aspect-ratio:1;border-radius:50%;background:#2a1210;box-shadow:inset 0 0 8px #000;transition:.12s}
+.lt i.on{background:#ff2a1a;box-shadow:0 0 22px #ff2a1a,inset 0 0 8px #ff9a8a}
+.lres{font:italic 900 28px Arial;margin:14px 0 4px;min-height:34px}.lres.win{color:#6dff9a}.lres.bad{color:#ff5a3c}
+#ltBest{color:#cbbdb1;display:block;margin-bottom:8px}.lsh{color:#ffb066;font-weight:700}
+.pb .container{width:min(1120px,92%);margin:auto}
 </style>
 </head>
 
 <body>
+<div class="sp" aria-hidden="true"><i id="spBar"></i><b id="spBike">🏍️</b></div>
+<canvas id="sk" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:99997"></canvas>
+<div class="pt-wipe" aria-hidden="true"></div>
 
 <!-- LOADING SCREEN: animasi motor 0-100% -->
 <div id="siteLoader" class="site-loader" role="status" aria-live="polite">
@@ -1417,11 +1502,11 @@ linear-gradient(var(--orange),var(--orange)) bottom right/30px 3px,linear-gradie
         <ul class="nav-links" id="navLinks">
             <li><a href="#home">Home</a></li>
             <li><a href="#menu">Menu Makanan</a></li>
-            <li><a href="#photobooth">Photobooth</a></li>
             <li><a href="#about">Tentang Kami</a></li>
             <li><a href="#dokumentasi">Dokumentasi</a></li>
             <li><a href="#sosial">Media Sosial</a></li>
             <li><a href="#contact">Contact Admin</a></li>
+            <li><a href="#garasi" class="nav-new">Garasi DCR<span class="nav-badge">BARU</span></a></li>
         </ul>
     </nav>
 </header>
@@ -1437,6 +1522,143 @@ linear-gradient(var(--orange),var(--orange)) bottom right/30px 3px,linear-gradie
     </div>
 </div>
 
+
+<!-- HALAMAN 2: GARASI DCR -->
+<main id="page2" aria-label="Garasi DCR">
+    <nav class="g-tabs" aria-label="Menu Garasi DCR"><button data-t=".g-hero">🏁 Garasi</button><button data-t="#gTools">🛠️ Bengkel</button><button data-t="#photobooth">📸 Photobooth</button><button data-t="#gRoute">🛵 Jalur Pesan</button></nav>
+    <div class="g-hero">
+        <canvas id="gLines" aria-hidden="true"></canvas>
+        <div class="g-wrap g-hgrid">
+            <div>
+                <h1 class="g-title"><span class="ln">GARASI</span><span class="ln o">DCR</span></h1>
+                <p class="g-sub">Di balik setiap pesanan ada tim yang bekerja seperti pit crew: cepat, rapi, dan peduli pada rasa. Selamat datang di garasi DCR Racing.</p>
+                <div class="g-btns">
+                    <a class="btn" href="https://wa.me/6283121458346?text=Halo%20Admin%20Dcr%20Racing" target="_blank" rel="noopener">Pesan via WhatsApp</a>
+                    <a class="btn alt" href="#photobooth">📸 Buka Photobooth</a>
+                    <a class="btn alt" href="#home">← Kembali ke Home</a>
+                </div>
+            </div>
+            <div class="g-dial">
+                <svg viewBox="0 0 240 210" aria-hidden="true">
+                    <path class="arc" d="M23 176 A112 112 0 1 1 217 176"/><path class="arc r" d="M224.2 79.1 A112 112 0 0 1 217 176"/>
+                    <g id="gTicks"></g>
+                    <g id="gNeedle"><line x1="120" y1="120" x2="120" y2="40"/><circle cx="120" cy="120" r="9" fill="#fff"/><circle cx="120" cy="120" r="4" fill="#14100e"/></g>
+                </svg>
+                <div class="g-rd"><b id="gRpm">0</b><small>RPM · MESIN RASA</small></div>
+            </div>
+        </div>
+    </div>
+    <div class="g-mq" id="gMq" aria-hidden="true"></div>
+    <div class="g-sec g-wrap">
+        <h2 class="rv">Pit Crew DCR</h2><p class="g-lead rv" style="--d:.1s">Empat komitmen yang kami jaga di setiap menu.</p>
+        <div class="g-grid">
+            <article class="g-card rv"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34"/><circle class="rg" cx="40" cy="40" r="34" transform="rotate(-90 40 40)"/></svg><span class="em">😋</span><h3>Cita Rasa</h3><p>Rasa lezat yang membuat bahagia di setiap gigitan.</p></article>
+            <article class="g-card rv" style="--d:.12s"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34"/><circle class="rg" cx="40" cy="40" r="34" transform="rotate(-90 40 40)"/></svg><span class="em">⭐</span><h3>Kualitas Bahan</h3><p>Bahan dipilih dengan teliti agar kualitas selalu terjaga.</p></article>
+            <article class="g-card rv" style="--d:.24s"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34"/><circle class="rg" cx="40" cy="40" r="34" transform="rotate(-90 40 40)"/></svg><span class="em">🧼</span><h3>Kebersihan</h3><p>Proses dapur dan penyajian dijaga bersih dan rapi.</p></article>
+            <article class="g-card rv" style="--d:.36s"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34"/><circle class="rg" cx="40" cy="40" r="34" transform="rotate(-90 40 40)"/></svg><span class="em">🤝</span><h3>Pelayanan Ramah</h3><p>Admin siap membantu pesananmu dengan ramah lewat WhatsApp.</p></article>
+        </div>
+    </div>
+    <div class="g-sec g-wrap" id="gTools">
+        <h2 class="rv">Bengkel DCR</h2><p class="g-lead rv" style="--d:.1s">Dua mainan balap: putar velg DCR dan uji refleksmu di lampu start.</p>
+        <div class="g-grid g2">
+            <article class="g-tool rv"><h3>⚙️ Velg DCR</h3><p>Geser dan putar velgnya. Makin kencang, makin membara.</p>
+                <div class="velg" id="velg"><svg viewBox="0 0 200 200" aria-hidden="true"><g id="vSpin"></g><circle cx="100" cy="100" r="96" fill="none" stroke="#ffffff14" stroke-width="2"/></svg></div>
+                <div class="vkm"><b id="vKm">0</b> km/jam</div></article>
+            <article class="g-tool rv" style="--d:.12s"><h3>🚦 Lampu Start</h3><p>Tunggu semua lampu padam, lalu ketuk secepatnya.</p>
+                <div class="lt" id="lt"><i></i><i></i><i></i><i></i><i></i></div>
+                <button type="button" class="btn" id="ltBtn">Mulai</button>
+                <div class="lres" id="ltRes">Siap?</div><small id="ltBest"></small>
+                <a class="lsh" id="ltSh" target="_blank" rel="noopener" hidden>Bagikan skor ke admin →</a></article>
+        </div>
+    </div>
+<!-- DCR PHOTOBOOTH -->
+<section class="pb" id="photobooth">
+    <div class="container">
+        <div class="section-title">
+            <span class="label">Pit Stop Photobooth</span>
+            <h2>DCR Photobooth</h2>
+            <p>Buka kamera, atur gaya, lalu unduh strip foto bertema balap.</p>
+        </div>
+        <div class="pb-grid">
+            <div>
+                <div class="pb-view" id="pbView">
+                    <video id="pbVideo" playsinline muted autoplay></video>
+                    <div class="pb-idle">
+                        <div class="ico">📸</div>
+                        <p>Izinkan akses kamera untuk mulai. Fotomu tidak dikirim ke mana pun, semuanya diproses di perangkatmu.</p>
+                        <button type="button" class="btn" id="pbStart">Buka Kamera</button>
+                        <span id="pbMsg" role="status"></span>
+                    </div>
+                    <div class="pb-hud"><i></i><span id="pbLap">Siap</span></div>
+                    <div class="pb-count" id="pbCount" aria-live="assertive"></div>
+                    <div class="pb-flash" id="pbFlash"></div>
+                </div>
+                <div class="pb-actions">
+                    <button type="button" class="btn" id="pbShoot" disabled>Mulai Sesi Foto</button>
+                    <button type="button" class="pb-ghost" id="pbFlip" disabled>Ganti Kamera</button>
+                    <label class="pb-ghost">Upload Foto<input type="file" id="pbFile" accept="image/*" multiple hidden></label>
+                    <button type="button" class="pb-ghost" id="pbStop" disabled>Matikan Kamera</button>
+                </div>
+            </div>
+            <div class="pb-side">
+                <div><h3>Layout strip</h3><div class="pb-chips" data-k="layout">
+                    <button type="button" data-v="s2">2 foto</button><button type="button" data-v="s3" class="on">3 foto</button>
+                    <button type="button" data-v="s4">4 foto</button><button type="button" data-v="g4">Grid 2×2</button></div></div>
+                <div><h3>Hitung mundur</h3><div class="pb-chips" data-k="timer">
+                    <button type="button" data-v="3" class="on">3 detik</button><button type="button" data-v="5">5 detik</button><button type="button" data-v="10">10 detik</button></div></div>
+                <div><h3>Filter</h3><div class="pb-chips" data-k="filter">
+                    <button type="button" data-v="none" class="on">Normal</button><button type="button" data-v="bw">Hitam putih</button>
+                    <button type="button" data-v="sepia">Sepia</button><button type="button" data-v="vintage">Vintage</button>
+                    <button type="button" data-v="neon">Neon</button><button type="button" data-v="asphalt">Aspal</button></div></div>
+                <div><h3>Frame</h3><div class="pb-chips" data-k="frame">
+                    <button type="button" data-v="race" class="on">🏁 Balap DCR</button><button type="button" data-v="carbon">⚡ Karbon</button><button type="button" data-v="speed">🔥 Speed</button>
+                    <button type="button" data-v="orange">Tema DCR</button><button type="button" data-v="checker">Garis finish</button>
+                    <button type="button" data-v="black">Hitam</button><button type="button" data-v="white">Putih</button></div></div>
+                <div><h3>Stiker</h3><div class="pb-chips" data-k="sticker">
+                    <button type="button" data-v="" class="on">Tanpa</button><button type="button" data-v="🏁">🏁</button>
+                    <button type="button" data-v="🔥">🔥</button><button type="button" data-v="🏆">🏆</button><button type="button" data-v="🏍️">🏍️</button></div></div>
+                <div class="pb-sw">
+                    <label><input type="checkbox" id="pbMirror" checked> Mode cermin</label>
+                    <label><input type="checkbox" id="pbFlashOn" checked> Efek blitz</label>
+                    <label><input type="checkbox" id="pbDate" checked> Tanggal di strip</label>
+                </div>
+            </div>
+        </div>
+        <div class="pb-result" id="pbResult">
+            <canvas id="pbOut" class="pb-out" aria-label="Pratinjau strip foto"></canvas>
+            <div>
+                <h3>Hasil fotomu</h3>
+                <p>Klik kotak kecil untuk mengulang satu foto saja. Filter, frame, dan stiker bisa diganti setelah foto diambil.</p>
+                <div class="pb-slots" id="pbSlots"></div>
+                <div class="pb-actions">
+                    <button type="button" class="btn" id="pbDl">Unduh PNG</button>
+                    <button type="button" class="pb-ghost" id="pbShare">Bagikan</button>
+                    <button type="button" class="pb-ghost" id="pbPrint">Cetak</button>
+                    <button type="button" class="pb-ghost" id="pbReset">Hapus semua</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <div class="g-sec g-wrap">
+        <h2 class="rv">Jalur Pemesanan</h2><p class="g-lead rv" style="--d:.1s">Tiga pit stop dari lapar sampai kenyang. Scroll dan lihat motornya melaju.</p>
+        <div class="g-route" id="gRoute">
+            <div class="g-line"><i id="gFill"></i><b id="gBike">🏍️</b></div>
+            <div class="g-stop"><div class="n">1</div><h3>Pilih Menu</h3><p>Lihat paket hemat, dimsum, cibay, risol, dan menu lainnya.</p><a href="#menu">Buka menu →</a></div>
+            <div class="g-stop"><div class="n">2</div><h3>Kirim via WhatsApp</h3><p>Pesananmu langsung diteruskan ke admin DCR Racing.</p><a href="https://wa.me/6283121458346?text=Halo%20Admin%20Dcr%20Racing" target="_blank" rel="noopener">Chat admin →</a></div>
+            <div class="g-stop"><div class="n">3</div><h3>Nikmati</h3><p>Terima pesananmu dan rasakan rasa juaranya.</p></div>
+        </div>
+    </div>
+    <div class="g-finish">
+        <div class="g-flag"></div>
+        <h2>SIAP <span>START?</span></h2>
+        <div class="g-btns" style="justify-content:center">
+            <a class="btn" href="#menu">Lihat Menu Kami</a>
+            <a class="btn alt" href="#photobooth">Coba Photobooth</a>
+        </div>
+    </div>
+    <p class="g-foot">by : DCR Racing</p>
+</main>
 
 <!-- ANIMASI MOTOR BERJALAN -->
 <div class="ticker" aria-label="Animasi motor DCR Racing">
@@ -1467,7 +1689,7 @@ linear-gradient(var(--orange),var(--orange)) bottom right/30px 3px,linear-gradie
                 bisa juga memesan satuan produk atau paketan.
             </p>
 
-            <a href="#menu" class="btn">Lihat Menu Kami →</a>
+            <a href="#menu" class="btn">Lihat Menu Kami →</a><a href="#garasi" class="btn alt">Masuk Garasi DCR 🏁</a>
             <div class="team-name-display">Tim DCR Racing: <span id="teamName">Noval</span></div>
         </div>
 
@@ -1594,86 +1816,6 @@ linear-gradient(var(--orange),var(--orange)) bottom right/30px 3px,linear-gradie
 </section>
 
 <!-- DOKUMENTASI KARYAWAN -->
-<!-- DCR PHOTOBOOTH -->
-<section class="pb" id="photobooth">
-    <div class="container">
-        <div class="section-title">
-            <span class="label">Pit Stop Photobooth</span>
-            <h2>DCR Photobooth</h2>
-            <p>Buka kamera, atur gaya, lalu unduh strip foto bertema balap.</p>
-        </div>
-        <div class="pb-grid">
-            <div>
-                <div class="pb-view" id="pbView">
-                    <video id="pbVideo" playsinline muted autoplay></video>
-                    <canvas class="pb-ar" id="pbAR" width="800" height="600" aria-hidden="true"></canvas>
-                    <div class="pb-idle">
-                        <div class="ico">📸</div>
-                        <p>Izinkan akses kamera untuk mulai. Fotomu tidak dikirim ke mana pun, semuanya diproses di perangkatmu.</p>
-                        <button type="button" class="btn" id="pbStart">Buka Kamera</button>
-                        <span id="pbMsg" role="status"></span>
-                    </div>
-                    <div class="pb-hud"><i></i><span id="pbLap">Siap</span></div>
-                    <div class="pb-count" id="pbCount" aria-live="assertive"></div>
-                    <div class="pb-flash" id="pbFlash"></div>
-                </div>
-                <div class="pb-actions">
-                    <button type="button" class="btn" id="pbShoot" disabled>Mulai Sesi Foto</button>
-                    <button type="button" class="pb-ghost" id="pbFlip" disabled>Ganti Kamera</button>
-                    <label class="pb-ghost">Upload Foto<input type="file" id="pbFile" accept="image/*" multiple hidden></label>
-                    <button type="button" class="pb-ghost" id="pbStop" disabled>Matikan Kamera</button>
-                </div>
-            </div>
-            <div class="pb-side">
-                <div><h3>Layout strip</h3><div class="pb-chips" data-k="layout">
-                    <button type="button" data-v="s2">2 foto</button><button type="button" data-v="s3" class="on">3 foto</button>
-                    <button type="button" data-v="s4">4 foto</button><button type="button" data-v="g4">Grid 2×2</button></div></div>
-                <div><h3>Hitung mundur</h3><div class="pb-chips" data-k="timer">
-                    <button type="button" data-v="3" class="on">3 detik</button><button type="button" data-v="5">5 detik</button><button type="button" data-v="10">10 detik</button></div></div>
-                <div><h3>Filter</h3><div class="pb-chips" data-k="filter">
-                    <button type="button" data-v="none" class="on">Normal</button><button type="button" data-v="bw">Hitam putih</button>
-                    <button type="button" data-v="sepia">Sepia</button><button type="button" data-v="vintage">Vintage</button>
-                    <button type="button" data-v="neon">Neon</button><button type="button" data-v="asphalt">Aspal</button></div></div>
-                <div><h3>Filter wajah</h3><div class="pb-chips" data-k="face">
-                    <button type="button" data-v="none" class="on">Tanpa</button><button type="button" data-v="goggles">🥽 Kacamata balap</button>
-                    <button type="button" data-v="hat">🤠 Topi koboy</button><button type="button" data-v="both">Keduanya</button></div>
-                    <div class="pb-adj" id="pbAdj" hidden>
-                        <p>Posisi otomatis mengikuti wajah. Jika kurang pas, atur manual di bawah ini.</p>
-                        <label>Kiri / kanan<input type="range" id="pbFx" min="-150" max="150" value="0"></label>
-                        <label>Atas / bawah<input type="range" id="pbFy" min="-150" max="150" value="0"></label>
-                        <label>Ukuran<input type="range" id="pbFs" min="60" max="160" value="100"></label>
-                        <button type="button" class="pb-ghost" id="pbAdjReset">Reset posisi</button>
-                    </div></div>
-                <div><h3>Frame</h3><div class="pb-chips" data-k="frame">
-                    <button type="button" data-v="race" class="on">🏁 Balap DCR</button><button type="button" data-v="carbon">⚡ Karbon</button><button type="button" data-v="speed">🔥 Speed</button>
-                    <button type="button" data-v="orange">Tema DCR</button><button type="button" data-v="checker">Garis finish</button></div></div>
-                <div><h3>Stiker</h3><div class="pb-chips" data-k="sticker">
-                    <button type="button" data-v="" class="on">Tanpa</button><button type="button" data-v="🏁">🏁</button>
-                    <button type="button" data-v="🔥">🔥</button><button type="button" data-v="🏆">🏆</button><button type="button" data-v="🏍️">🏍️</button></div></div>
-                <div class="pb-sw">
-                    <label><input type="checkbox" id="pbMirror" checked> Mode cermin</label>
-                    <label><input type="checkbox" id="pbFlashOn" checked> Efek blitz</label>
-                    <label><input type="checkbox" id="pbDate" checked> Tanggal di strip</label>
-                </div>
-            </div>
-        </div>
-        <div class="pb-result" id="pbResult">
-            <canvas id="pbOut" class="pb-out" aria-label="Pratinjau strip foto"></canvas>
-            <div>
-                <h3>Hasil fotomu</h3>
-                <p>Klik kotak kecil untuk mengulang satu foto saja. Filter, frame, dan stiker bisa diganti setelah foto diambil.</p>
-                <div class="pb-slots" id="pbSlots"></div>
-                <div class="pb-actions">
-                    <button type="button" class="btn" id="pbDl">Unduh PNG</button>
-                    <button type="button" class="pb-ghost" id="pbShare">Bagikan</button>
-                    <button type="button" class="pb-ghost" id="pbPrint">Cetak</button>
-                    <button type="button" class="pb-ghost" id="pbReset">Hapus semua</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section id="dokumentasi">
     <div class="container">
         <div class="section-title">
@@ -2346,49 +2488,25 @@ document.getElementById("tahun").textContent = new Date().getFullYear();
 (function(){
 const $=id=>document.getElementById(id);
 const v=$("pbVideo"),view=$("pbView"),out=$("pbOut"),cx=out.getContext("2d");
-const S={layout:"s3",timer:3,filter:"none",face:"none",fx:0,fy:0,fs:100,frame:"race",sticker:"",facing:"user",mirror:true,flash:true,date:true};
+const S={layout:"s3",timer:3,filter:"none",frame:"race",sticker:"",facing:"user",mirror:true,flash:true,date:true};
 const N={s2:2,s3:3,s4:4,g4:4};
-/* Filter foto. Dihitung per piksel (bukan ctx.filter) agar hasil unduhan juga hitam putih di Safari/iPhone */
-const F={none:[],bw:[["gray",1],["contrast",1.15]],sepia:[["sepia",.85],["contrast",1.05]],vintage:[["sepia",.4],["sat",1.4],["hue",-15],["contrast",.95]],neon:[["sat",1.9],["contrast",1.15],["bright",1.05]],asphalt:[["gray",.6],["contrast",1.35],["bright",.95]]};
-const CSSN={gray:"grayscale",sepia:"sepia",sat:"saturate",hue:"hue-rotate",contrast:"contrast",bright:"brightness"};
-const cssF=n=>F[n].length?F[n].map(([k,a])=>CSSN[k]+"("+a+(k==="hue"?"deg":"")+")").join(" "):"none";
-function applyF(src,name){
-    const ops=F[name];if(!ops||!ops.length)return src;
-    if(src._f&&src._f.k===name)return src._f.c;
-    const c=document.createElement("canvas");c.width=src.width;c.height=src.height;
-    const x=c.getContext("2d");x.drawImage(src,0,0);
-    let d;try{d=x.getImageData(0,0,c.width,c.height)}catch(e){return src}
-    const p=d.data,cl=t=>t<0?0:t>255?255:t;
-    const pre=ops.map(([k,a])=>{
-        if(k==="hue"){const r=a*Math.PI/180,co=Math.cos(r),si=Math.sin(r);return[k,[.213+.787*co-.213*si,.715-.715*co-.715*si,.072-.072*co+.928*si,.213-.213*co+.143*si,.715+.285*co+.14*si,.072-.072*co-.283*si,.213-.213*co-.787*si,.715-.715*co+.715*si,.072+.928*co+.072*si]]}
-        return[k,a]});
-    for(let i=0;i<p.length;i+=4){
-        let r=p[i],g=p[i+1],b=p[i+2];
-        for(let j=0;j<pre.length;j++){
-            const k=pre[j][0],a=pre[j][1];
-            if(k==="gray"){const l=.2126*r+.7152*g+.0722*b;r+=(l-r)*a;g+=(l-g)*a;b+=(l-b)*a}
-            else if(k==="sepia"){const R=.393*r+.769*g+.189*b,G=.349*r+.686*g+.168*b,B=.272*r+.534*g+.131*b;r=cl(r+(R-r)*a);g=cl(g+(G-g)*a);b=cl(b+(B-b)*a)}
-            else if(k==="sat"){const l=.213*r+.715*g+.072*b;r=cl(l+(r-l)*a);g=cl(l+(g-l)*a);b=cl(l+(b-l)*a)}
-            else if(k==="hue"){const m=a,R=m[0]*r+m[1]*g+m[2]*b,G=m[3]*r+m[4]*g+m[5]*b,B=m[6]*r+m[7]*g+m[8]*b;r=cl(R);g=cl(G);b=cl(B)}
-            else if(k==="contrast"){r=cl((r-128)*a+128);g=cl((g-128)*a+128);b=cl((b-128)*a+128)}
-            else if(k==="bright"){r=cl(r*a);g=cl(g*a);b=cl(b*a)}
-        }
-        p[i]=r;p[i+1]=g;p[i+2]=b;
-    }
-    x.putImageData(d,0,0);src._f={k:name,c:c};return c;
-}
+const F={none:"none",bw:"grayscale(1) contrast(1.1)",sepia:"sepia(.85) contrast(1.05)",vintage:"sepia(.4) saturate(1.4) hue-rotate(-15deg) contrast(.95)",neon:"saturate(1.9) contrast(1.15) brightness(1.05)",asphalt:"grayscale(.6) contrast(1.35) brightness(.95)"};
 let stream=null,shots=[],busy=false,abort=false,noLogo=false,ac=null;
 const logo=new Image();logo.onload=render;logo.src="dcr.png";
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 const msg=t=>{$("pbMsg").textContent=t||""};
 function beep(f,d){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;g.gain.value=.08;o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}}
 
+let ORG="#f47721",raf=0;
+function shotAR(){}
+function detectStatic(){}
+
 async function startCam(){
     if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){msg("Kamera butuh koneksi HTTPS (atau localhost). Buka lewat alamat https:// website ini.");return}
     stopCam();msg("Meminta izin kamera...");
     try{
         stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:S.facing,width:{ideal:1280},height:{ideal:960}},audio:false});
-        v.srcObject=stream;await v.play();msg("");ui();liveStart();
+        v.srcObject=stream;await v.play();msg("");ui();
     }catch(e){
         stream=null;
         msg(e.name==="NotAllowedError"?"Izin kamera ditolak. Klik ikon gembok di address bar, izinkan kamera, lalu coba lagi.":
@@ -2397,12 +2515,12 @@ async function startCam(){
         ui();
     }
 }
-function stopCam(){abort=true;liveStop();if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}v.srcObject=null;ui()}
+function stopCam(){abort=true;if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}v.srcObject=null;ui()}
 function ui(){
     const live=!!stream;
     view.classList.toggle("live",live);
     view.classList.toggle("mirror",S.mirror&&S.facing==="user");
-    v.style.filter=cssF(S.filter);$("pbAdj").hidden=S.face==="none";
+    v.style.filter=F[S.filter];
     $("pbShoot").disabled=!live;$("pbShoot").textContent=busy?"Batalkan sesi":"Mulai Sesi Foto";
     $("pbFlip").disabled=!live||busy;$("pbStop").disabled=!live||busy;
     if(!live)$("pbLap").textContent="Siap";
@@ -2415,11 +2533,13 @@ function snap(){
     let sw=w,sh=w*3/4;if(sh>h){sh=h;sw=h*4/3}
     const c=document.createElement("canvas");c.width=800;c.height=600;const x=c.getContext("2d");
     if(S.mirror&&S.facing==="user"){x.translate(800,0);x.scale(-1,1)}
-    x.drawImage(v,(w-sw)/2,(h-sh)/2,sw,sh,0,0,800,600);return c;
+    x.drawImage(v,(w-sw)/2,(h-sh)/2,sw,sh,0,0,800,600);
+    const k=800/sw,cX=(w-sw)/2,cY=(h-sh)/2;
+    return c;
 }
 function loadFile(f){return new Promise(res=>{const i=new Image();i.onload=()=>{
     const c=document.createElement("canvas");c.width=800;c.height=600;const w=i.naturalWidth,h=i.naturalHeight,r=Math.max(800/w,600/h);
-    c.getContext("2d").drawImage(i,(800-w*r)/2,(600-h*r)/2,w*r,h*r);URL.revokeObjectURL(i.src);res(c)};
+    c.getContext("2d").drawImage(i,(800-w*r)/2,(600-h*r)/2,w*r,h*r);URL.revokeObjectURL(i.src);detectStatic(c);res(c)};
     i.onerror=()=>res(null);i.src=URL.createObjectURL(f)})}
 
 async function run(list){
@@ -2428,104 +2548,11 @@ async function run(list){
         $("pbLap").textContent="Foto "+(i+1)+" dari "+N[S.layout];
         for(let t=S.timer;t>0;t--){if(abort)break;count(t);beep(660,.12);await wait(1000)}
         if(abort)break;count("");flash();beep(1200,.25);
-        const c=snap();if(c){c._faces=liveFaces.map(f=>({...f}));shots[i]=c;render()}
+        const c=snap();if(c){shots[i]=c;render()}
         await wait(900);
     }
     count("");busy=false;ui();
 }
-
-
-/* ===== FILTER WAJAH: kacamata balap & topi koboy ===== */
-const DEF={x:400,y:250,w:230,a:0};
-let liveFaces=[],detT=0,arRaf=0,detBusy=false,fd=null,fdOK="FaceDetector" in window;
-const ar=$("pbAR"),ax=ar.getContext("2d");
-function getFD(){if(!fdOK)return null;try{fd=fd||new FaceDetector({fastMode:true,maxDetectedFaces:4})}catch(e){fdOK=false;fd=null}return fd}
-function mapper(){
-    const w=v.videoWidth,h=v.videoHeight;let sw=w,sh=w*3/4;if(sh>h){sh=h;sw=h*4/3}
-    const sx=(w-sw)/2,sy=(h-sh)/2,k=800/sw,m=S.mirror&&S.facing==="user";
-    return{k,pt:(x,y)=>({x:m?800-(x-sx)*k:(x-sx)*k,y:(y-sy)*k})};
-}
-function toFace(f,m){
-    const b=f.boundingBox;let e=m.pt(b.x+b.width/2,b.y+b.height*.4),a=0,fw=b.width*m.k;
-    const eyes=(f.landmarks||[]).filter(l=>l.type==="eye"&&l.locations&&l.locations.length).map(l=>{const n=l.locations.length;
-        return m.pt(l.locations.reduce((t,q)=>t+q.x,0)/n,l.locations.reduce((t,q)=>t+q.y,0)/n)}).sort((p,q)=>p.x-q.x);
-    if(eyes.length>=2){const p=eyes[0],q=eyes[eyes.length-1];
-        if(Math.hypot(q.x-p.x,q.y-p.y)>fw*.25){e={x:(p.x+q.x)/2,y:(p.y+q.y)/2};a=Math.max(-.6,Math.min(.6,Math.atan2(q.y-p.y,q.x-p.x)))}}
-    return{x:e.x,y:e.y,w:fw,a};
-}
-const blend=(o,n)=>n.map((f,i)=>{const p=o[i];return p?{x:p.x+(f.x-p.x)*.5,y:p.y+(f.y-p.y)*.5,w:p.w+(f.w-p.w)*.5,a:p.a+(f.a-p.a)*.5}:f});
-async function detectLive(){
-    if(detBusy||!stream||!v.videoWidth)return;const d=getFD();if(!d)return;detBusy=true;
-    try{const r=await d.detect(v),m=mapper();liveFaces=blend(liveFaces,r.slice(0,4).map(f=>toFace(f,m)))}catch(e){fdOK=false}
-    detBusy=false;
-}
-async function detectCanvas(c){
-    const d=getFD();if(!d)return[];
-    try{const r=await d.detect(c),m={k:1,pt:(x,y)=>({x,y})};return r.slice(0,4).map(f=>toFace(f,m))}catch(e){return[]}
-}
-function arLoop(){
-    ax.clearRect(0,0,800,600);
-    if(stream&&S.face!=="none")drawProps(ax,liveFaces.length?liveFaces:[DEF],0,0,1);
-    arRaf=requestAnimationFrame(arLoop);
-}
-function liveStart(){liveStop();liveFaces=[];arRaf=requestAnimationFrame(arLoop);if(getFD())detT=setInterval(detectLive,250)}
-function liveStop(){cancelAnimationFrame(arRaf);arRaf=0;clearInterval(detT);detT=0;ax.clearRect(0,0,800,600)}
-
-function goggles(g){
-    const path=()=>{g.beginPath();g.moveTo(-80,-44);g.lineTo(80,-44);g.quadraticCurveTo(112,-44,112,-10);g.lineTo(112,14);g.quadraticCurveTo(112,44,84,44);g.lineTo(28,44);
-        g.quadraticCurveTo(14,44,10,28);g.quadraticCurveTo(0,14,-10,28);g.quadraticCurveTo(-14,44,-28,44);g.lineTo(-84,44);g.quadraticCurveTo(-112,44,-112,14);
-        g.lineTo(-112,-10);g.quadraticCurveTo(-112,-44,-80,-44);g.closePath()};
-    const org=getComputedStyle(document.body).getPropertyValue("--orange").trim()||"#f47721";
-    // tali
-    g.fillStyle="#14100e";g.fillRect(-146,-15,292,30);g.fillStyle=org;g.fillRect(-146,-3,292,6);
-    g.fillStyle="#ffffff";[-132,-120,120,132].forEach(x=>g.fillRect(x-3,-15,6,30));
-    // bingkai
-    g.save();g.shadowColor="#0008";g.shadowBlur=10;g.shadowOffsetY=4;path();g.fillStyle=org;g.fill();g.restore();
-    g.save();g.translate(0,-2);g.scale(.92,.8);path();g.fillStyle="#14100e";g.fill();g.restore();
-    // lensa
-    g.save();g.translate(0,-3);g.scale(.84,.68);path();
-    const gr=g.createLinearGradient(-100,-44,100,44);gr.addColorStop(0,"rgba(15,30,60,.62)");gr.addColorStop(.5,"rgba(50,110,210,.45)");gr.addColorStop(1,"rgba(10,20,45,.66)");
-    g.fillStyle=gr;g.fill();g.clip();
-    g.fillStyle="rgba(255,255,255,.35)";g.beginPath();g.moveTo(-84,-50);g.lineTo(-52,-50);g.lineTo(-96,50);g.lineTo(-128,50);g.closePath();g.fill();
-    g.fillStyle="rgba(255,255,255,.2)";g.beginPath();g.moveTo(-36,-50);g.lineTo(-26,-50);g.lineTo(-70,50);g.lineTo(-80,50);g.closePath();g.fill();
-    g.restore();
-    // garis tepi bingkai
-    g.save();path();g.lineWidth=3;g.strokeStyle="#14100e";g.stroke();g.restore();
-}
-function hat(g){
-    const org=getComputedStyle(document.body).getPropertyValue("--orange").trim()||"#f47721";
-    g.save();g.scale(.85,.85);g.translate(0,16);
-    g.lineJoin="round";g.lineCap="round";
-    // pinggiran topi
-    g.save();g.shadowColor="#0007";g.shadowBlur=12;g.shadowOffsetY=6;
-    g.beginPath();g.moveTo(-175,-112);g.quadraticCurveTo(0,-44,175,-112);g.quadraticCurveTo(0,-136,-175,-112);g.closePath();
-    let gr=g.createLinearGradient(0,-130,0,-70);gr.addColorStop(0,"#9a6330");gr.addColorStop(1,"#6b3f1d");g.fillStyle=gr;g.fill();g.restore();
-    g.lineWidth=3;g.strokeStyle="#4a2a12";g.beginPath();g.moveTo(-175,-112);g.quadraticCurveTo(0,-44,175,-112);g.quadraticCurveTo(0,-136,-175,-112);g.stroke();
-    g.save();g.setLineDash([7,5]);g.lineWidth=2;g.strokeStyle="#d9a066";g.beginPath();g.moveTo(-163,-111);g.quadraticCurveTo(0,-62,163,-111);g.stroke();g.restore();
-    // mahkota
-    g.beginPath();g.moveTo(-74,-100);g.bezierCurveTo(-82,-150,-74,-196,-52,-212);g.quadraticCurveTo(-26,-190,0,-200);g.quadraticCurveTo(26,-190,52,-212);
-    g.bezierCurveTo(74,-196,82,-150,74,-100);g.quadraticCurveTo(0,-80,-74,-100);g.closePath();
-    gr=g.createLinearGradient(-80,0,80,0);gr.addColorStop(0,"#8a5528");gr.addColorStop(.5,"#b27a40");gr.addColorStop(1,"#7a4a22");g.fillStyle=gr;g.fill();g.stroke();
-    g.save();g.globalAlpha=.3;g.lineWidth=6;g.strokeStyle="#2e1707";g.beginPath();g.moveTo(0,-199);g.quadraticCurveTo(-5,-150,0,-122);g.stroke();g.restore();
-    // pita
-    g.beginPath();g.moveTo(-77,-124);g.quadraticCurveTo(0,-106,77,-124);g.lineTo(75,-100);g.quadraticCurveTo(0,-80,-75,-100);g.closePath();g.fillStyle="#14100e";g.fill();
-    g.lineWidth=3;g.strokeStyle=org;g.beginPath();g.moveTo(-76,-112);g.quadraticCurveTo(0,-93,76,-112);g.stroke();
-    // gesper
-    g.lineWidth=2;g.strokeStyle="#8a6410";g.fillStyle="#e0aa25";g.fillRect(-13,-111,26,19);g.strokeRect(-13,-111,26,19);
-    g.fillStyle="#14100e";g.fillRect(-6,-106,12,9);
-    g.restore();
-}
-function drawProps(g,faces,ox,oy,sc){
-    const k=S.face;if(k==="none")return;
-    faces.forEach(f=>{
-        g.save();g.translate(ox+(f.x+S.fx)*sc,oy+(f.y+S.fy)*sc);g.rotate(f.a);
-        const u=f.w*S.fs/100*sc/200;g.scale(u,u);
-        if(k==="hat"||k==="both")hat(g);
-        if(k==="goggles"||k==="both")goggles(g);
-        g.restore();
-    });
-}
-const facesOf=c=>c&&c._faces&&c._faces.length?c._faces:[DEF];
 
 function rr(x,y,w,h,r){cx.beginPath();cx.moveTo(x+r,y);cx.arcTo(x+w,y,x+w,y+h,r);cx.arcTo(x+w,y+h,x,y+h,r);cx.arcTo(x,y+h,x,y,r);cx.arcTo(x,y,x+w,y,r);cx.closePath()}
 
@@ -2601,16 +2628,16 @@ function render(){
     const g=S.layout==="g4",n=N[S.layout],pw=g?420:560,ph=g?315:420,pad=52,gap=26,cols=g?2:1,rows=g?2:n;
     const R=rows*ph+(rows-1)*gap,W=pad*2+cols*pw+(cols-1)*gap,rc=!!RACING[S.frame],top=rc?pad+90:pad,H=top+pad+R+170;
     out.width=W;out.height=H;
-    const org=getComputedStyle(document.body).getPropertyValue("--orange").trim()||"#f47721";
+    const org=getComputedStyle(document.body).getPropertyValue("--orange").trim()||"#f47721";ORG=org;
     let bg="#fff",ink="#14100e";
-    if(S.frame==="orange")bg=org;else if(S.frame==="checker"){bg="#14100e";ink="#fff"}
+    if(S.frame==="orange")bg=org;else if(S.frame==="black"||S.frame==="checker"){bg="#14100e";ink="#fff"}
     cx.fillStyle=bg;cx.fillRect(0,0,W,H);
     if(S.frame==="checker"){const s=26;for(let y=0;y*s<H;y++)for(let x=0;x*s<W;x++){cx.fillStyle=(x+y)%2?"#fff":"#14100e";cx.fillRect(x*s,y*s,s,s)}cx.fillStyle="#14100e";cx.fillRect(26,26,W-52,H-52)}
     if(rc){ink="#fff";drawRacing(W,H,top,pad,gap,R,org)}
     for(let i=0;i<n;i++){
         const x=pad+(g?i%2:0)*(pw+gap),y=top+(g?Math.floor(i/2):i)*(ph+gap);
         cx.save();rr(x,y,pw,ph,16);cx.clip();
-        if(shots[i]){cx.drawImage(applyF(shots[i],S.filter),x,y,pw,ph);drawProps(cx,facesOf(shots[i]),x,y,pw/800)}
+        if(shots[i]){cx.filter=F[S.filter];cx.drawImage(shots[i],x,y,pw,ph);cx.filter="none";shotAR(cx,shots[i],x,y,pw,ph)}
         else{cx.fillStyle="#0000002e";cx.fillRect(x,y,pw,ph);cx.fillStyle=ink;cx.globalAlpha=.55;cx.font="bold 30px Arial";cx.textAlign="center";cx.fillText("Foto "+(i+1),x+pw/2,y+ph/2+10);cx.globalAlpha=1}
         cx.restore();
         if(rc){cx.lineWidth=5;cx.strokeStyle="#fff";rr(x,y,pw,ph,16);cx.stroke();cx.lineWidth=3;cx.strokeStyle=S.frame==="speed"?"#14100e":org;rr(x-7,y-7,pw+14,ph+14,21);cx.stroke()}
@@ -2634,7 +2661,7 @@ function slots(n){
     for(let i=0;i<n;i++){
         const b=document.createElement("button");b.type="button";b.setAttribute("aria-label","Ulang foto "+(i+1));
         const c=shots[i];
-        if(c){const t=document.createElement("canvas");t.width=160;t.height=120;const tx=t.getContext("2d");tx.drawImage(applyF(c,S.filter),0,0,160,120);drawProps(tx,facesOf(c),0,0,.2);b.style.backgroundImage="url("+t.toDataURL("image/jpeg",.6)+")";b.className="has";b.textContent=""}
+        if(c){const key="n";if(c._tk!==key){const t=document.createElement("canvas");t.width=160;t.height=120;const tg=t.getContext("2d");tg.drawImage(c,0,0,160,120);shotAR(tg,c,0,0,160,120);c._t=t.toDataURL("image/jpeg",.6);c._tk=key}b.style.backgroundImage="url("+c._t+")";b.className="has";b.textContent=""}
         else b.textContent="Foto "+(i+1);
         b.onclick=()=>{if(stream&&!busy)run([i]);else if(!stream)alert("Buka kamera dulu, atau pakai tombol Upload Foto.")};
         box.appendChild(b);
@@ -2652,7 +2679,7 @@ $("pbShoot").onclick=()=>{if(busy){abort=true;return}const n=N[S.layout];shots=[
 $("pbFile").onchange=async e=>{
     const fs=[...e.target.files],n=N[S.layout],all=[...Array(n).keys()],empty=all.filter(i=>!shots[i]);
     const order=empty.concat(all.filter(i=>shots[i]));
-    for(let k=0;k<fs.length&&k<order.length;k++){const c=await loadFile(fs[k]);if(c){c._faces=await detectCanvas(c);shots[order[k]]=c}}
+    for(let k=0;k<fs.length&&k<order.length;k++){const c=await loadFile(fs[k]);if(c)shots[order[k]]=c}
     e.target.value="";render();
 };
 document.querySelectorAll(".pb-chips").forEach(g=>g.addEventListener("click",e=>{
@@ -2663,9 +2690,6 @@ document.querySelectorAll(".pb-chips").forEach(g=>g.addEventListener("click",e=>
     ui();render();
 }));
 [["pbMirror","mirror"],["pbFlashOn","flash"],["pbDate","date"]].forEach(([id,k])=>$(id).addEventListener("change",e=>{S[k]=e.target.checked;ui();render()}));
-let rq=0;const lazy=()=>{if(rq)return;rq=requestAnimationFrame(()=>{rq=0;render()})};
-[["pbFx","fx"],["pbFy","fy"],["pbFs","fs"]].forEach(([id,k])=>$(id).addEventListener("input",e=>{S[k]=+e.target.value;lazy()}));
-$("pbAdjReset").onclick=()=>{S.fx=0;S.fy=0;S.fs=100;$("pbFx").value=0;$("pbFy").value=0;$("pbFs").value=100;render()};
 $("pbDl").onclick=async()=>{const b=await getBlob();if(!b)return;const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="dcr-photobooth-"+Date.now()+".png";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000)};
 $("pbShare").onclick=async()=>{
     const b=await getBlob();if(!b)return;const f=new File([b],"dcr-photobooth.png",{type:"image/png"});
@@ -2682,6 +2706,115 @@ addEventListener("pagehide",()=>{if(stream)stream.getTracks().forEach(t=>t.stop(
 render();ui();
 })();
 
+</script>
+
+<script>
+// ===== FITUR BARU: progress balap, percikan kursor, router halaman, Garasi DCR =====
+(function(){
+const $=id=>document.getElementById(id),b=document.body,wipe=document.querySelector(".pt-wipe"),clamp=(a,l,h)=>Math.max(l,Math.min(h,a)),RM=matchMedia("(prefers-reduced-motion: reduce)").matches,T0=document.title;
+const css=()=>getComputedStyle(b).getPropertyValue("--orange").trim()||"#f47721";
+// progress scroll: motor melaju di atas halaman
+addEventListener("scroll",()=>{const m=document.documentElement.scrollHeight-innerHeight,p=m>0?scrollY/m:0;$("spBar").style.width=p*100+"%";$("spBike").style.left=p*100+"%"},{passive:true});
+// percikan api mengikuti kursor (hanya mouse)
+if(!RM&&matchMedia("(pointer:fine)").matches){
+    const c=$("sk"),g=c.getContext("2d");let P=[],on=0;const fit=()=>{c.width=innerWidth;c.height=innerHeight};fit();addEventListener("resize",fit);
+    const lp=()=>{g.clearRect(0,0,c.width,c.height);g.globalCompositeOperation="lighter";P=P.filter(p=>p.l>0);
+        P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.l-=.035;g.fillStyle="rgba(255,"+((120+p.l*110)|0)+",30,"+p.l+")";g.beginPath();g.arc(p.x,p.y,p.l*3+.5,0,6.283);g.fill()});
+        if(P.length)requestAnimationFrame(lp);else on=0};
+    addEventListener("pointermove",e=>{if(e.pointerType!=="mouse")return;for(let i=0;i<2;i++)P.push({x:e.clientX,y:e.clientY,vx:(Math.random()-.5)*2,vy:(Math.random()-.8)*1.6,l:1});if(!on){on=1;requestAnimationFrame(lp)}});
+}
+// ----- Halaman Garasi DCR -----
+let inited=false,lraf=0,graf=0,io=null;
+function fitL(){const c=$("gLines");c.width=c.clientWidth;c.height=c.clientHeight}
+function init(){
+    if(inited)return;inited=true;
+    document.querySelectorAll(".g-title .ln").forEach(l=>{l.innerHTML=[...l.textContent].map((c,i)=>'<span style="--i:'+i+'">'+c+'</span>').join("")});
+    let s="";for(let i=0;i<=14;i++){const a=(-120+i/14*240)*Math.PI/180,si=Math.sin(a),co=-Math.cos(a),rd=i>=11?"rd":"";
+        s+='<line class="'+rd+'" x1="'+(120+si*92)+'" y1="'+(120+co*92)+'" x2="'+(120+si*(i%2?100:106))+'" y2="'+(120+co*(i%2?100:106))+'"/>';
+        if(!(i%2))s+='<text class="'+rd+'" x="'+(120+si*74)+'" y="'+(124+co*74)+'">'+i+'</text>'}
+    $("gTicks").innerHTML=s;
+    const it=["DIMSUM","CIBAY","RISOL","PAKET HEMAT","DCR RACING"],h=it.map(t=>"<span>"+t+"</span><span>🏁</span>").join("");$("gMq").innerHTML="<div>"+h+h+"</div>";
+    document.querySelectorAll(".g-card").forEach(c=>{
+        c.addEventListener("pointermove",e=>{if(e.pointerType!=="mouse")return;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform="perspective(700px) rotateY("+x*12+"deg) rotateX("+(-y*12)+"deg) translateY(-6px)"});
+        c.addEventListener("pointerleave",()=>{c.style.transform=""})});
+    addEventListener("resize",()=>{if(b.classList.contains("p2"))fitL()});
+}
+function route(){const r=$("gRoute");if(!r)return;const p=clamp((innerHeight*.85-r.getBoundingClientRect().top)/(innerHeight*.45),0,1);
+    $("gBike").style.left=p*100+"%";$("gFill").style.width=p*100+"%";r.querySelectorAll(".g-stop").forEach((e,i)=>e.classList.toggle("on",p>=i/2-.01))}
+function rev(){ // jarum RPM melonjak ke redline lalu bergetar
+    cancelAnimationFrame(graf);const t0=performance.now(),n=$("gNeedle"),o=$("gRpm");
+    const f=now=>{const t=(now-t0)/1000;let r;if(t<1.8){r=12800*(1-Math.pow(1-t/1.8,3))}else if(t<2.5){r=12800-(t-1.8)/.7*1600}else{r=11200+Math.sin(t*9)*260+Math.sin(t*3.1)*140}
+        n.setAttribute("transform","rotate("+(-120+r/14000*240)+" 120 120)");o.textContent=(Math.round(r/10)*10).toLocaleString("id-ID");o.classList.toggle("hot",r>11000);graf=requestAnimationFrame(f)};
+    graf=requestAnimationFrame(f);
+}
+function lines(){ // garis kecepatan di latar
+    const c=$("gLines"),g=c.getContext("2d"),oc=css();fitL();
+    const mk=()=>({x:Math.random()*c.width,y:Math.random()*c.height,l:80+Math.random()*220,v:6+Math.random()*16,o:Math.random()<.35});let L=Array.from({length:46},mk);
+    const f=()=>{lraf=requestAnimationFrame(f);g.clearRect(0,0,c.width,c.height);
+        L.forEach(p=>{p.x-=p.v;if(p.x+p.l<0){p.x=c.width+Math.random()*200;p.y=Math.random()*c.height}g.fillStyle=p.o?oc:"rgba(255,255,255,.14)";g.globalAlpha=p.o?.55:1;g.fillRect(p.x,p.y,p.l,1.5)});g.globalAlpha=1};
+    if(RM){f();cancelAnimationFrame(lraf)}else f();
+}
+function openP2(){
+    init();document.title="Garasi DCR | DCR Racing";
+    const els=document.querySelectorAll("#page2 .rv");els.forEach(e=>e.classList.remove("in"));
+    io=io||new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.2});
+    els.forEach(e=>io.observe(e));rev();lines();route();addEventListener("scroll",route,{passive:true});
+}
+function closeP2(){document.title=T0;cancelAnimationFrame(lraf);cancelAnimationFrame(graf);removeEventListener("scroll",route)}
+// ----- Router: #garasi = halaman 2, lainnya = halaman utama (dengan transisi bendera kotak-kotak) -----
+let cur=false;
+function go(on,after){
+    wipe.classList.remove("go");void wipe.offsetWidth;wipe.classList.add("go");
+    setTimeout(()=>{cur=on;b.classList.toggle("p2",on);scrollTo(0,0);on?openP2():closeP2();if(after)after()},RM?10:430);
+    setTimeout(()=>wipe.classList.remove("go"),RM?50:960);
+}
+addEventListener("hashchange",()=>{
+    const h=location.hash,on=h==="#garasi"||h==="#photobooth";if(on===cur)return;
+    go(on,()=>{const t=h.length>1&&document.querySelector(h);if(t&&(h!=="#garasi"))t.scrollIntoView()});
+});
+if(location.hash==="#garasi"||location.hash==="#photobooth"){cur=true;b.classList.add("p2");openP2();if(location.hash==="#photobooth")setTimeout(()=>$("photobooth").scrollIntoView(),300)}
+})();
+</script>
+
+<script>
+// ===== Garasi DCR: menu tab, velg putar, lampu start =====
+(function(){
+const $=id=>document.getElementById(id),NS="http://www.w3.org/2000/svg";
+document.querySelectorAll(".g-tabs button").forEach(x=>x.onclick=()=>{const t=document.querySelector(x.dataset.t);if(t)t.scrollIntoView({behavior:"smooth",block:"start"})});
+// velg
+const sp=$("vSpin");let h='<circle cx="100" cy="100" r="92" fill="#111" stroke="#333" stroke-width="3"/><circle cx="100" cy="100" r="74" fill="#1b1512" stroke="var(--orange)" stroke-width="6"/>';
+for(let i=0;i<10;i++)h+='<path d="M100 100 L92 36 Q100 28 108 36 Z" fill="#cfc6bf" transform="rotate('+i*36+' 100 100)"/>';
+h+='<circle cx="100" cy="100" r="25" fill="var(--orange)" stroke="#fff" stroke-width="3"/><text x="100" y="106" text-anchor="middle" style="font:italic 900 16px Arial;fill:#fff">DCR</text>';
+sp.innerHTML=h;
+let ang=0,om=0,drag=false,last=0,lt=0,box=$("velg");
+const ca=e=>{const r=box.getBoundingClientRect();return Math.atan2(e.clientY-r.top-r.height/2,e.clientX-r.left-r.width/2)*180/Math.PI};
+box.addEventListener("pointerdown",e=>{drag=true;last=ca(e);lt=performance.now();box.setPointerCapture(e.pointerId)});
+box.addEventListener("pointermove",e=>{if(!drag)return;const a=ca(e);let d=a-last;if(d>180)d-=360;if(d<-180)d+=360;last=a;const n=performance.now(),dt=Math.max(8,n-lt);lt=n;ang+=d;om=d/dt*16});
+const end=()=>drag=false;box.addEventListener("pointerup",end);box.addEventListener("pointercancel",end);
+if(!box.dataset.k){box.dataset.k=1;box.addEventListener("click",()=>{if(Math.abs(om)<4)om+=34})}
+(function f(){requestAnimationFrame(f);if(!document.body.classList.contains("p2"))return;
+ if(!drag){om*=.985;if(Math.abs(om)<.05)om=0;ang+=om}
+ sp.setAttribute("transform","rotate("+ang+" 100 100)");const k=Math.min(399,Math.round(Math.abs(om)*9));$("vKm").textContent=k;
+ const g=Math.min(1,k/260);box.style.boxShadow=g>.05?"0 0 "+(20+g*50)+"px "+(g*8)+"px rgba(255,"+Math.round(130-g*90)+",30,"+(.25+g*.5)+")":"none"})();
+// lampu start
+const L=[...document.querySelectorAll("#lt i")],btn=$("ltBtn"),res=$("ltRes");let st="idle",tm=[],t0=0,best=null;
+try{best=+localStorage.getItem("dcrBest")||null}catch(e){}
+const showBest=()=>$("ltBest").textContent=best?"Rekor terbaikmu: "+best+" ms":"";showBest();
+const clr=()=>{tm.forEach(clearTimeout);tm=[]};
+function say(t,c){res.textContent=t;res.className="lres "+(c||"")}
+function start(){clr();L.forEach(l=>l.classList.remove("on"));$("ltSh").hidden=true;st="light";btn.textContent="Tunggu…";say("Bersiap…");
+ L.forEach((l,i)=>tm.push(setTimeout(()=>l.classList.add("on"),600+i*700)));
+ tm.push(setTimeout(()=>{st="wait";btn.textContent="TAP!"},600+4*700+100));
+ tm.push(setTimeout(()=>{L.forEach(l=>l.classList.remove("on"));st="go";t0=performance.now()},600+4*700+100+800+Math.random()*2400))}
+btn.addEventListener("pointerdown",e=>{e.preventDefault();
+ if(st==="idle"||st==="done")return start();
+ if(st==="light"||st==="wait"){clr();st="done";btn.textContent="Coba Lagi";say("Start kepagian! 🚫","bad");return}
+ if(st==="go"){const ms=Math.round(performance.now()-t0);st="done";btn.textContent="Coba Lagi";
+  const r=ms<250?"Refleks Juara! 🏆":ms<350?"Pembalap Handal 🔥":ms<500?"Lumayan, ayo ngebut 🏁":"Masih pemanasan 🛵";
+  say(ms+" ms · "+r,"win");if(!best||ms<best){best=ms;try{localStorage.setItem("dcrBest",ms)}catch(e){}}showBest();
+  const a=$("ltSh");a.href="https://wa.me/6283121458346?text="+encodeURIComponent("Halo Admin DCR Racing, refleks saya di Lampu Start: "+ms+" ms ("+r+")");a.hidden=false}});
+btn.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();btn.dispatchEvent(new Event("pointerdown"))}});
+})();
 </script>
 
 </body>
